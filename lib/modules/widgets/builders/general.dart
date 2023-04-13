@@ -1,3 +1,4 @@
+import 'package:el_wekala/core/controllers/store_cubit/store_cubit.dart';
 import 'package:el_wekala/modules/widgets/builders/mypainter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
@@ -87,9 +88,9 @@ Widget buildGeneralItems(context) => Padding(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: const [
-                          Text('Profile Setting',style: TextStyle(color: Colors.black54),),
-                          Text('Mahmoud Radwan'),
+                        children: [
+                          const Text('Profile Setting',style: TextStyle(color: Colors.black54),),
+                          Text(ElWekalaCubit.get(context).profileModel!.user!.name!),
                         ],
                       ),
                     ),
@@ -144,9 +145,11 @@ Widget buildGeneralItems(context) => Padding(
                 Padding(
                   padding: const EdgeInsets.all(10),
                   child: Container(
-                    height: 20,
+                    height: 25,
                     width: 40,
-                    child: NeumorphicSwitch(value:true,onChanged:(value){},style: NeumorphicSwitchStyle(
+                    child: NeumorphicSwitch(value:ElWekalaCubit.get(context).swi,onChanged:(value){
+                      ElWekalaCubit.get(context).changeSwi();
+                    },style: NeumorphicSwitchStyle(
                       activeTrackColor: HexColor('#07094D'),
                       activeThumbColor: Colors.white,
                       inactiveThumbColor:Colors.white,
@@ -219,8 +222,10 @@ Widget buildGeneralItems(context) => Padding(
                      onTap: (){},
                     child: Text('Contact us',style: TextStyle(color:HexColor('#07094D')),)),
                 const Spacer(),
-                 InkWell(onTap: (){},
-                     child: Text('SignOut',style: TextStyle(color:HexColor('#07094D')),)),
+                 InkWell(onTap: (){
+                   ElWekalaCubit.get(context).layout(context);
+                 },
+                     child: Text('SignOut',style: TextStyle(color:HexColor('#07094D'),fontWeight: FontWeight.w600),)),
               ],
             ),
           ),

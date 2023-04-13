@@ -1,5 +1,8 @@
 import 'package:el_wekala/core/controllers/store_cubit/store_states.dart';
+import 'package:el_wekala/core/network/constants.dart';
+import 'package:el_wekala/core/network/remote/store_helper/store_helper.dart';
 import 'package:el_wekala/core/themes/light.dart';
+import 'package:el_wekala/modules/screens/login.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,26 +15,37 @@ import 'modules/screens/home.dart';
 void main()async{
   WidgetsFlutterBinding.ensureInitialized();
   await CacheHelper.init();
+  DioHelperStore.init();
   DioHelperPayment.initDio();
+  token = CacheHelper.getData(key: 'token');
+  print('Token = $token');
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
     statusBarIconBrightness: Brightness.dark,
   ));
   Bloc.observer = MyBlocObserver();
-  runApp(MyApp());
+  Widget? startScreen;
+  if(token==null){
+    startScreen = Login();
+  }
+  else{
+    startScreen =const Home();
+  }
+  runApp(MyApp(startWidget: startScreen,));
 }
 class MyApp extends StatelessWidget {
-  MyApp({super.key});
+  final Widget? startWidget;
+  const MyApp({super.key,this.startWidget});
 
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-            create: (context) => ElWekalaCubit()
+            create: (context) => ElWekalaCubit()..getUserData(),
         ),
         BlocProvider(
-          lazy:false,
+          lazy:true,
             create: (context) =>
             PaymentCubit()
               ..getAuthToken()),
@@ -43,7 +57,7 @@ class MyApp extends StatelessWidget {
               debugShowCheckedModeBanner: false,
               title: 'EL Wekala',
               theme: lightTheme,
-              home: const Home(),
+              home: startWidget,
             );
           }
       ),

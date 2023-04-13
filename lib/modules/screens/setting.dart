@@ -2,10 +2,11 @@ import 'package:el_wekala/core/controllers/store_cubit/store_cubit.dart';
 import 'package:el_wekala/core/controllers/store_cubit/store_states.dart';
 import 'package:el_wekala/modules/widgets/builders/buildSettingItem.dart';
 import 'package:el_wekala/modules/widgets/builders/general.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-
+import 'package:flutter_svg/flutter_svg.dart';
 class Setting extends StatelessWidget {
   Setting({Key? key}) : super(key: key);
   @override
@@ -16,8 +17,7 @@ class Setting extends StatelessWidget {
           var cubit = ElWekalaCubit.get(context);
           return Scaffold(
               body: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            child:Column(
               children: [
                 Container(
                   height: 280,
@@ -39,18 +39,8 @@ class Setting extends StatelessWidget {
                       Positioned(
                           top: 55,
                           left: 30,
-                          child: Container(
-                              height: 31,
-                              width: 28,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: const Center(
-                                  child: Icon(
-                                Icons.arrow_back_ios,
-                                color: Colors.black,
-                              )))),
+                          child: SvgPicture.asset('images/setting_icon.svg')
+                      ),
                       const Positioned(
                           top: 60,
                           right: 20,
@@ -86,15 +76,19 @@ class Setting extends StatelessWidget {
                               Expanded(
                                 flex: 2,
                                 child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: const [
+                                  children:[
                                     Text(
-                                      'Mahmoud Radwan',
-                                      style: TextStyle(color: Colors.white),
+                                      cubit.profileModel!.user!.name!,
+                                      style:const TextStyle(color: Colors.white,fontWeight: FontWeight.w500,fontSize: 16),
                                     ),
-                                    Text(
-                                      'United States',
-                                      style: TextStyle(color: Colors.grey),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                     Text(
+                                      cubit.profileModel!.user!.email!,
+                                      style:const TextStyle(color: Colors.grey),
                                     )
                                   ],
                                 ),

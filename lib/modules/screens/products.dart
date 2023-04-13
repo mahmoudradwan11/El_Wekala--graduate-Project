@@ -1,13 +1,24 @@
 import 'package:el_wekala/core/controllers/store_cubit/store_cubit.dart';
 import 'package:el_wekala/core/controllers/store_cubit/store_states.dart';
-import 'package:el_wekala/core/themes/Icon_Borken.dart';
 import 'package:el_wekala/modules/screens/search.dart';
 import 'package:el_wekala/modules/widgets/functions/navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class Products extends StatelessWidget {
+class Products extends StatefulWidget {
   Products({Key? key}) : super(key: key);
+
+  @override
+  State<Products> createState() => _ProductsState();
+}
+
+class _ProductsState extends State<Products> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    ElWekalaCubit.get(context).getUserData();
+  }
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ElWekalaCubit, ElWekalaStates>(

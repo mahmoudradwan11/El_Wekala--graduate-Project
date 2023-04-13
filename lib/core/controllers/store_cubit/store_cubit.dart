@@ -2,37 +2,67 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:el_wekala/core/controllers/store_cubit/store_states.dart';
+import 'package:el_wekala/core/network/constants.dart';
+import 'package:el_wekala/core/network/local/cache_helper.dart';
+import 'package:el_wekala/core/network/remote/store_helper/store_helper.dart';
 import 'package:el_wekala/core/themes/Icon_Borken.dart';
 import 'package:el_wekala/models/store_model/custom_tap.dart';
 import 'package:el_wekala/models/store_model/setting%20model.dart';
+import 'package:el_wekala/models/store_model/user.dart';
 import 'package:el_wekala/modules/screens/cart.dart';
 import 'package:el_wekala/modules/screens/cate.dart';
 import 'package:el_wekala/modules/screens/favorite.dart';
+import 'package:el_wekala/modules/screens/login.dart';
 import 'package:el_wekala/modules/screens/products.dart';
 import 'package:el_wekala/modules/screens/setting.dart';
 import 'package:el_wekala/modules/widgets/builders/mypainter.dart';
+import 'package:el_wekala/modules/widgets/functions/navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:image_picker/image_picker.dart';
+
 class ElWekalaCubit extends Cubit<ElWekalaStates> {
   ElWekalaCubit() : super(InitState());
 
   static ElWekalaCubit get(context) => BlocProvider.of(context);
   int currentIndex = 0;
+  bool swi = false;
+  void changeSwi() {
+    if (swi == true) {
+      swi = false;
+    } else {
+      swi = true;
+    }
+    emit(ChangeSettingIndex());
+  }
+
   IconData favoriteIcon = Icons.favorite;
-  List<GButton> tabs =const [
-    GButton(icon:IconBroken.Home,text: 'Home',),
-    GButton(icon: Icons.favorite,text: 'Favorite',),
-    GButton(icon:IconBroken.Bag_2,text: 'Cart',),
-    GButton(icon:IconBroken.Category,text: 'Category',),
-    GButton(icon:Icons.settings,text:'Setting')
+  List<GButton> tabs = const [
+    GButton(
+      icon: IconBroken.Home,
+      text: 'Home',
+    ),
+    GButton(
+      icon: Icons.favorite,
+      text: 'Favorite',
+    ),
+    GButton(
+      icon: IconBroken.Bag_2,
+      text: 'Cart',
+    ),
+    GButton(
+      icon: IconBroken.Category,
+      text: 'Category',
+    ),
+    GButton(icon: Icons.settings, text: 'Setting')
   ];
   void changeIndex(int index) {
     currentIndex = index;
     emit(ChangeScreenIndex());
   }
+
   List<Widget> screens = [
     Products(),
     Favorite(),
@@ -44,69 +74,97 @@ class ElWekalaCubit extends Cubit<ElWekalaStates> {
   File? image;
   Uint8List? bytes;
   String? img64;
-  Future<void>addImage()async{
+  Future<void> addImage() async {
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-    if(pickedFile !=null){
-      image=File(pickedFile.path);
+    if (pickedFile != null) {
+      image = File(pickedFile.path);
       bytes = File(image!.path).readAsBytesSync();
       img64 = base64Encode(bytes!);
       print('images = $img64');
       emit(ImageChoose());
-    }
-    else{
+    } else {
       print('no image selected');
     }
   }
-  List<CustomTapBar>customTap=[
+
+  List<CustomTapBar> customTap = [
     CustomTapBar('All', 0),
     CustomTapBar('New', 1),
-    CustomTapBar('Used',2)
+    CustomTapBar('Used', 2)
   ];
   String? sortSelected = 'SortBy';
-  selectedSort(sort){
+  selectedSort(sort) {
     sortSelected = sort;
     emit(SelectSort());
-
   }
+
   int customIndex = 0;
   int settingIndex = 0;
-  chooseColorCustom(int index){
-    if(customTap[index].index == customIndex)
-    {
-      return LinearGradient(colors:[
-        HexColor('#7832A3'),
-        HexColor('#07094D')
-      ]);
-    }
-    else{
-      return LinearGradient(colors:[
-        Colors.grey[400]!,
-        Colors.grey[400]!,
+  chooseColorCustom(int index) {
+    if (customTap[index].index == customIndex) {
+      return LinearGradient(colors: [HexColor('#7832A3'), HexColor('#07094D')]);
+    } else {
+      return LinearGradient(colors: [
+        HexColor('#DBDBDB'),
+        HexColor('#DBDBDB'),
       ]);
     }
   }
-  void change(int customTapIndex){
+
+  void change(int customTapIndex) {
     customIndex = customTapIndex;
     print(customIndex);
     emit(ChangeCustomIndex());
   }
+
   List<SettingModel> setting = [
-    SettingModel('Settings',Icons.settings,0),
-    SettingModel('Payment',Icons.payment_rounded,1),
-    SettingModel('Notifications',Icons.notifications,2)
+    SettingModel('Settings', Icons.settings, 0),
+    SettingModel('Payment', Icons.payment_rounded, 1),
+    SettingModel('Notifications', Icons.notifications, 2)
   ];
-  CustomPainter chooseColorSetting(int index){
-    if(setting[index].index == settingIndex)
-    {
+  CustomPainter chooseColorSetting(int index) {
+    if (setting[index].index == settingIndex) {
       return MyPainterSelected();
-    }
-    else{
+    } else {
       return MyPainterUnSelected();
     }
   }
-  void changeSetting(int settingindex){
-    settingIndex =settingindex;
+
+  void changeSetting(int settingindex) {
+    settingIndex = settingindex;
     print(settingIndex);
     emit(ChangeSettingIndex());
   }
+
+  UserModel? profileModel;
+  void getUserData() {
+    DioHelperStore.postData(
+      url: ApiConstant.PR0FILE,
+      data: {"token": token},
+    ).then((value) {
+      profileModel = UserModel.fromJson(value.data);
+      print(profileModel!.user!.name);
+      print(profileModel!.user!.email);
+      emit(UserDataSuccessState(profileModel));
+    }).catchError((error) {
+      print(error.toString());
+      emit(UserDataFailedState());
+    });
+  }
+  void layout(context){
+        DioHelperStore.postData(
+          url: ApiConstant.LAGOUT,
+          data: {"token": token},
+        ).then((value) {
+          CacheHelper.removeData(key: 'token').then((value) {
+            if (value) {
+              navigateAndFinish(context, Login());
+        }
+            emit(UserLogoutState());
+          }).catchError((error) {
+          print(error.toString());
+          emit(UserLogoutFailedState());
+        });
+    });
+}
 }

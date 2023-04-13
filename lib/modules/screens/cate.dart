@@ -5,6 +5,7 @@ import 'package:el_wekala/modules/widgets/builders/cateogy_screen_item.dart';
 import 'package:el_wekala/modules/widgets/functions/navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 class Cateogry extends StatelessWidget {
   Cateogry({Key? key}) : super(key: key);
   @override
@@ -18,22 +19,10 @@ class Cateogry extends StatelessWidget {
             appBar: AppBar(
               centerTitle: true,
               leading: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.grey[200]
-                  ),
-                  height: 10,
-                  width: 5,
-                  child: Center(
-                    child: IconButton(
-                      onPressed:(){
-                      },
-                      icon:const Icon(Icons.arrow_back_ios),
-                    ),
-                  ),
-                ),
+                padding: const EdgeInsets.only(left: 7),
+                child: InkWell(
+                  onTap: (){},
+                    child: SvgPicture.asset('images/setting_icon.svg')),
               ),
               backgroundColor: Colors.grey[200],
               title:const Text('Cateogry'),

@@ -3,6 +3,8 @@ import 'package:el_wekala/core/controllers/store_cubit/store_states.dart';
 import 'package:el_wekala/modules/widgets/builders/custom_tap.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:hexcolor/hexcolor.dart';
 
 class Search extends StatelessWidget {
   Search({Key? key}) : super(key: key);
@@ -17,22 +19,11 @@ class Search extends StatelessWidget {
             appBar: AppBar(
               leading: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: Colors.grey[200]
-                  ),
-                  height: 10,
-                  width: 5,
-                  child: Center(
-                    child: IconButton(
-                      onPressed:(){
-                        Navigator.pop(context);
-                      },
-                      icon:const Icon(Icons.arrow_back_ios),
-                    ),
-                  ),
-                ),
+                child: InkWell(
+                    onTap:(){
+                      Navigator.pop(context);
+                    },
+                    child: SvgPicture.asset('images/setting_icon.svg'))
               ),
               centerTitle: true,
               title:const Text('Popular Product'),
@@ -52,14 +43,12 @@ class Search extends StatelessWidget {
                   child: Center(
                     child: TextField(
                       controller: searchController,
-                      decoration: const InputDecoration(
-                        contentPadding: EdgeInsets.all(20),
+                      decoration: InputDecoration(
+                        contentPadding:const EdgeInsets.all(20),
                           border: InputBorder.none,
-                          hintText: 'Search in Laptops',
-                          suffixIcon: Icon(
-                            Icons.search_outlined,
-                            color: Colors.black,
-                          )),
+                          hintText: 'Search in Products',
+                          suffixIcon:Image(image:AssetImage('images/search.png'),color:HexColor('#000000'),)
+                      ),
                       /*
                       onSubmitted: (value) {
                         cubit.search(value);
@@ -91,7 +80,7 @@ class Search extends StatelessWidget {
                           color: Colors.grey[200],
                           borderRadius: BorderRadius.circular(10)
                         ),
-                        height: 60,
+                        height: 63,
                         width: 112,
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
