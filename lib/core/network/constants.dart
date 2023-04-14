@@ -1,5 +1,3 @@
-import 'package:flutter/cupertino.dart';
-
 class ApiConstant {
   static const String baseUrlPayment = 'https://accept.paymob.com/api';
   static const String getAuthToken = '/auth/tokens';

@@ -1,6 +1,7 @@
 import 'package:el_wekala/core/controllers/store_cubit/store_cubit.dart';
+import 'package:el_wekala/modules/widgets/builders/defaultBotton.dart';
 import 'package:el_wekala/modules/widgets/builders/mypainter.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:hexcolor/hexcolor.dart';
 Widget buildGeneralItems(context) => Padding(
@@ -146,7 +147,7 @@ Widget buildGeneralItems(context) => Padding(
                   padding: const EdgeInsets.all(10),
                   child: Container(
                     height: 25,
-                    width: 40,
+                    width: 45,
                     child: NeumorphicSwitch(value:ElWekalaCubit.get(context).swi,onChanged:(value){
                       ElWekalaCubit.get(context).changeSwi();
                     },style: NeumorphicSwitchStyle(
@@ -220,10 +221,47 @@ Widget buildGeneralItems(context) => Padding(
               children: [
                 InkWell(
                      onTap: (){},
-                    child: Text('Contact us',style: TextStyle(color:HexColor('#07094D')),)),
+                    child: Text('Contact us',style: TextStyle(color:HexColor('#07094D'),fontWeight: FontWeight.w600),),),
                 const Spacer(),
                  InkWell(onTap: (){
-                   ElWekalaCubit.get(context).layout(context);
+                   showCupertinoDialog(
+                       context: context,
+                       builder: (context) => Container(
+                         decoration: BoxDecoration(
+                             borderRadius: BorderRadius.circular(10)),
+                         child: CupertinoAlertDialog(
+                           content: Container(
+                             height:160,
+                             decoration: BoxDecoration(
+                                 borderRadius:
+                                 BorderRadius.circular(25)),
+                             child: Padding(
+                               padding: const EdgeInsets.all(10.0),
+                               child: Column(
+                                 children:[
+                                   const Text(
+                                     'Are you sure you want to Signout?',style: TextStyle(fontSize:16,fontWeight: FontWeight.w600),),
+                                   const Spacer(),
+                                   Row(
+                                     children: [
+                                        Expanded(child: DefaultButton(buttonWidget:const Text('yes',style: TextStyle(color:Colors.white)), function:(){
+                                          ElWekalaCubit.get(context).layout(context);
+                                        },backgroundColor:HexColor('#07094D'),width: 122,radius: 25,)),
+                                        const SizedBox(
+                                          width: 10,
+                                        ),
+                                        Expanded(child: DefaultButton(buttonWidget:Text('No',style: TextStyle(color: HexColor('#07094D')),), function:(){
+                                          Navigator.pop(context);
+                                        },backgroundColor:Colors.white,borderColor:HexColor('#07094D'),width: 122,radius: 25,),),
+                                     ],
+                                   )
+                                 ],
+                               ),
+                             ),
+                           ),
+                         )
+                   )
+                   );
                  },
                      child: Text('SignOut',style: TextStyle(color:HexColor('#07094D'),fontWeight: FontWeight.w600),)),
               ],
@@ -231,4 +269,5 @@ Widget buildGeneralItems(context) => Padding(
           ),
         ],
       ),
+
 );
