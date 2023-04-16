@@ -46,7 +46,7 @@ class DefaultFieldForm extends StatelessWidget {
         contentPadding: const EdgeInsets.all(16),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
-          borderSide: const BorderSide(color: Colors.indigo),
+          borderSide: const BorderSide(color: Colors.black),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
@@ -58,7 +58,7 @@ class DefaultFieldForm extends StatelessWidget {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
-          borderSide: const BorderSide(color: Colors.indigo),
+          borderSide: const BorderSide(color: Colors.black),
         ),
         // borderRadius: BorderRadius.circular(30
         prefixIcon: Icon(

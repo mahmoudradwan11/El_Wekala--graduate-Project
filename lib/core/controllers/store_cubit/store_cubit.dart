@@ -167,4 +167,29 @@ class ElWekalaCubit extends Cubit<ElWekalaStates> {
         });
     });
 }
+void update({String? name,String? phone,String? email}){
+    DioHelperStore.putData(url:ApiConstant.UPDATE, data:{
+      "token":token,
+      "name":name,
+      "email":email,
+      "phone":phone,
+      "gender":genderProfile
+    }).then((value){
+       profileModel = UserModel.fromJson(value.data);
+       print(profileModel!.user!.name!);
+       emit(UserUpdateStates());
+    }).catchError((error){
+      print(error.toString());
+      emit(UserFailedUpdate());
+    });
+}
+  String? genderProfile;
+  void changeGenderToFemale(){
+    genderProfile = 'female';
+    emit(MaleFalse());
+  }
+  void  changeGenderToMale(){
+    genderProfile = 'male';
+    emit(MaleTrue());
+  }
 }

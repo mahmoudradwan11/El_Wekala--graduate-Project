@@ -7,11 +7,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Products extends StatefulWidget {
   Products({Key? key}) : super(key: key);
-
   @override
   State<Products> createState() => _ProductsState();
 }
-
 class _ProductsState extends State<Products> {
   @override
   void initState() {
@@ -63,8 +61,9 @@ class _ProductsState extends State<Products> {
             body: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children:const [
-                  Text('Product')
+                children:const[
+                  const Text('Product'),
+                 Image(image:AssetImage('images/edit.png'))
                 ],
               ),
             ),

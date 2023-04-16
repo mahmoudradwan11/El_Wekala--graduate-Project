@@ -6,6 +6,9 @@ class ApiConstant {
   static const REGISTER = 'https://elwekala.onrender.com/register';
   static const PR0FILE = 'https://elwekala.onrender.com/profile';
   static const LAGOUT = 'https://elwekala.onrender.com/logout';
+  static const ALLUSERS = 'https://elwekala.onrender.com/display';
+  static const UPDATE = 'https://elwekala.onrender.com/update';
+  static const DELETEUSER = 'https://elwekala.onrender.com/delete';//del
   static String visaUrl =
       '$baseUrlPayment/acceptance/iframes/722023?payment_token=$finalToken';
   static const getOrderId = '/ecommerce/orders';

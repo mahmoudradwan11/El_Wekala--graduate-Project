@@ -3,11 +3,11 @@ import 'package:el_wekala/core/controllers/store_cubit/store_states.dart';
 import 'package:el_wekala/modules/widgets/builders/buildSettingItem.dart';
 import 'package:el_wekala/modules/widgets/builders/general.dart';
 import 'package:el_wekala/modules/widgets/builders/notification.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 class Setting extends StatelessWidget {
   Setting({Key? key}) : super(key: key);
   @override
@@ -16,7 +16,14 @@ class Setting extends StatelessWidget {
         listener: (context, state) {},
         builder: (context, state) {
           var cubit = ElWekalaCubit.get(context);
-          return Scaffold(
+          if(cubit.profileModel==null){
+            return Center(
+              child: LoadingAnimationWidget.inkDrop(
+                color: Colors.black,
+                size: 20,
+              ));
+          }else {
+            return Scaffold(
               body: SingleChildScrollView(
             child:Column(
               children: [
@@ -123,6 +130,7 @@ class Setting extends StatelessWidget {
               ],
             ),
           ));
+          }
         });
   }
 }

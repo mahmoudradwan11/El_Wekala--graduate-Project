@@ -1,6 +1,8 @@
 import 'package:el_wekala/core/controllers/store_cubit/store_cubit.dart';
+import 'package:el_wekala/modules/screens/edit_profile.dart';
 import 'package:el_wekala/modules/widgets/builders/defaultBotton.dart';
 import 'package:el_wekala/modules/widgets/builders/mypainter.dart';
+import 'package:el_wekala/modules/widgets/functions/navigator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -95,9 +97,14 @@ Widget buildGeneralItems(context) => Padding(
                         ],
                       ),
                     ),
-                    const Icon(
-                      Icons.keyboard_arrow_right_rounded,
-                      size: 30,
+                    InkWell(
+                      onTap:(){
+                        navigateTo(context,EditProfile());
+                      },
+                      child: const Icon(
+                        Icons.keyboard_arrow_right_rounded,
+                        size: 30,
+                      ),
                     ),
                     const SizedBox(width: 16),
                   ],
