@@ -6,6 +6,7 @@ import 'package:el_wekala/core/network/constants.dart';
 import 'package:el_wekala/core/network/local/cache_helper.dart';
 import 'package:el_wekala/core/network/remote/store_helper/store_helper.dart';
 import 'package:el_wekala/core/themes/Icon_Borken.dart';
+import 'package:el_wekala/models/store_model/cate.dart';
 import 'package:el_wekala/models/store_model/custom_tap.dart';
 import 'package:el_wekala/models/store_model/setting%20model.dart';
 import 'package:el_wekala/models/store_model/user.dart';
@@ -62,7 +63,6 @@ class ElWekalaCubit extends Cubit<ElWekalaStates> {
     currentIndex = index;
     emit(ChangeScreenIndex());
   }
-
   List<Widget> screens = [
     Products(),
     Favorite(),
@@ -173,7 +173,7 @@ void update({String? name,String? phone,String? email}){
       "name":name,
       "email":email,
       "phone":phone,
-      "gender":genderProfile
+      "gender":genderProfile ?? profileModel!.user!.gender,
     }).then((value){
        profileModel = UserModel.fromJson(value.data);
        print(profileModel!.user!.name!);
@@ -191,5 +191,26 @@ void update({String? name,String? phone,String? email}){
   void  changeGenderToMale(){
     genderProfile = 'male';
     emit(MaleTrue());
+  }
+  int categoryIndex = 0;
+  void changeCate(int cateIndex){
+    categoryIndex = cateIndex;
+    print(categoryIndex);
+    emit(ChangeCateIndex());
+  }
+  chooseColor(int index){
+    if(cate[index].index == categoryIndex)
+    {
+      return LinearGradient(colors:[
+        HexColor('#7832A3'),
+        HexColor('##07094D')
+      ]);
+    }
+    else{
+      return LinearGradient(colors: [
+        HexColor('#E6E7E8'),
+        HexColor('#E6E7E8'),
+      ]);
+    }
   }
 }

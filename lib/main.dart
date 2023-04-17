@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key,this.startWidget});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context){
     return MultiBlocProvider(
       providers: [
         BlocProvider(
