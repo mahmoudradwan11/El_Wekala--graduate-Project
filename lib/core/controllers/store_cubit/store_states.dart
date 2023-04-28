@@ -18,6 +18,7 @@ class UserFailedUpdate extends ElWekalaStates{}
 class MaleTrue extends ElWekalaStates {}
 class MaleFalse extends ElWekalaStates {}
 class ChangeCateIndex extends ElWekalaStates{}
+class ChangeViewIndex extends ElWekalaStates{}
 
 
 

@@ -3,6 +3,7 @@ import 'package:el_wekala/core/network/constants.dart';
 import 'package:el_wekala/core/network/remote/store_helper/store_helper.dart';
 import 'package:el_wekala/core/themes/light.dart';
 import 'package:el_wekala/modules/screens/login.dart';
+import 'package:el_wekala/modules/screens/onboarding.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,6 +18,7 @@ void main()async{
   await CacheHelper.init();
   DioHelperStore.init();
   DioHelperPayment.initDio();
+  var onboarding = CacheHelper.getData(key: 'onBoarding');
   token = CacheHelper.getData(key: 'token');
   print('Token = $token');
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
@@ -25,11 +27,14 @@ void main()async{
   ));
   Bloc.observer = MyBlocObserver();
   Widget? startScreen;
-  if(token==null){
-    startScreen = Login();
-  }
-  else{
-    startScreen =const Home();
+  if (onboarding != null) {
+    if (token != null) {
+      startScreen = const Home();
+    } else {
+      startScreen = Login();
+    }
+  } else {
+    startScreen = const OnBoardingScreen();
   }
   runApp(MyApp(startWidget: startScreen,));
 }
@@ -57,7 +62,7 @@ class MyApp extends StatelessWidget {
               debugShowCheckedModeBanner: false,
               title: 'EL Wekala',
               theme: lightTheme,
-              home: startWidget,
+              home: const OnBoardingScreen(),
             );
           }
       ),
