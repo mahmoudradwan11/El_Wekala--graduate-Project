@@ -4,6 +4,7 @@ import 'package:el_wekala/core/network/remote/store_helper/store_helper.dart';
 import 'package:el_wekala/core/themes/light.dart';
 import 'package:el_wekala/modules/screens/login.dart';
 import 'package:el_wekala/modules/screens/onboarding.dart';
+import 'package:el_wekala/modules/screens/spalsh.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -62,7 +63,7 @@ class MyApp extends StatelessWidget {
               debugShowCheckedModeBanner: false,
               title: 'EL Wekala',
               theme: lightTheme,
-              home: const OnBoardingScreen(),
+              home: SplashScreen(nextScreen: startWidget!),
             );
           }
       ),
