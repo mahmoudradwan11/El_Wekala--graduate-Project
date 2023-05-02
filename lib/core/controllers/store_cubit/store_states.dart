@@ -19,6 +19,17 @@ class MaleTrue extends ElWekalaStates {}
 class MaleFalse extends ElWekalaStates {}
 class ChangeCateIndex extends ElWekalaStates{}
 class ChangeViewIndex extends ElWekalaStates{}
-
+class GetFavorite extends ElWekalaStates{}
+class ErrorGetFavorite extends ElWekalaStates{}
+class DeleteFavorite extends ElWekalaStates{}
+class ErrorDeleteFavorite extends ElWekalaStates{}
+class AddToFavorite extends ElWekalaStates{}
+class ErrorAddFavorite extends ElWekalaStates{}
+class GetHomeLaptops extends ElWekalaStates{}
+class ErrorGetHomeLaptops extends ElWekalaStates{}
+class GetHomeSmartPhone extends ElWekalaStates{}
+class ErrorGetHomeSmartPhone extends ElWekalaStates{}
+class GetHomeSmartWatch extends ElWekalaStates{}
+class ErrorGetHomeSmartWatch extends ElWekalaStates{}
 
 

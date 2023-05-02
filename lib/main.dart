@@ -21,7 +21,9 @@ void main()async{
   DioHelperPayment.initDio();
   var onboarding = CacheHelper.getData(key: 'onBoarding');
   token = CacheHelper.getData(key: 'token');
+  nationalId = CacheHelper.getData(key:'userId');
   print('Token = $token');
+  print('National Id = $nationalId');
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
     statusBarIconBrightness: Brightness.dark,
@@ -42,13 +44,12 @@ void main()async{
 class MyApp extends StatelessWidget {
   final Widget? startWidget;
   const MyApp({super.key,this.startWidget});
-
   @override
   Widget build(BuildContext context){
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-            create: (context) => ElWekalaCubit()..getUserData(),
+            create: (context) => ElWekalaCubit()..getUserData()..getMyFavorite()..getHomeLaptops()..getHomeSmartPhone()..getHomeSmartWatch(),
         ),
         BlocProvider(
           lazy:true,

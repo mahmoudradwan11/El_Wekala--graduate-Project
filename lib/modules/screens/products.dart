@@ -3,6 +3,7 @@ import 'package:el_wekala/core/controllers/store_cubit/store_states.dart';
 import 'package:el_wekala/models/store_model/cate.dart';
 import 'package:el_wekala/models/store_model/tap_adv.dart';
 import 'package:el_wekala/modules/screens/search.dart';
+import 'package:el_wekala/modules/widgets/builders/build_product_item.dart';
 import 'package:el_wekala/modules/widgets/functions/navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,6 +22,7 @@ class _ProductsState extends State<Products> {
     // TODO: implement initState
     super.initState();
     ElWekalaCubit.get(context).getUserData();
+    ElWekalaCubit.get(context).getMyFavorite();
   }
 
   var smoothController = PageController();
@@ -130,11 +132,101 @@ class _ProductsState extends State<Products> {
                         ),
                       ),
                       if(cubit.categoryIndex==0)
-                        const Text('Laptop'),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            height: 250,
+                            child: ListView.separated(
+                                scrollDirection: Axis.horizontal,
+                                shrinkWrap: true,
+                                itemBuilder: (context, index) => buildProductItem(
+                                    cubit.homeLaptops!.newProduct![index],context),
+                                separatorBuilder: (context, index) => Container(
+                                  height: 200,
+                                  width: 10,
+                                  color: Colors.white,
+                                ),
+                                itemCount: cubit.homeLaptops!.newProduct!.length),
+                          ),
+                        ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      if(cubit.categoryIndex==0)
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            height: 250,
+                            child: ListView.separated(
+                                scrollDirection: Axis.horizontal,
+                                shrinkWrap: true,
+                                itemBuilder: (context, index) => buildProductItem(
+                                  cubit.homeLaptops!.usedProduct![index],context),
+                                separatorBuilder: (context, index) => Container(
+                                  height: 200,
+                                  width: 10,
+                                  color: Colors.white,
+                                ),
+                                itemCount: cubit.homeLaptops!.usedProduct!.length),
+                          ),
+                        ),
                       if(cubit.categoryIndex==1)
-                        const Text('Phone'),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            height: 250,
+                            child: ListView.separated(
+                                scrollDirection: Axis.horizontal,
+                                shrinkWrap: true,
+                                itemBuilder: (context, index) => buildProductItem(
+                                    cubit.homeSmartPhone!.usedProduct![index],context),
+                                separatorBuilder: (context, index) => Container(
+                                  height: 200,
+                                  width: 10,
+                                  color: Colors.white,
+                                ),
+                                itemCount: cubit.homeSmartPhone!.usedProduct!.length),
+                          ),
+                        ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      if(cubit.categoryIndex==1)
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            height: 250,
+                            child: ListView.separated(
+                                scrollDirection: Axis.horizontal,
+                                shrinkWrap: true,
+                                itemBuilder: (context, index) => buildProductItem(
+                                    cubit.homeSmartPhone!.newProduct![index],context),
+                                separatorBuilder: (context, index) => Container(
+                                  height: 200,
+                                  width: 10,
+                                  color: Colors.white,
+                                ),
+                                itemCount: cubit.homeSmartPhone!.newProduct!.length),
+                          ),
+                        ),
                       if(cubit.categoryIndex==2)
-                        const Text('Smart'),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            height: 250,
+                            child: ListView.separated(
+                                scrollDirection: Axis.horizontal,
+                                shrinkWrap: true,
+                                itemBuilder: (context, index) => buildProductItem(
+                                    cubit.homeSmartWatch!.product![index],context),
+                                separatorBuilder: (context, index) => Container(
+                                  height: 200,
+                                  width: 10,
+                                  color: Colors.white,
+                                ),
+                                itemCount: cubit.homeSmartWatch!.product!.length),
+                          ),
+                        ),
                     ]),
               ),
             ),

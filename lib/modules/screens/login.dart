@@ -27,6 +27,9 @@ class Login extends StatelessWidget {
           if (state.model.status=="success") {
             print(state.model.message);
             print(state.model.user!.token);
+            CacheHelper.saveData(key: 'userId', value: state.model.user!.nationalId).then((value){
+               nationalId = state.model.user!.nationalId;
+            });
             CacheHelper.saveData(key: 'token', value: state.model.user!.token)
                 .then((value) {
               token = state.model.user!.token;

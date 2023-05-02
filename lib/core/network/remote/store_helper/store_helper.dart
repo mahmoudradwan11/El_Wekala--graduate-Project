@@ -9,6 +9,7 @@ class DioHelperStore {
   static Future<Response> getData(
       {required String url,
         Map<String, dynamic>? query,
+        Map<String,dynamic>?data,
         String lang = 'ar',
         String? token}) async {
     dio.options.headers = {
@@ -16,7 +17,7 @@ class DioHelperStore {
       'lang': 'en',
       'Authorization': token ?? '',
     };
-    return await dio.get(url, queryParameters: query);
+    return await dio.get(url, queryParameters: query,data: data);
   }
 
   static Future<Response> postData(
@@ -50,5 +51,14 @@ class DioHelperStore {
       queryParameters: query,
       data: data,
     );
+  }
+  static Future<Response> delData({
+    required String url,
+    required Map<String, dynamic> data,
+  }) async {
+    dio.options.headers = {
+      'Content-Type': 'application/json',
+    };
+    return await dio.delete(url, data: data);
   }
 }

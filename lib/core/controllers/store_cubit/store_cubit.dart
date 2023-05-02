@@ -8,6 +8,10 @@ import 'package:el_wekala/core/network/remote/store_helper/store_helper.dart';
 import 'package:el_wekala/core/themes/Icon_Borken.dart';
 import 'package:el_wekala/models/store_model/cate.dart';
 import 'package:el_wekala/models/store_model/custom_tap.dart';
+import 'package:el_wekala/models/store_model/favorite.dart';
+import 'package:el_wekala/models/store_model/home/laptop.dart';
+import 'package:el_wekala/models/store_model/home/smartphone.dart';
+import 'package:el_wekala/models/store_model/home/smartwatch.dart';
 import 'package:el_wekala/models/store_model/setting%20model.dart';
 import 'package:el_wekala/models/store_model/user.dart';
 import 'package:el_wekala/modules/screens/cart.dart';
@@ -18,6 +22,7 @@ import 'package:el_wekala/modules/screens/products.dart';
 import 'package:el_wekala/modules/screens/setting.dart';
 import 'package:el_wekala/modules/widgets/builders/mypainter.dart';
 import 'package:el_wekala/modules/widgets/functions/navigator.dart';
+import 'package:el_wekala/modules/widgets/functions/toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
@@ -235,5 +240,83 @@ void update({String? name,String? phone,String? email}){
         HexColor('#E6E7E8'),
       ]);
     }
+  }
+  FavoriteModel? favoriteModel;
+  void getMyFavorite(){
+    DioHelperStore.getData(url: ApiConstant.FAVORITE,data:{
+      'nationalId':nationalId,
+    }).then((value){
+      favoriteModel = FavoriteModel.fromJson(value.data);
+      print(favoriteModel!.favoriteProducts!.length);
+     // print(favoriteModel!.favoriteProducts![0].name);
+      emit(GetFavorite());
+    }).catchError((error){
+      print(error.toString());
+      emit(ErrorGetFavorite());
+    });
+  }
+  void addtoMyFavorite(String? id){
+    DioHelperStore.postData(url:ApiConstant.FAVORITE, data:{
+      "nationalId":nationalId,
+      "productId":id
+    }).then((value){
+      print('Added');
+      emit(AddToFavorite());
+      showToast('Added',ToastStates.SUCCESS);
+      getMyFavorite();
+    }).catchError((error){
+      print(error.toString());
+      emit(ErrorAddFavorite());
+    });
+  }
+  void deleteFavorite(String? id){
+    DioHelperStore.delData(url:ApiConstant.FAVORITE, data:{
+        "nationalId":nationalId,
+        "productId":id,
+    }).then((value){
+      print('Deleted');
+      emit(DeleteFavorite());
+      showToast('Deleted',ToastStates.ERROR);
+      getMyFavorite();
+    }).catchError((error){
+      print(error.toString());
+      emit(ErrorDeleteFavorite());
+    });
+  }
+  HomeLaptops? homeLaptops;
+  void getHomeLaptops(){
+    DioHelperStore.getData(url:ApiConstant.HOMELAPTOPS).then((value){
+      homeLaptops = HomeLaptops.fromJson(value.data);
+      print(homeLaptops!.usedProduct!.length);
+      print(homeLaptops!.newProduct!.length);
+      emit(GetHomeLaptops());
+    }).catchError((error){
+      print(error.toString());
+      emit(ErrorGetHomeLaptops());
+    });
+  }
+  HomeSmartPhone? homeSmartPhone;
+  void getHomeSmartPhone(){
+    DioHelperStore.getData(url:ApiConstant.HOMESMARTPHONE).then((value){
+      homeSmartPhone = HomeSmartPhone.fromJson(value.data);
+      print(homeSmartPhone!.usedProduct!.length);
+      print(homeSmartPhone!.newProduct!.length);
+      emit(GetHomeSmartPhone());
+    }).catchError((error){
+      print(error.toString());
+      emit(ErrorGetHomeSmartPhone());
+    });
+  }
+  HomeSmartWatch? homeSmartWatch;
+  void getHomeSmartWatch(){
+    DioHelperStore.getData(url:ApiConstant.HOMESMARTWATCHS).then((value){
+      homeSmartWatch = HomeSmartWatch.fromJson(value.data);
+      print(homeSmartWatch!.product!.length);
+      print(homeSmartWatch!.message!);
+      emit(GetHomeSmartWatch());
+    }).catchError((error){
+      print(error.toString());
+      emit(ErrorGetHomeSmartWatch());
+    });
   }
 }
