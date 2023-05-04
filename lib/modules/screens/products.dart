@@ -8,6 +8,7 @@ import 'package:el_wekala/modules/widgets/functions/navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class Products extends StatefulWidget {
@@ -32,6 +33,13 @@ class _ProductsState extends State<Products> {
         listener: (context, state) {},
         builder: (context, state) {
           var cubit = ElWekalaCubit.get(context);
+          if(cubit.homeLaptops==null){
+            return Center(child:LoadingAnimationWidget.inkDrop(
+              color: Colors.black,
+              size: 20,
+              ),
+            );
+          }
           return Scaffold(
             appBar: AppBar(
               centerTitle: true,

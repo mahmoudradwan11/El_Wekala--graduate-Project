@@ -37,6 +37,7 @@ Widget buildProductItem(product,context) => Padding(
                         alignment: AlignmentDirectional.topEnd,
                         children: [
                           Container(
+                            width: double.infinity,
                             decoration: BoxDecoration(
                               borderRadius: const BorderRadius.only(
                                   topRight: Radius.circular(20)),
@@ -156,7 +157,9 @@ Widget buildProductItem(product,context) => Padding(
                                         topLeft: Radius.circular(20),
                                         bottomRight: Radius.circular(20))),
                                 child: MaterialButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    ElWekalaCubit.get(context).addToMyCart(product.sId);
+                                  },
                                   child: Text(
                                     'Buy'.toUpperCase(),
                                     style: const TextStyle(color: Colors.white),

@@ -13,7 +13,7 @@ class Cart extends StatelessWidget {
     return BlocConsumer<ElWekalaCubit, ElWekalaStates>(
         listener: (context, state) {},
         builder: (context, state) {
-          // var cubit = ElWekalaCubit.get(context);
+           var cubit = ElWekalaCubit.get(context);
           return Scaffold(
             backgroundColor: Colors.grey[200],
             appBar: AppBar(
@@ -32,14 +32,20 @@ class Cart extends StatelessWidget {
               child:SingleChildScrollView(
                 child: Column(
                   children:[
-                    ListView.separated(
+                    if(cubit.cartModel!.products!.isNotEmpty)
+                     ListView.separated(
                       shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
-                        itemBuilder:(context,index)=>buildCartItem(),
+                        itemBuilder:(context,index)=>buildCartItem(cubit.cartModel!.products![index],context),
                         separatorBuilder:(context,index)=>const SizedBox(
                           height: 30,
                         ),
-                        itemCount:2),
+                        itemCount:cubit.cartModel!.products!.length
+                    ),
+                    if(cubit.cartModel!.products!.isEmpty)
+                      const Center(
+                        child: Text('Cart Is Empty'),
+                      ),
                     const SizedBox(
                       height: 20,
                     ),
@@ -60,10 +66,80 @@ class Cart extends StatelessWidget {
                               height: 40,
                              backgroundColor: HexColor('#07094D'),
                               width: 93,
-                                buttonWidget:Text('Apply',style: TextStyle(color: Colors.white),), function:(){})
+                                buttonWidget:const Text('Apply',style: TextStyle(color: Colors.white),), function:(){}),
                           ],
                         ),
                       )
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Container(
+                      decoration:BoxDecoration(
+                        color: Colors.white,
+                        borderRadius:BorderRadius.circular(20)
+                      ),
+                      width: double.infinity,
+                      child:Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          children: [
+                            Container(
+                              height: 33,
+                              child: Row(
+                                children: [
+                                  const Text('Sub Total'),
+                                  const Spacer(),
+                                  Text('\$${cubit.totalCart!.totalPrice.round()}',style: TextStyle(
+                                      color: HexColor('#07094D'),
+                            fontWeight: FontWeight.w600,
+                            fontSize: 15
+                        ),)
+                                ],
+                              ),
+                            ),
+                            Container(
+                              height: 1,
+                              color: Colors.grey[300],
+                              width: double.infinity,
+                            ),
+                            Container(
+                              height: 32,
+                              child: Row(
+                                children: [
+                                  Text('Shiping'),
+                                  Spacer(),
+                                  Text('\$10',style: TextStyle(
+                                      color: HexColor('#07094D'),
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 15
+                                  ),
+                            )
+                                ],
+                              ),
+                            ),
+                            Container(
+                              height: 1,
+                              color: Colors.grey[300],
+                              width: double.infinity,
+                            ),
+                            Container(
+                              height: 33,
+                              child: Row(
+                                children: [
+                                  Text('Total'),
+                                  Spacer(),
+                                  Text('\$${cubit.totalCart!.totalPrice.round()+10}',style: TextStyle(
+                                    color: HexColor('#07094D'),
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 15
+                                  ),)
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                     )
                   ],
                 ),

@@ -14,14 +14,15 @@ import 'core/controllers/store_cubit/store_cubit.dart';
 import 'core/network/local/cache_helper.dart';
 import 'core/network/remote/payment_helper/payment_helper.dart';
 import 'modules/screens/home.dart';
-void main()async{
+
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await CacheHelper.init();
   DioHelperStore.init();
   DioHelperPayment.initDio();
   var onboarding = CacheHelper.getData(key: 'onBoarding');
   token = CacheHelper.getData(key: 'token');
-  nationalId = CacheHelper.getData(key:'userId');
+  nationalId = CacheHelper.getData(key: 'userId');
   print('Token = $token');
   print('National Id = $nationalId');
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
@@ -39,23 +40,30 @@ void main()async{
   } else {
     startScreen = const OnBoardingScreen();
   }
-  runApp(MyApp(startWidget: startScreen,));
+  runApp(MyApp(
+    startWidget: startScreen,
+  ));
 }
+
 class MyApp extends StatelessWidget {
   final Widget? startWidget;
-  const MyApp({super.key,this.startWidget});
+  const MyApp({super.key, this.startWidget});
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-            create: (context) => ElWekalaCubit()..getUserData()..getMyFavorite()..getHomeLaptops()..getHomeSmartPhone()..getHomeSmartWatch(),
+          create: (context) => ElWekalaCubit()
+            ..getUserData()
+            ..getMyFavorite()
+            ..getHomeLaptops()
+            ..getHomeSmartPhone()
+            ..getHomeSmartWatch()
+            ..getMyCart()
+            ..getTotal(),
         ),
         BlocProvider(
-          lazy:true,
-            create: (context) =>
-            PaymentCubit()
-              ..getAuthToken()),
+            lazy: true, create: (context) => PaymentCubit()..getAuthToken()),
       ],
       child: BlocConsumer<ElWekalaCubit, ElWekalaStates>(
           listener: (context, state) {},
@@ -66,8 +74,7 @@ class MyApp extends StatelessWidget {
               theme: lightTheme,
               home: SplashScreen(nextScreen: startWidget!),
             );
-          }
-      ),
+          }),
     );
   }
 }

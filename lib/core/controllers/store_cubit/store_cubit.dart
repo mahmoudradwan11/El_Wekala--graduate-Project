@@ -6,6 +6,7 @@ import 'package:el_wekala/core/network/constants.dart';
 import 'package:el_wekala/core/network/local/cache_helper.dart';
 import 'package:el_wekala/core/network/remote/store_helper/store_helper.dart';
 import 'package:el_wekala/core/themes/Icon_Borken.dart';
+import 'package:el_wekala/models/store_model/cart.dart';
 import 'package:el_wekala/models/store_model/cate.dart';
 import 'package:el_wekala/models/store_model/custom_tap.dart';
 import 'package:el_wekala/models/store_model/favorite.dart';
@@ -319,4 +320,80 @@ void update({String? name,String? phone,String? email}){
       emit(ErrorGetHomeSmartWatch());
     });
   }
+  CartModel? cartModel;
+  void getMyCart(){
+    DioHelperStore.getData(url:ApiConstant.GETMYCART,data: {
+      "nationalId":nationalId,
+    }).then((value){
+      cartModel = CartModel.fromJson(value.data);
+      print(cartModel!.products!.length);
+      emit(GetCart());
+    }).catchError((error){
+      print(error.toString());
+      emit(ErrorGetCart());
+    });
+  }
+  TotalCart? totalCart;
+  void getTotal(){
+    DioHelperStore.getData(url:ApiConstant.TOTALPRICE,data: {
+      "nationalId":nationalId,
+    }).then((value){
+      totalCart = TotalCart.fromJson(value.data);
+      print("Total=${totalCart!.totalPrice!}");
+      emit(GetTotal());
+    }).catchError((error){
+      print(error.toString());
+      emit(ErrorGetTotal());
+    });
+  }
+  void deleteFromCart(productId){
+    DioHelperStore.delData(url:ApiConstant.DELETECART, data:{
+      "nationalId":nationalId,
+      "productId":productId
+    }).then((value){
+      print('Deleted');
+      emit(DeleteCart());
+      getMyCart();
+      getTotal();
+    }).catchError((error){
+     print(error.toString());
+     emit(ErrorDeleteCart());
+    });
+  }
+  void addToMyCart(productId){
+    DioHelperStore.postData(url: ApiConstant.ADDTOCART, data:{
+      "nationalId":nationalId,
+      "productId":productId,
+      "quantity":"1"
+    }).then((value){
+       print('Add');
+       emit(AddToCart());
+       getMyCart();
+       getTotal();
+    }).catchError((error){
+      print(error.toString());
+      emit(ErrorAddToCart());
+    });
+  }
+  void updateQuantity(productId,quantity){
+    DioHelperStore.putData(url:ApiConstant.UPDATEQUANTITY, data:{
+        "nationalId":nationalId,
+        "productId":productId,
+        "quantity":quantity
+    }).then((value){}).catchError((error){
+      print('Update');
+      emit(UpdateQuantity());
+      getMyCart();
+      getTotal();
+    }).catchError((error){
+      print(error.toString());
+      emit(ErrorUpdateQuantity());
+    });
+  }
+  dynamic quantityProduct;
+  void changeQuantity(quantity){
+    quantityProduct = quantity--;
+    emit(ChangeQuantity());
+  }
 }
+

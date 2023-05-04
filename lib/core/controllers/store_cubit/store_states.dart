@@ -31,5 +31,16 @@ class GetHomeSmartPhone extends ElWekalaStates{}
 class ErrorGetHomeSmartPhone extends ElWekalaStates{}
 class GetHomeSmartWatch extends ElWekalaStates{}
 class ErrorGetHomeSmartWatch extends ElWekalaStates{}
+class AddToCart extends ElWekalaStates{}
+class ErrorAddToCart extends ElWekalaStates{}
+class GetCart extends ElWekalaStates{}
+class ErrorGetCart extends ElWekalaStates{}
+class GetTotal extends ElWekalaStates{}
+class ErrorGetTotal extends ElWekalaStates{}
+class DeleteCart extends ElWekalaStates{}
+class ErrorDeleteCart extends ElWekalaStates{}
+class UpdateQuantity extends ElWekalaStates{}
+class ErrorUpdateQuantity extends ElWekalaStates{}
+class ChangeQuantity extends ElWekalaStates{}
 
 

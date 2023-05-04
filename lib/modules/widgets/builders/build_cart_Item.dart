@@ -1,7 +1,9 @@
+import 'package:el_wekala/core/controllers/store_cubit/store_cubit.dart';
+import 'package:el_wekala/models/store_model/cart.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
-Widget buildCartItem() => Container(
+Widget buildCartItem(CartProducts cartProducts,context) => Container(
       width: double.infinity,
       height: 150,
       decoration: BoxDecoration(
@@ -30,9 +32,9 @@ Widget buildCartItem() => Container(
                                 borderRadius: const BorderRadius.only(
                                     topLeft: Radius.circular(10),
                                     topRight: Radius.circular(10))),
-                            child: const Image(
+                            child:Image(
                               width: 120,
-                              image: AssetImage('images/cart.png'),
+                              image: NetworkImage(cartProducts.image!),
                             ),
                           ),
                         ),
@@ -61,13 +63,13 @@ Widget buildCartItem() => Container(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children:[
-                    const Text('OMEN O17 2022  13/core i7/16GB/SSD 1TB',style: TextStyle(color: Colors.black,fontSize: 16,fontWeight: FontWeight.w500),),
+                        Text(cartProducts.name!,style:const TextStyle(color: Colors.black,fontSize: 16,fontWeight: FontWeight.w500),),
                     const SizedBox(
                       height:20,
                     ),
                     Row(
                       children:[
-                      Text('\$999.99',style: TextStyle(color: HexColor('#07094D'),fontSize: 16,fontWeight: FontWeight.w600),),
+                      Text('${cartProducts.totalPrice!.round()}',style: TextStyle(color: HexColor('#07094D'),fontSize: 16,fontWeight: FontWeight.w600),),
                      const SizedBox(
                         width: 20,
                       ),
@@ -96,13 +98,15 @@ Widget buildCartItem() => Container(
                     Row(
                       children: [
                         const Icon(Icons.delete,color: Colors.grey,),
-                        MaterialButton(onPressed:(){},child:const Text('Remove'),
+                        MaterialButton(onPressed:(){
+                          ElWekalaCubit.get(context).deleteFromCart(cartProducts.sId!);
+                        },child:const Text('Remove'),
                         ),
                         Spacer(),
                         InkWell(
                           child: Container(
                             decoration: BoxDecoration(
-                              color:HexColor('#07094D').withOpacity(0.4),
+                              color:cartProducts.quantity!=1?HexColor('#07094D'):HexColor('#07094D').withOpacity(0.4),
                             borderRadius: BorderRadius.circular(3)
                             ),
                             height: 26,
@@ -113,11 +117,14 @@ Widget buildCartItem() => Container(
                         const SizedBox(
                           width: 10,
                         ),
-                        const Text('1',style: TextStyle(fontSize: 17,fontWeight: FontWeight.w500),),
+                        Text('${cartProducts.quantity!}',style:const TextStyle(fontSize: 17,fontWeight: FontWeight.w500),),
                         const SizedBox(
                           width: 10,
                         ),
                         InkWell(
+                          onTap:(){
+                            ElWekalaCubit.get(context).addToMyCart(cartProducts.sId);
+                          },
                           child: Container(
                             decoration: BoxDecoration(
                                 color:HexColor('#07094D'),

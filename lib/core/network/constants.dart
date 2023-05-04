@@ -13,6 +13,11 @@ class ApiConstant {
   static const HOMELAPTOPS = 'https://elwekala.onrender.com/product/Laptops';
   static const HOMESMARTPHONE= 'https://elwekala.onrender.com/product/Smart Phones';
   static const HOMESMARTWATCHS = 'https://elwekala.onrender.com/product/Smart%20Watches';
+  static const ADDTOCART = 'https://elwekala.onrender.com/cart/add';
+  static const GETMYCART = 'https://elwekala.onrender.com/cart/allProducts';
+  static const TOTALPRICE = 'https://elwekala.onrender.com/cart/total';
+  static const DELETECART = 'https://elwekala.onrender.com/cart/delete';
+  static const UPDATEQUANTITY = 'https://elwekala.onrender.com/cart';
   static String visaUrl =
       '$baseUrlPayment/acceptance/iframes/722023?payment_token=$finalToken';
   static const getOrderId = '/ecommerce/orders';
