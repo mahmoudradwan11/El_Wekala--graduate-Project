@@ -35,25 +35,7 @@ class ElWekalaCubit extends Cubit<ElWekalaStates> {
 
   static ElWekalaCubit get(context) => BlocProvider.of(context);
   int currentIndex = 0;
-  //Widget? currentTabView;
   int currentTabViewIndex = 0;
-  List<Widget> tabViews = [
-    Container(
-      color: Colors.indigo,
-      height: 100,
-      width: 100,
-    ),
-    Container(
-      color: Colors.red,
-      height: 100,
-      width: 100,
-    ),
-    Container(
-      color: Colors.blue,
-      height: 100,
-      width: 100,
-    )
-  ];
   void changeView(int index){
     currentTabViewIndex = index;
     emit(ChangeViewIndex());
