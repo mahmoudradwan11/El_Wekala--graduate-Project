@@ -60,7 +60,9 @@ class MyApp extends StatelessWidget {
             ..getHomeSmartPhone()
             ..getHomeSmartWatch()
             ..getMyCart()
-            ..getTotal(),
+            ..getTotal()
+            ..searchProduct(keyword:'')
+            ..getAllProducts(keyword:'')
         ),
         BlocProvider(
             lazy: true, create: (context) => PaymentCubit()..getAuthToken()),

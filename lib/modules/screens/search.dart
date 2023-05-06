@@ -1,5 +1,6 @@
 import 'package:el_wekala/core/controllers/store_cubit/store_cubit.dart';
 import 'package:el_wekala/core/controllers/store_cubit/store_states.dart';
+import 'package:el_wekala/modules/widgets/builders/build_product_item.dart';
 import 'package:el_wekala/modules/widgets/builders/custom_tap.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,6 +23,7 @@ class Search extends StatelessWidget {
                 child: InkWell(
                     onTap:(){
                       Navigator.pop(context);
+                      cubit.searchProduct(keyword: '');
                     },
                     child: SvgPicture.asset('images/setting_icon.svg'))
               ),
@@ -55,6 +57,9 @@ class Search extends StatelessWidget {
                         navigateTo(context, const SearchScreen());
 
                        */
+                      onChanged:(value){
+                        cubit.searchProduct(keyword: value);
+                      },
                     ),
                   ),
                 ),
@@ -104,11 +109,56 @@ class Search extends StatelessWidget {
                 ),
               ),
               if(cubit.customIndex==0)
-              const Text('All',style: TextStyle(fontSize: 50,color: Colors.indigo),),
+              cubit.searchModel!.products!.isEmpty?const Text('All'):Container(
+                color: Colors.transparent,
+                child: GridView.count(
+                  childAspectRatio: 1 / 1.3,
+                  mainAxisSpacing: 1.0,
+                  crossAxisSpacing: 1.0,
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  crossAxisCount: 2,
+                  children: List.generate(
+                      cubit.searchModel!.products!.length,
+                          (index) =>
+                          buildProductItem(cubit.searchModel!
+                              .products![index],context)),
+                ),
+              ),
               if(cubit.customIndex==1)
-                const Text('News',style: TextStyle(fontSize: 50,color: Colors.indigo),),
+                Container(
+                  color: Colors.transparent,
+                  child: GridView.count(
+                    childAspectRatio: 1 / 1.3,
+                    mainAxisSpacing: 1.0,
+                    crossAxisSpacing: 1.0,
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    crossAxisCount: 2,
+                    children: List.generate(
+                        cubit.searchFilterModel!.newProducts!.length,
+                            (index) =>
+                            buildProductItem(cubit.searchFilterModel!
+                                .newProducts![index],context)),
+                  ),
+                ),
               if(cubit.customIndex==2)
-                const Text('Used',style: TextStyle(fontSize: 50,color: Colors.indigo),)
+                Container(
+                  color: Colors.transparent,
+                  child: GridView.count(
+                    childAspectRatio: 1 / 1.3,
+                    mainAxisSpacing: 1.0,
+                    crossAxisSpacing: 1.0,
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    crossAxisCount: 2,
+                    children: List.generate(
+                        cubit.searchFilterModel!.usedProducts!.length,
+                            (index) =>
+                            buildProductItem(cubit.searchFilterModel!
+                                .usedProducts![index],context)),
+                  ),
+                ),
             ],
           ),
             ),

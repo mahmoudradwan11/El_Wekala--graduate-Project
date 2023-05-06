@@ -13,6 +13,8 @@ import 'package:el_wekala/models/store_model/favorite.dart';
 import 'package:el_wekala/models/store_model/home/laptop.dart';
 import 'package:el_wekala/models/store_model/home/smartphone.dart';
 import 'package:el_wekala/models/store_model/home/smartwatch.dart';
+import 'package:el_wekala/models/store_model/search.dart';
+import 'package:el_wekala/models/store_model/search_fliter.dart';
 import 'package:el_wekala/models/store_model/setting%20model.dart';
 import 'package:el_wekala/models/store_model/user.dart';
 import 'package:el_wekala/modules/screens/cart.dart';
@@ -377,6 +379,33 @@ void update({String? name,String? phone,String? email}){
   void changeQuantity(quantity){
     quantityProduct = quantity--;
     emit(ChangeQuantity());
+  }
+  SearchModel? searchModel;
+  void searchProduct({required keyword}){
+    DioHelperStore.getData(url:ApiConstant.SEARCH,data: {
+        'keyword':keyword
+    }).then((value){
+      searchModel = SearchModel.fromJson(value.data);
+      print(searchModel!.products!.length);
+      emit(SearchSuccessfully());
+    }).catchError((error){
+      print(error.toString());
+      emit(ErrorSearch());
+    });
+  }
+  SearchFilterModel? searchFilterModel;
+  void getAllProducts({required keyword}){
+    DioHelperStore.getData(url:ApiConstant.SEARCH,data: {
+      'keyword':keyword
+    }).then((value){
+      searchFilterModel = SearchFilterModel.fromJson(value.data);
+      print(searchFilterModel!.usedProducts!.length);
+      print(searchFilterModel!.newProducts!.length);
+      emit(SearchSuccessfully());
+    }).catchError((error){
+      print(error.toString());
+      emit(ErrorSearch());
+    });
   }
 }
 
