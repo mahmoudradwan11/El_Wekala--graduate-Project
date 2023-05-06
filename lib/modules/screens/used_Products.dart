@@ -1,6 +1,7 @@
 import 'package:el_wekala/core/controllers/store_cubit/store_cubit.dart';
 import 'package:el_wekala/core/controllers/store_cubit/store_states.dart';
-import 'package:el_wekala/modules/screens/search.dart';
+import 'package:el_wekala/modules/screens/search_lap.dart';
+import 'package:el_wekala/modules/screens/search_phone.dart';
 import 'package:el_wekala/modules/widgets/builders/cateogy_screen_item.dart';
 import 'package:el_wekala/modules/widgets/functions/navigator.dart';
 import 'package:flutter/material.dart';
@@ -36,13 +37,13 @@ class UsedProducts extends StatelessWidget {
                 InkWell(
                     onTap: (){
                       cubit.customIndex = 2;
-                      navigateTo(context,Search());
+                      navigateTo(context,SearchLap());
                     },
                     child: buildCategoryScreenItem('LapTop')),
                 InkWell(
                     onTap:(){
-                      cubit.customIndex = 1;
-                      navigateTo(context,Search());
+                      cubit.customIndex = 2;
+                      navigateTo(context,SearchPhone());
                     },
                     child: buildCategoryScreenItem('Smart Phones')),
               ],

@@ -350,6 +350,7 @@ void update({String? name,String? phone,String? email}){
     }).then((value){
        print('Add');
        emit(AddToCart());
+       showToast('Add', ToastStates.SUCCESS);
        getMyCart();
        getTotal();
     }).catchError((error){

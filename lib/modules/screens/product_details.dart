@@ -1,8 +1,9 @@
 import 'package:el_wekala/core/controllers/store_cubit/store_cubit.dart';
 import 'package:el_wekala/core/controllers/store_cubit/store_states.dart';
+import 'package:el_wekala/modules/widgets/builders/defaultBotton.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 class ProductDetails extends StatelessWidget {
@@ -16,24 +17,50 @@ class ProductDetails extends StatelessWidget {
         builder: (context, state) {
           var cubit = ElWekalaCubit.get(context);
           return Scaffold(
-            appBar: AppBar(
-              leading: InkWell(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 20.0),
-                  child: SvgPicture.asset(
-                    'images/setting_icon.svg',
-                    height: 10,
-                  ),
-                ),
-              ),
-            ),
             body: SingleChildScrollView(
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
+                  children:[
+                    Padding(
+                      padding: const EdgeInsets.only(top: 30,left: 20,right: 20),
+                      child: Container(
+                        width: double.infinity,
+                        height: 50,
+                        child: Row(
+                          children: [
+                            InkWell(
+                              onTap:(){
+                                Navigator.pop(context);
+                              },
+                              child: SvgPicture.asset(
+                                'images/setting_icon.svg',
+                                height: 31,
+                              ),
+                            ),
+                            Spacer(),
+                            Container(
+                              height: 31,
+                              width: 80,
+                              decoration: BoxDecoration(
+                                color: HexColor('#E6E7E8'),
+                                borderRadius: BorderRadius.circular(6)
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      flex:2,
+                                        child: Text('Chat',style: TextStyle(color: HexColor('#07094D'),fontWeight: FontWeight.w600),)),
+                                    Expanded(child: Icon(Icons.chat,color:HexColor('#07094D')))
+                                  ],
+                                ),
+                              )
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
                     Container(
                       width: double.infinity,
                       child: Padding(
@@ -44,20 +71,25 @@ class ProductDetails extends StatelessWidget {
                             Expanded(
                                 child: Text(
                               model.name,
-                              style: TextStyle(
+                              style:const TextStyle(
                                   fontSize: 18, fontWeight: FontWeight.w600),
                             )),
-                            Container(
-                                decoration: BoxDecoration(
-                                    color: HexColor('#E6E7E8'),
-                                    borderRadius: BorderRadius.circular(6)),
-                                height: 30,
-                                width: 30,
-                                child: const Center(
-                                    child: Icon(
-                                  Icons.favorite,
-                                  color: Colors.red,
-                                )))
+                            InkWell(
+                              onTap:(){
+                                cubit.addtoMyFavorite(model.sId);
+                              },
+                              child: Container(
+                                  decoration: BoxDecoration(
+                                      color: HexColor('#E6E7E8'),
+                                      borderRadius: BorderRadius.circular(6)),
+                                  height: 30,
+                                  width: 30,
+                                  child: const Center(
+                                      child: Icon(
+                                    Icons.favorite,
+                                    color: Colors.red,
+                                  ))),
+                            )
                           ],
                         ),
                       ),
@@ -163,7 +195,7 @@ class ProductDetails extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Expanded(
-                            flex: 2,
+                            flex: 1,
                             child: InkWell(
                               onTap: () {
                                 cubit.changeView(0);
@@ -171,16 +203,28 @@ class ProductDetails extends StatelessWidget {
                               child: Container(
                                 decoration: BoxDecoration(
                                   border: cubit.currentTabViewIndex == 0
-                                      ? Border()
+                                      ? const Border()
                                       : null,
                                 ),
-                                child: Text(
-                                  'Overview',
-                                  style: TextStyle(
-                                  color: HexColor('#07094D'),
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 12),
-                                ),
+                                child: Column(
+                                  children: [
+                                    Text(
+                                      'Overview',
+                                      style: TextStyle(
+                                          color:cubit.currentTabViewIndex==0?Colors.black:Colors.black.withOpacity(0.3),
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 12),
+                                    ),
+                                    const SizedBox(
+                                      height: 5,
+                                    ),
+                                    Container(
+                                      height: 1,
+                                      width: 55,
+                                      color:cubit.currentTabViewIndex==0?HexColor('#07094D'):Colors.transparent,
+                                    )
+                                  ],
+                                )
                               ),
                             ),
                           ),
@@ -193,15 +237,27 @@ class ProductDetails extends StatelessWidget {
                               child: Container(
                                   decoration: BoxDecoration(
                                     border: cubit.currentTabViewIndex == 1
-                                        ? Border()
+                                        ? const Border()
                                         : null,
                                   ),
-                                  child: Text(
-                                    'Specification',
-                                    style: TextStyle(
-                                        color: HexColor('#07094D'),
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 12),
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        'Specification',
+                                        style: TextStyle(
+                                            color:cubit.currentTabViewIndex==1?Colors.black:Colors.black.withOpacity(0.3),
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 12),
+                                      ),
+                                      const SizedBox(
+                                        height: 5,
+                                      ),
+                                      Container(
+                                        height: 1,
+                                        width: 80,
+                                        color:cubit.currentTabViewIndex==1?HexColor('#07094D'):Colors.transparent,
+                                      )
+                                    ],
                                   )),
                             ),
                           ),
@@ -214,15 +270,27 @@ class ProductDetails extends StatelessWidget {
                               child: Container(
                                   decoration: BoxDecoration(
                                     border: cubit.currentTabViewIndex == 2
-                                        ? Border()
+                                        ? const Border()
                                         : null,
                                   ),
-                                  child: Text(
-                                    'Review',
-                                    style: TextStyle(
-                                        color: HexColor('#07094D'),
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 12),
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        'Review',
+                                        style: TextStyle(
+                                            color:cubit.currentTabViewIndex==2?Colors.black:Colors.black.withOpacity(0.3),
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 12),
+                                      ),
+                                      const SizedBox(
+                                        height: 5,
+                                      ),
+                                      Container(
+                                        height: 1,
+                                        width: 45,
+                                        color:cubit.currentTabViewIndex==2?HexColor('#07094D'):Colors.transparent,
+                                      )
+                                    ],
                                   )),
                             ),
                           ),
@@ -231,7 +299,7 @@ class ProductDetails extends StatelessWidget {
                     ),
                     if (cubit.currentTabViewIndex == 0)
                       Padding(
-                        padding: const EdgeInsets.only(left:20.0, top: 5),
+                        padding: const EdgeInsets.only(left:20.0, top: 5,right: 20),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -301,7 +369,7 @@ class ProductDetails extends StatelessWidget {
                                   padding: const EdgeInsets.only(left: 20,
                                       right: 100),
                                   child: Row(
-                                    children:[
+                                    children:const [
                                       Text('Country',style: TextStyle(fontSize: 12,fontWeight: FontWeight.w500),),
                                       Spacer(),
                                       Text('USA',style: TextStyle(fontSize: 12,fontWeight: FontWeight.w500))
@@ -357,6 +425,36 @@ class ProductDetails extends StatelessWidget {
                           ],
                         ),
                       ),
+                    Padding(
+                      padding: const EdgeInsets.all(20),
+                      child: Row(
+                        children: [
+                          Container(
+                            height: 42,
+                            width: 52,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              border: Border.all(color:HexColor('#07094D'),),
+                              borderRadius: BorderRadius.circular(11),
+                            ),
+                            child: Column(
+                              children: [
+                                Text('QTY',style: TextStyle(color:HexColor('#07094D'),fontWeight: FontWeight.w600),),
+                                Text('1',style: TextStyle(color:HexColor('#07094D'),fontWeight: FontWeight.w600),)
+                              ],
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 20,
+                          ),
+                          Expanded(
+                              child:
+                          DefaultButton(buttonWidget: Text('Add to Cart',style: TextStyle(color: Colors.white),),function:(){
+                            cubit.addToMyCart(model.sId);
+                          },radius: 11,backgroundColor: HexColor('#07094D'),borderColor: Colors.transparent,))
+                        ],
+                      ),
+                    )
                   ]),
             ),
           );
