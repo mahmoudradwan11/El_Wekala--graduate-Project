@@ -3,6 +3,9 @@ import 'package:el_wekala/core/controllers/store_cubit/store_states.dart';
 import 'package:el_wekala/models/store_model/cate.dart';
 import 'package:el_wekala/models/store_model/tap_adv.dart';
 import 'package:el_wekala/modules/screens/search.dart';
+import 'package:el_wekala/modules/screens/search_lap.dart';
+import 'package:el_wekala/modules/screens/search_phone.dart';
+import 'package:el_wekala/modules/screens/search_watch.dart';
 import 'package:el_wekala/modules/widgets/builders/build_product_item.dart';
 import 'package:el_wekala/modules/widgets/functions/navigator.dart';
 import 'package:flutter/material.dart';
@@ -126,19 +129,36 @@ class _ProductsState extends State<Products> {
                       const SizedBox(
                         height: 20,
                       ),
-                      Container(
-                        height: 90,
-                        child: ListView.separated(
-                          shrinkWrap: true,
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (context, index) =>
-                              buildCateItem(cate[index], index, context),
-                          separatorBuilder: (context, index) => const SizedBox(
-                            width: 5,
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          height: 90,
+                          child: ListView.separated(
+                            shrinkWrap: true,
+                            scrollDirection: Axis.horizontal,
+                            itemBuilder: (context, index) =>
+                                buildCateItem(cate[index], index, context),
+                            separatorBuilder: (context, index) => const SizedBox(
+                              width: 5,
+                            ),
+                            itemCount: cate.length,
                           ),
-                          itemCount: cate.length,
                         ),
                       ),
+                      if(cubit.categoryIndex==0)
+                        Padding(
+                          padding: const EdgeInsets.only(left: 20.0),
+                          child: Row(
+                            children: [
+                              const Text('Newest Products'),
+                              const Spacer(),
+                              MaterialButton(onPressed:(){
+                                cubit.customIndex=1;
+                                navigateTo(context, SearchLap());
+                              },child: Text('SeeAll'),)
+                            ],
+                          ),
+                        ),
                       if(cubit.categoryIndex==0)
                         Padding(
                           padding: const EdgeInsets.all(8.0),
@@ -162,6 +182,20 @@ class _ProductsState extends State<Products> {
                       ),
                       if(cubit.categoryIndex==0)
                         Padding(
+                          padding: const EdgeInsets.only(left: 20.0),
+                          child: Row(
+                            children: [
+                              const Text('Used Products'),
+                              const Spacer(),
+                              MaterialButton(onPressed:(){
+                                cubit.customIndex=2;
+                                navigateTo(context, SearchLap());
+                              },child:const Text('SeeAll'),)
+                            ],
+                          ),
+                        ),
+                      if(cubit.categoryIndex==0)
+                        Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Container(
                             height: 250,
@@ -176,6 +210,55 @@ class _ProductsState extends State<Products> {
                                   color: Colors.white,
                                 ),
                                 itemCount: cubit.homeLaptops!.usedProduct!.length),
+                          ),
+                        ),
+                      if(cubit.categoryIndex==1)
+                        Padding(
+                          padding: const EdgeInsets.only(left: 20.0),
+                          child: Row(
+                            children: [
+                              const Text('Newest Products'),
+                              const Spacer(),
+                              MaterialButton(onPressed:(){
+                                cubit.customIndex=1;
+                                navigateTo(context, SearchPhone());
+                              },child:const Text('SeeAll'),)
+                            ],
+                          ),
+                        ),
+                      if(cubit.categoryIndex==1)
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            height: 250,
+                            child: ListView.separated(
+                                scrollDirection: Axis.horizontal,
+                                shrinkWrap: true,
+                                itemBuilder: (context, index) => buildProductItem(
+                                    cubit.homeSmartPhone!.newProduct![index],context),
+                                separatorBuilder: (context, index) => Container(
+                                  height: 200,
+                                  width: 10,
+                                  color: Colors.white,
+                                ),
+                                itemCount: cubit.homeSmartPhone!.newProduct!.length),
+                          ),
+                        ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      if(cubit.categoryIndex==1)
+                        Padding(
+                          padding: const EdgeInsets.only(left: 20.0),
+                          child: Row(
+                            children: [
+                              const Text('Used Products'),
+                              const Spacer(),
+                              MaterialButton(onPressed:(){
+                                cubit.customIndex=2;
+                                navigateTo(context, SearchPhone());
+                              },child:const Text('SeeAll'),)
+                            ],
                           ),
                         ),
                       if(cubit.categoryIndex==1)
@@ -196,25 +279,17 @@ class _ProductsState extends State<Products> {
                                 itemCount: cubit.homeSmartPhone!.usedProduct!.length),
                           ),
                         ),
-                      const SizedBox(
-                        height: 20,
-                      ),
-                      if(cubit.categoryIndex==1)
+                      if(cubit.categoryIndex==2)
                         Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Container(
-                            height: 250,
-                            child: ListView.separated(
-                                scrollDirection: Axis.horizontal,
-                                shrinkWrap: true,
-                                itemBuilder: (context, index) => buildProductItem(
-                                    cubit.homeSmartPhone!.newProduct![index],context),
-                                separatorBuilder: (context, index) => Container(
-                                  height: 200,
-                                  width: 10,
-                                  color: Colors.white,
-                                ),
-                                itemCount: cubit.homeSmartPhone!.newProduct!.length),
+                          padding: const EdgeInsets.only(left: 20.0),
+                          child: Row(
+                            children: [
+                              const Text('Popular Products'),
+                              const Spacer(),
+                              MaterialButton(onPressed:(){
+                                navigateTo(context, SearchWatch());
+                              },child:const Text('SeeAll'),)
+                            ],
                           ),
                         ),
                       if(cubit.categoryIndex==2)

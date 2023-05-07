@@ -1,5 +1,6 @@
 import 'package:el_wekala/core/controllers/store_cubit/store_cubit.dart';
 import 'package:el_wekala/core/controllers/store_cubit/store_states.dart';
+import 'package:el_wekala/modules/widgets/builders/build_product_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -13,7 +14,7 @@ class SearchWatch extends StatelessWidget {
     return BlocConsumer<ElWekalaCubit, ElWekalaStates>(
         listener: (context, state) {},
         builder: (context, state) {
-          //var cubit = ElWekalaCubit.get(context);
+          var cubit = ElWekalaCubit.get(context);
           return Scaffold(
             appBar: AppBar(
               leading: Padding(
@@ -56,6 +57,22 @@ class SearchWatch extends StatelessWidget {
                        */
                         ),
                       ),
+                    ),
+                  ),
+                  Container(
+                    color: Colors.transparent,
+                    child: GridView.count(
+                      childAspectRatio: 1 / 1.3,
+                      mainAxisSpacing: 1.0,
+                      crossAxisSpacing: 1.0,
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      crossAxisCount: 2,
+                      children: List.generate(
+                          cubit.homeSmartWatch!.product!.length,
+                              (index) =>
+                              buildProductItem(cubit.homeSmartWatch!
+                                  .product![index],context)),
                     ),
                   ),
                 ],

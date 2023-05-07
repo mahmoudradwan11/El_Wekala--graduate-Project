@@ -13,6 +13,8 @@ import 'package:el_wekala/models/store_model/favorite.dart';
 import 'package:el_wekala/models/store_model/home/laptop.dart';
 import 'package:el_wekala/models/store_model/home/smartphone.dart';
 import 'package:el_wekala/models/store_model/home/smartwatch.dart';
+import 'package:el_wekala/models/store_model/laptops.dart';
+import 'package:el_wekala/models/store_model/phones.dart';
 import 'package:el_wekala/models/store_model/search.dart';
 import 'package:el_wekala/models/store_model/search_fliter.dart';
 import 'package:el_wekala/models/store_model/setting%20model.dart';
@@ -405,6 +407,28 @@ void update({String? name,String? phone,String? email}){
     }).catchError((error){
       print(error.toString());
       emit(ErrorSearch());
+    });
+  }
+  Laptops? laptops;
+  void getAllLaptops(){
+    DioHelperStore.getData(url:ApiConstant.HOMELAPTOPS).then((value){
+      laptops =Laptops.fromJson(value.data);
+      print(laptops!.product!.length);
+      emit(GetAllLaptops());
+    }).catchError((error){
+      print(error.toString());
+      emit(ErrorGetAllLaptops());
+    });
+  }
+  Phones? phones;
+  void getAllPhones(){
+    DioHelperStore.getData(url:ApiConstant.HOMESMARTPHONE).then((value){
+      phones =Phones.fromJson(value.data);
+      print(phones!.product!.length);
+      emit(GetAllPhones());
+    }).catchError((error){
+      print(error.toString());
+      emit(ErrorGetAllPhones());
     });
   }
 }

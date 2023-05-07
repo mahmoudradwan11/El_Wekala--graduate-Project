@@ -1,5 +1,6 @@
 import 'package:el_wekala/core/controllers/store_cubit/store_cubit.dart';
 import 'package:el_wekala/core/controllers/store_cubit/store_states.dart';
+import 'package:el_wekala/modules/widgets/builders/build_product_item.dart';
 import 'package:el_wekala/modules/widgets/builders/custom_tap.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -104,11 +105,56 @@ class SearchLap extends StatelessWidget {
                     ),
                   ),
                   if(cubit.customIndex==0)
-                    const Text('All',style: TextStyle(fontSize: 50,color: Colors.indigo),),
+                    Container(
+                      color: Colors.transparent,
+                      child: GridView.count(
+                        childAspectRatio: 1 / 1.3,
+                        mainAxisSpacing: 1.0,
+                        crossAxisSpacing: 1.0,
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        crossAxisCount: 2,
+                        children: List.generate(
+                            cubit.laptops!.product!.length,
+                                (index) =>
+                                buildProductItem(cubit.laptops!
+                                    .product![index],context)),
+                      ),
+                    ),
                   if(cubit.customIndex==1)
-                    const Text('News',style: TextStyle(fontSize: 50,color: Colors.indigo),),
+                    Container(
+                      color: Colors.transparent,
+                      child: GridView.count(
+                        childAspectRatio: 1 / 1.3,
+                        mainAxisSpacing: 1.0,
+                        crossAxisSpacing: 1.0,
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        crossAxisCount: 2,
+                        children: List.generate(
+                            cubit.homeLaptops!.newProduct!.length,
+                                (index) =>
+                                buildProductItem(cubit.homeLaptops!
+                                    .newProduct![index],context)),
+                      ),
+                    ),
                   if(cubit.customIndex==2)
-                    const Text('Used',style: TextStyle(fontSize: 50,color: Colors.indigo),)
+                    Container(
+                      color: Colors.transparent,
+                      child: GridView.count(
+                        childAspectRatio: 1 / 1.3,
+                        mainAxisSpacing: 1.0,
+                        crossAxisSpacing: 1.0,
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        crossAxisCount: 2,
+                        children: List.generate(
+                            cubit.homeLaptops!.usedProduct!.length,
+                                (index) =>
+                                buildProductItem(cubit.homeLaptops!
+                                    .usedProduct![index],context)),
+                      ),
+                    ),
                 ],
               ),
             ),

@@ -44,4 +44,8 @@ class ErrorUpdateQuantity extends ElWekalaStates{}
 class ChangeQuantity extends ElWekalaStates{}
 class SearchSuccessfully extends ElWekalaStates{}
 class ErrorSearch extends ElWekalaStates{}
+class GetAllLaptops extends ElWekalaStates{}
+class ErrorGetAllLaptops extends ElWekalaStates{}
+class GetAllPhones extends ElWekalaStates{}
+class ErrorGetAllPhones extends ElWekalaStates{}
 
