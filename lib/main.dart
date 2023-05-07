@@ -63,8 +63,8 @@ class MyApp extends StatelessWidget {
             ..getTotal()
             ..searchProduct(keyword:'')
             ..getAllProducts(keyword:'')
-              ..getAllLaptops()
-              ..getAllPhones()
+            ..getAllLaptops()
+            ..getAllPhones()
         ),
         BlocProvider(
             lazy: true, create: (context) => PaymentCubit()..getAuthToken()),

@@ -104,6 +104,9 @@ Widget buildCartItem(CartProducts cartProducts,context) => Container(
                         ),
                         Spacer(),
                         InkWell(
+                          onTap:(){
+                            cartProducts.quantity==1?null:ElWekalaCubit.get(context).updateQuantity(cartProducts.sId,--cartProducts.quantity);
+                          },
                           child: Container(
                             decoration: BoxDecoration(
                               color:cartProducts.quantity!=1?HexColor('#07094D'):HexColor('#07094D').withOpacity(0.4),

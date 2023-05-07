@@ -367,7 +367,7 @@ void update({String? name,String? phone,String? email}){
         "nationalId":nationalId,
         "productId":productId,
         "quantity":quantity
-    }).then((value){}).catchError((error){
+    }).then((value){
       print('Update');
       emit(UpdateQuantity());
       getMyCart();
@@ -376,11 +376,6 @@ void update({String? name,String? phone,String? email}){
       print(error.toString());
       emit(ErrorUpdateQuantity());
     });
-  }
-  dynamic quantityProduct;
-  void changeQuantity(quantity){
-    quantityProduct = quantity--;
-    emit(ChangeQuantity());
   }
   SearchModel? searchModel;
   void searchProduct({required keyword}){
