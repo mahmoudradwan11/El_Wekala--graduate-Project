@@ -48,4 +48,6 @@ class GetAllLaptops extends ElWekalaStates{}
 class ErrorGetAllLaptops extends ElWekalaStates{}
 class GetAllPhones extends ElWekalaStates{}
 class ErrorGetAllPhones extends ElWekalaStates{}
-
+class ChooseCompanyImage extends ElWekalaStates{}
+class GetAllSellerProducts extends ElWekalaStates{}
+class ErrorGetAllSellerProducts extends ElWekalaStates{}

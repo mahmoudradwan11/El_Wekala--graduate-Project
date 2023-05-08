@@ -1,14 +1,18 @@
 import 'package:el_wekala/core/controllers/store_cubit/store_cubit.dart';
 import 'package:el_wekala/core/controllers/store_cubit/store_states.dart';
+import 'package:el_wekala/modules/screens/sellers.dart';
 import 'package:el_wekala/modules/widgets/builders/defaultBotton.dart';
+import 'package:el_wekala/modules/widgets/functions/navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:percent_indicator/linear_percent_indicator.dart';
 
 class ProductDetails extends StatelessWidget {
   ProductDetails({Key? key, this.model}) : super(key: key);
   var model;
+
   //TabController _tabController = TabController(length: 3, vsync: this);
   @override
   Widget build(BuildContext context) {
@@ -190,7 +194,75 @@ class ProductDetails extends StatelessWidget {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(20.0),
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        height: 110,
+                        width: double.infinity,
+                        decoration: BoxDecoration(color: HexColor('#E3E3E3'),borderRadius: BorderRadius.circular(6)),
+                        child:Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(5.0),
+                              child: Row(
+                                children: [
+                                  Container(
+                                      height:50,
+                                      width:50,
+                                      decoration:BoxDecoration(
+                                        borderRadius: BorderRadius.circular(6),
+                                    image: DecorationImage(
+                                      image:cubit.chooseImageCompany(model.company!),)
+                                    )
+                                  ),
+                                  SizedBox(width: 20,),
+                                  InkWell(
+                                    onTap:(){
+                                      cubit.getSellerProducts(model.company!);
+                                      cubit.getFilterSellerProducts(model.company);
+                                      navigateTo(context,SellersScreen(name: model.company,image: cubit.companyImage,));
+                                    },
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text('${model.company} Official Store',style: TextStyle(fontSize: 15,fontWeight: FontWeight.w600),),
+                                        SizedBox(height: 5,),
+                                        Text('View store',style: TextStyle(fontSize: 10,fontWeight: FontWeight.w600,color: Colors.grey[500]),)
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                            SizedBox(height: 10,),
+                            Container(
+                              width: double.infinity,
+                              height: 1,
+                              color: Colors.grey,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 10,right: 30,top: 10),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children:[
+                                  const Text('Product as Described',style: TextStyle(fontWeight: FontWeight.w600,fontSize:12,),),
+                                  LinearPercentIndicator(
+                                    width: 140.0,
+                                    lineHeight: 4,
+                                    percent: (model.countInStock*0.0100),
+                                    backgroundColor:HexColor('#D9D9D9'),
+                                    progressColor: HexColor('#00AC07'),
+                                  ),
+                                  Text('${model.countInStock*10}%',style: TextStyle(fontWeight: FontWeight.w600,fontSize:10,color:HexColor('#00AC07'),),)
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left:0,top: 10,right: 20,bottom: 10),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [

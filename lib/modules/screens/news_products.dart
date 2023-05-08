@@ -40,18 +40,18 @@ class NewsProducts extends StatelessWidget {
                       cubit.customIndex = 1;
                       navigateTo(context,SearchLap());
                     },
-                    child: buildCategoryScreenItem('LapTop')),
+                    child: buildCategoryScreenItem('LapTop',cubit.homeLaptops!.newProduct!.length)),
                 InkWell(
                     onTap:(){
                       cubit.customIndex = 1;
                       navigateTo(context,SearchPhone());
                     },
-                    child: buildCategoryScreenItem('Smart Phones')),
+                    child: buildCategoryScreenItem('Smart Phones',cubit.homeSmartPhone!.newProduct!.length)),
                 InkWell(
                     onTap:(){
                       navigateTo(context,SearchWatch());
                     },
-                    child: buildCategoryScreenItem('Smart Watches'))
+                    child: buildCategoryScreenItem('Smart Watches',cubit.homeSmartWatch!.product!.length))
               ],
             ),
 

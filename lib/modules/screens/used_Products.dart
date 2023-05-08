@@ -39,13 +39,13 @@ class UsedProducts extends StatelessWidget {
                       cubit.customIndex = 2;
                       navigateTo(context,SearchLap());
                     },
-                    child: buildCategoryScreenItem('LapTop')),
+                    child: buildCategoryScreenItem('LapTop',cubit.homeLaptops!.usedProduct!.length)),
                 InkWell(
                     onTap:(){
                       cubit.customIndex = 2;
                       navigateTo(context,SearchPhone());
                     },
-                    child: buildCategoryScreenItem('Smart Phones')),
+                    child: buildCategoryScreenItem('Smart Phones',cubit.homeSmartPhone!.usedProduct!.length)),
               ],
             ),
 

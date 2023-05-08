@@ -18,6 +18,7 @@ class ApiConstant {
   static const TOTALPRICE = 'https://elwekala.onrender.com/cart/total';
   static const DELETECART = 'https://elwekala.onrender.com/cart/delete';
   static const UPDATEQUANTITY = 'https://elwekala.onrender.com/cart';
+  static const SELLER  ='https://elwekala.onrender.com/product';
   static const SEARCH = 'https://elwekala.onrender.com/product/get/search';
   static String visaUrl =
       '$baseUrlPayment/acceptance/iframes/722023?payment_token=$finalToken';

@@ -27,18 +27,17 @@ class FavoriteProducts {
   dynamic countInStock;
   dynamic iV;
 
-  FavoriteProducts(
-      {this.quantity,
-        this.sId,
-        this.category,
-        this.name,
-        this.status,
-        this.price,
-        this.description,
-        this.image,
-        this.company,
-        this.countInStock,
-        this.iV});
+  FavoriteProducts({this.quantity,
+    this.sId,
+    this.category,
+    this.name,
+    this.status,
+    this.price,
+    this.description,
+    this.image,
+    this.company,
+    this.countInStock,
+    this.iV});
 
   FavoriteProducts.fromJson(Map<String, dynamic> json) {
     quantity = json['quantity'];
@@ -52,5 +51,16 @@ class FavoriteProducts {
     company = json['company'];
     countInStock = json['countInStock'];
     iV = json['__v'];
+  }
+}
+  class CheckFavorite{
+  String? status;
+  bool? isFavorite;
+
+  CheckFavorite({this.status, this.isFavorite});
+
+  CheckFavorite.fromJson(Map<String, dynamic> json) {
+  status = json['status'];
+  isFavorite = json['isFavorite'];
   }
 }

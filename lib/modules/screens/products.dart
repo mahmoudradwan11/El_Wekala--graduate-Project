@@ -27,6 +27,8 @@ class _ProductsState extends State<Products> {
     super.initState();
     ElWekalaCubit.get(context).getUserData();
     ElWekalaCubit.get(context).getMyFavorite();
+    ElWekalaCubit.get(context).getMyCart();
+    ElWekalaCubit.get(context).getTotal();
   }
 
   var smoothController = PageController();

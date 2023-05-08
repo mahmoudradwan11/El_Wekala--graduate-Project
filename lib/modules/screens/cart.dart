@@ -140,6 +140,43 @@ class Cart extends StatelessWidget {
                           ],
                         ),
                       ),
+                    ),
+                   const SizedBox(
+                      height: 20,
+                    ),
+                    Container(
+                      width: double.infinity,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        gradient: LinearGradient(colors:[
+                          HexColor('#07094D'),
+                          HexColor('#7F3BA8'),
+                        ]
+                        )
+                      ),
+                      child:Row(
+                       // mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children:[
+                          const SizedBox(
+                            width: 150,
+                          ),
+                          const Text('Checkout',style: TextStyle(color: Colors.white,fontSize: 17,fontWeight: FontWeight.w500),),
+                          const SizedBox(
+                            width:92,
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                              color: HexColor('#07094D'),
+                              borderRadius: BorderRadius.circular(12)
+                            ),
+                            height:50,
+                            width:50,
+                            child:const Icon(Icons.shopping_cart,color: Colors.white,),
+                          )
+                        ],
+                      ),
                     )
                   ],
                 ),

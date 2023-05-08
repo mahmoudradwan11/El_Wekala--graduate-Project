@@ -10,6 +10,7 @@ import 'package:el_wekala/models/store_model/cart.dart';
 import 'package:el_wekala/models/store_model/cate.dart';
 import 'package:el_wekala/models/store_model/custom_tap.dart';
 import 'package:el_wekala/models/store_model/favorite.dart';
+import 'package:el_wekala/models/store_model/filter.dart';
 import 'package:el_wekala/models/store_model/home/laptop.dart';
 import 'package:el_wekala/models/store_model/home/smartphone.dart';
 import 'package:el_wekala/models/store_model/home/smartwatch.dart';
@@ -17,6 +18,7 @@ import 'package:el_wekala/models/store_model/laptops.dart';
 import 'package:el_wekala/models/store_model/phones.dart';
 import 'package:el_wekala/models/store_model/search.dart';
 import 'package:el_wekala/models/store_model/search_fliter.dart';
+import 'package:el_wekala/models/store_model/seller.dart';
 import 'package:el_wekala/models/store_model/setting%20model.dart';
 import 'package:el_wekala/models/store_model/user.dart';
 import 'package:el_wekala/modules/screens/cart.dart';
@@ -53,7 +55,21 @@ class ElWekalaCubit extends Cubit<ElWekalaStates> {
     }
     emit(ChangeSettingIndex());
   }
+  var companyImage;
+   chooseImageCompany(String name){
+   if(name=='Dell'){
+     companyImage=const NetworkImage('https://xplorio.com/xplorio/content/81460/dell_logo_1619809179.jpg');
+   }else if(name=='HP'){
+     companyImage =const NetworkImage('https://th.bing.com/th/id/OIP.kXf_7FxVH0BSxhZDXcrGjgAAAA?pid=ImgDet&rs=1');
+   }else if(name=='Lenovo'){
+     companyImage = const NetworkImage('https://th.bing.com/th/id/R.a26ffa8eec943b3171aa399b77cacfd0?rik=z%2bhfYSG1MBAG6g&pid=ImgRaw&r=0');
+   }else{
+     companyImage = const NetworkImage('https://i.pinimg.com/originals/72/cb/ac/72cbac8133993c4d1d0dfa7514d72905.jpg');
 
+   }
+   emit(ChooseCompanyImage());
+   return companyImage;
+   }
   IconData favoriteIcon = Icons.favorite;
   List<GButton> tabs = const [
     GButton(
@@ -424,6 +440,34 @@ void update({String? name,String? phone,String? email}){
     }).catchError((error){
       print(error.toString());
       emit(ErrorGetAllPhones());
+    });
+  }
+  SellersModel? sellersModel;
+  void getSellerProducts(seller){
+    DioHelperStore.getData(url:ApiConstant.SELLER,data:
+      {
+        "company": seller
+      }).then((value){
+        sellersModel = SellersModel.fromJson(value.data);
+        print(sellersModel!.products!.length);
+        emit(GetAllSellerProducts());
+    }).catchError((error){
+     print(error.toString());
+     emit(ErrorGetAllSellerProducts());
+    });
+  }
+  FilterSellerModel? filterSellerModel;
+  void getFilterSellerProducts(seller){
+    DioHelperStore.getData(url:ApiConstant.SELLER,data:
+    {
+      "company": seller
+    }).then((value){
+      filterSellerModel = FilterSellerModel.fromJson(value.data);
+      print(filterSellerModel!.usedProducts!.length);
+      emit(GetAllSellerProducts());
+    }).catchError((error){
+      print(error.toString());
+      emit(ErrorGetAllSellerProducts());
     });
   }
 }

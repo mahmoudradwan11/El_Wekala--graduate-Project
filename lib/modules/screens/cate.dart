@@ -35,13 +35,13 @@ class Cateogry extends StatelessWidget {
                     cubit.customIndex = 1;
                     navigateTo(context,const NewsProducts());
                   },
-                    child: buildCategoryScreenItem('News Products')),
+                    child: buildCategoryScreenItem('News Products',cubit.searchFilterModel!.newProducts!.length),),
                 InkWell(
                   onTap:(){
                     cubit.customIndex = 2;
                     navigateTo(context,const UsedProducts());
                   },
-                    child: buildCategoryScreenItem('Used Products'))
+                    child: buildCategoryScreenItem('Used Products',cubit.searchFilterModel!.usedProducts!.length))
               ],
               ),
           );
