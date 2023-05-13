@@ -63,9 +63,14 @@ class ElWekalaCubit extends Cubit<ElWekalaStates> {
      companyImage =const NetworkImage('https://th.bing.com/th/id/OIP.kXf_7FxVH0BSxhZDXcrGjgAAAA?pid=ImgDet&rs=1');
    }else if(name=='Lenovo'){
      companyImage = const NetworkImage('https://th.bing.com/th/id/R.a26ffa8eec943b3171aa399b77cacfd0?rik=z%2bhfYSG1MBAG6g&pid=ImgRaw&r=0');
-   }else{
-     companyImage = const NetworkImage('https://i.pinimg.com/originals/72/cb/ac/72cbac8133993c4d1d0dfa7514d72905.jpg');
+   }else if(name=='Samsung'){
+     companyImage = const NetworkImage('https://th.bing.com/th/id/R.67c218bc2d62796fabe836c8112e5a3a?rik=bPYsIShc0PJvUQ&riu=http%3a%2f%2ficons.iconarchive.com%2ficons%2falecive%2fflatwoken%2f512%2fApps-Samsung-icon.png&ehk=DAlqeet8nw2K9gw7QtDMrB63k2b97uyN2XpgEOi5f2g%3d&risl=&pid=ImgRaw&r=0');
+   }else if(name=='Xiaomi'){
+     companyImage =const NetworkImage('https://2.bp.blogspot.com/-yxbrZsZNLcE/WzXw-SupMvI/AAAAAAAAACw/rUStfzjHVmgrqpaiWrNjhMyRNYEhrjeYQCLcBGAs/s1600/Xiaomi%2BLogo%2BPNG%2BVector.png');
 
+   }
+   else{
+     companyImage = const NetworkImage('https://i.pinimg.com/originals/72/cb/ac/72cbac8133993c4d1d0dfa7514d72905.jpg');
    }
    emit(ChooseCompanyImage());
    return companyImage;
@@ -267,6 +272,11 @@ void update({String? name,String? phone,String? email}){
       emit(AddToFavorite());
       showToast('Added',ToastStates.SUCCESS);
       getMyFavorite();
+      getAllPhones();
+      getAllLaptops();
+      getHomeSmartWatch();
+      getHomeLaptops();
+      getHomeSmartPhone();
     }).catchError((error){
       print(error.toString());
       emit(ErrorAddFavorite());
@@ -281,6 +291,11 @@ void update({String? name,String? phone,String? email}){
       emit(DeleteFavorite());
       showToast('Deleted',ToastStates.ERROR);
       getMyFavorite();
+      getAllPhones();
+      getAllLaptops();
+      getHomeSmartWatch();
+      getHomeLaptops();
+      getHomeSmartPhone();
     }).catchError((error){
       print(error.toString());
       emit(ErrorDeleteFavorite());
@@ -288,7 +303,9 @@ void update({String? name,String? phone,String? email}){
   }
   HomeLaptops? homeLaptops;
   void getHomeLaptops(){
-    DioHelperStore.getData(url:ApiConstant.HOMELAPTOPS).then((value){
+    DioHelperStore.getData(url:ApiConstant.HOMELAPTOPS,data:{
+      "nationalId" : nationalId
+    }).then((value){
       homeLaptops = HomeLaptops.fromJson(value.data);
       print(homeLaptops!.usedProduct!.length);
       print(homeLaptops!.newProduct!.length);
@@ -300,7 +317,9 @@ void update({String? name,String? phone,String? email}){
   }
   HomeSmartPhone? homeSmartPhone;
   void getHomeSmartPhone(){
-    DioHelperStore.getData(url:ApiConstant.HOMESMARTPHONE).then((value){
+    DioHelperStore.getData(url:ApiConstant.HOMESMARTPHONE,data:{
+      "nationalId" : nationalId
+    }).then((value){
       homeSmartPhone = HomeSmartPhone.fromJson(value.data);
       print(homeSmartPhone!.usedProduct!.length);
       print(homeSmartPhone!.newProduct!.length);
@@ -312,7 +331,9 @@ void update({String? name,String? phone,String? email}){
   }
   HomeSmartWatch? homeSmartWatch;
   void getHomeSmartWatch(){
-    DioHelperStore.getData(url:ApiConstant.HOMESMARTWATCHS).then((value){
+    DioHelperStore.getData(url:ApiConstant.HOMESMARTWATCHS,data:{
+      "nationalId" : nationalId
+    }).then((value){
       homeSmartWatch = HomeSmartWatch.fromJson(value.data);
       print(homeSmartWatch!.product!.length);
       print(homeSmartWatch!.message!);
@@ -422,7 +443,9 @@ void update({String? name,String? phone,String? email}){
   }
   Laptops? laptops;
   void getAllLaptops(){
-    DioHelperStore.getData(url:ApiConstant.HOMELAPTOPS).then((value){
+    DioHelperStore.getData(url:ApiConstant.HOMELAPTOPS,data:{
+      "nationalId" : nationalId
+    }).then((value){
       laptops =Laptops.fromJson(value.data);
       print(laptops!.product!.length);
       emit(GetAllLaptops());
@@ -433,7 +456,9 @@ void update({String? name,String? phone,String? email}){
   }
   Phones? phones;
   void getAllPhones(){
-    DioHelperStore.getData(url:ApiConstant.HOMESMARTPHONE).then((value){
+    DioHelperStore.getData(url:ApiConstant.HOMESMARTPHONE,data:{
+      "nationalId" : nationalId
+    }).then((value){
       phones =Phones.fromJson(value.data);
       print(phones!.product!.length);
       emit(GetAllPhones());
@@ -471,4 +496,3 @@ void update({String? name,String? phone,String? email}){
     });
   }
 }
-

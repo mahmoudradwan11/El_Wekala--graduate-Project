@@ -65,17 +65,17 @@ Widget buildProductItem(product,context) =>InkWell(
                             ),
                             InkWell(
                               onTap: (){
-                                ElWekalaCubit.get(context).addtoMyFavorite(product.sId);
+                              product.inFavorite?ElWekalaCubit.get(context).deleteFavorite(product.sId):ElWekalaCubit.get(context).addtoMyFavorite(product.sId);
                               },
                               child: Padding(
                                 padding: const EdgeInsets.all(10.0),
                                 child: CircleAvatar(
                                   backgroundColor: HexColor('#BFC0E4'),
                                   radius: 10,
-                                  child: const Icon(
+                                  child:Icon(
                                     Icons.favorite,
                                     size: 15,
-                                    color: Colors.red,
+                                    color:product.inFavorite?Colors.red:Colors.grey
                                   ),
                                 ),
                               ),

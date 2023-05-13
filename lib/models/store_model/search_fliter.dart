@@ -25,13 +25,14 @@ class SearchProducts {
   String? status;
   String? category;
   String? name;
-  double? price;
+  dynamic price;
   String? description;
   String? image;
   String? company;
-  int? countInStock;
+  dynamic countInStock;
   int? iV;
-
+  bool? inCart = false;
+  bool? inFavorite = false;
   SearchProducts(
       {this.sId,
         this.status,

@@ -8,9 +8,9 @@ class Laptops{
   Laptops.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
-    if (json['product'] != null) {
+    if (json['products'] != null) {
       product = <Product>[];
-      json['product'].forEach((v) {
+      json['products'].forEach((v) {
         product!.add( Product.fromJson(v));
       });
     }
@@ -22,12 +22,14 @@ class Product {
   String? status;
   String? category;
   String? name;
-  double? price;
+  dynamic price;
   String? description;
   String? image;
   String? company;
   dynamic countInStock;
   dynamic iV;
+  bool? inCart = false;
+  bool? inFavorite = false;
 
   Product(
       {this.sId,
@@ -39,7 +41,10 @@ class Product {
         this.image,
         this.company,
         this.countInStock,
-        this.iV});
+        this.iV,
+        this.inCart,
+        this.inFavorite,
+      });
 
   Product.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
@@ -52,6 +57,8 @@ class Product {
     company = json['company'];
     countInStock = json['countInStock'];
     iV = json['__v'];
+    inCart = json['inCart'];
+    inFavorite = json['inFavorites'];
   }
 
 }

@@ -1,4 +1,4 @@
-import 'package:el_wekala/modules/screens/product_details.dart';
+import 'package:el_wekala/modules/screens/search.dart';
 import 'package:el_wekala/modules/widgets/functions/navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -68,7 +68,7 @@ Widget buildAdvicer(TapAdvicer tapAdvicer,context) => Stack(
                     height: 50,
                     child: MaterialButton(
                       onPressed:(){
-                        navigateTo(context,ProductDetails(model:tapAdvicer,));
+                        navigateTo(context,Search());
                       },
                       child:const Text('Buy Now',style: TextStyle(color: Colors.white),),
                     ),

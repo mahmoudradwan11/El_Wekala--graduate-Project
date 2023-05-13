@@ -164,7 +164,9 @@ Widget buildFavoriteItem(FavoriteProducts favoriteProducts,context) => Padding(
                                     color: Colors.white,
                                   ),
                                   MaterialButton(
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      ElWekalaCubit.get(context).addToMyCart(favoriteProducts.sId!);
+                                    },
                                     child: const Text(
                                       'Add to Cart',
                                       style: TextStyle(color: Colors.white),

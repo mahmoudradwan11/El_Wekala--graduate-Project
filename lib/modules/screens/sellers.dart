@@ -16,6 +16,13 @@ class SellersScreen extends StatelessWidget {
         listener: (context, state) {},
         builder: (context, state){
           var cubit = ElWekalaCubit.get(context);
+          if(cubit.sellersModel==null){
+            return const Scaffold(
+              body: Center(
+                child:
+              CircularProgressIndicator(),),
+            );
+          }
           return Scaffold(
           appBar: AppBar(
             leading: Padding(
@@ -49,10 +56,10 @@ class SellersScreen extends StatelessWidget {
                       )
                   ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
-                  Text('${name} Official Store'),
+                  Text('$name Official Store'),
                   Padding(
                     padding: const EdgeInsets.only(left:0,top: 10,right: 20,bottom: 10),
                     child: Row(
@@ -118,7 +125,7 @@ class SellersScreen extends StatelessWidget {
                                     ),
                                     Container(
                                       height: 1,
-                                      width: 80,
+                                      width: 50,
                                       color:cubit.currentTabViewIndex==1?HexColor('#07094D'):Colors.transparent,
                                     )
                                   ],
@@ -161,8 +168,6 @@ class SellersScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                  if(cubit.sellersModel==null)
-                    CircularProgressIndicator(),
                   if(cubit.currentTabViewIndex==0)
                     Container(
                       color: Colors.transparent,

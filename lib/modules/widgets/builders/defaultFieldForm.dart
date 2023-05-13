@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
 class DefaultFieldForm extends StatelessWidget {
   TextEditingController controller;
   TextInputType keyboard;
@@ -46,7 +47,7 @@ class DefaultFieldForm extends StatelessWidget {
         contentPadding: const EdgeInsets.all(16),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
-          borderSide: const BorderSide(color: Colors.black),
+          borderSide: BorderSide(color: HexColor('#07094D')),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
@@ -63,13 +64,13 @@ class DefaultFieldForm extends StatelessWidget {
         // borderRadius: BorderRadius.circular(30
         prefixIcon: Icon(
           prefix,
-          color: Colors.black,
+          color: Colors.grey[500],
         ),
         suffixIcon: suffix != null
             ? IconButton(
           icon: Icon(suffix),
           onPressed: suffixPress,
-          color: Colors.black,
+          color: Colors.grey[500],
         )
             : null,
       ),

@@ -2,6 +2,7 @@ import 'package:el_wekala/core/controllers/login_cubit/login_cubit.dart';
 import 'package:el_wekala/core/controllers/login_cubit/login_states.dart';
 import 'package:el_wekala/core/network/constants.dart';
 import 'package:el_wekala/core/network/local/cache_helper.dart';
+import 'package:el_wekala/modules/screens/register.dart';
 import 'package:el_wekala/modules/widgets/builders/defaultBotton.dart';
 import 'package:el_wekala/modules/widgets/builders/defaultFieldForm.dart';
 import 'package:el_wekala/modules/widgets/functions/navigator.dart';
@@ -9,6 +10,7 @@ import 'package:el_wekala/modules/widgets/functions/toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import 'home.dart';
@@ -52,86 +54,128 @@ class Login extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      const SizedBox(height: 100),
+                      const SizedBox(height: 80),
                       const Text(
-                        'Sign In',
+                        'Welcome',
                         style: TextStyle(
                             color: Colors.black,
-                            fontSize: 30,
-                            fontWeight: FontWeight.bold),
+                            fontSize: 24,
+                            fontWeight: FontWeight.w600),
                       ),
                       const SizedBox(
-                        height: 20,
+                        height: 10,
                       ),
-                      const Text('sign in with '),
+                      const Text('Please enter your data to continue',style: TextStyle(color: Colors.grey,fontSize: 15,fontWeight: FontWeight.w600),),
                       const SizedBox(
-                        height: 20,
+                        height: 70,
+                      ),
+                      const Align(
+                        alignment: AlignmentDirectional.topStart,
+                          child: Text('UserEmail',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 15),)),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                  Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: HexColor('#F2F2F2'),
+                      ),
+                        child: DefaultFieldForm(
+                            controller: emailController,
+                            keyboard: TextInputType.emailAddress,
+                            valid: (value) {
+                              if (value.isEmpty) {
+                                return 'Please Enter Your Email';
+                              }
+                              return null;
+                            },
+                            prefix: Icons.email,
+                            hint: 'Email',
+                            hintStyle: const TextStyle(color: Colors.grey),
+                            show: false),
+                      ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      const Align(
+                          alignment: AlignmentDirectional.topStart,
+                          child: Text('Password',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 15),)),
+                      const SizedBox(
+                        height: 10,
                       ),
                       Container(
-                        width: 150,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: HexColor('#F2F2F2'),
+                        ),
+                        child: DefaultFieldForm(
+                            controller: passwordController,
+                            keyboard: TextInputType.emailAddress,
+                            valid: (value) {
+                              if (value.isEmpty) {
+                                return 'Please Enter Your password';
+                              }
+                              return null;
+                            },
+                            prefix: Icons.lock,
+                            hint: 'password',
+                            hintStyle: const TextStyle(color: Colors.grey),
+                            show: cubit.passwordShow,
+                            suffix: cubit.suffixIcon,
+                            suffixPress: () {
+                              cubit.changePasswordIcon();
+                            }),
+                      ),
+                      const SizedBox(
+                        height: 40,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 50,right: 50),
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
-                            FaIcon(
-                              FontAwesomeIcons.facebook,
-                              color: Colors.blue,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                              height: 1,
+                              width: 100,
+                              color: Colors.black,
                             ),
-                            SizedBox(
-                              width: 10,
+                            Text('Or',style: TextStyle(fontWeight: FontWeight.w600),),
+                            Container(
+                              height: 1,
+                              width: 100,
+                              color: Colors.black,
                             ),
-                            FaIcon(
-                              FontAwesomeIcons.twitter,
-                              color: Colors.blue,
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            FaIcon(FontAwesomeIcons.apple),
                           ],
                         ),
                       ),
                       const SizedBox(
                         height: 20,
                       ),
-                      const Text('or'),
-                      const SizedBox(
-                        height: 20,
+                      Container(
+                        width: 150,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children:[
+                            FaIcon(
+                              FontAwesomeIcons.google,
+                              color: HexColor('#07094D'),
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            const FaIcon(
+                              FontAwesomeIcons.facebook,
+                              color: Colors.blue,
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            const FaIcon(FontAwesomeIcons.apple),
+                          ],
+                        ),
                       ),
-                      DefaultFieldForm(
-                          controller: emailController,
-                          keyboard: TextInputType.emailAddress,
-                          valid: (value) {
-                            if (value.isEmpty) {
-                              return 'Please Enter Your Email';
-                            }
-                            return null;
-                          },
-                          prefix: Icons.email,
-                          hint: 'Email',
-                          hintStyle: const TextStyle(color: Colors.grey),
-                          show: false),
                       const SizedBox(
-                        height: 15,
-                      ),
-                      DefaultFieldForm(
-                          controller: passwordController,
-                          keyboard: TextInputType.emailAddress,
-                          valid: (value) {
-                            if (value.isEmpty) {
-                              return 'Please Enter Your password';
-                            }
-                            return null;
-                          },
-                          prefix: Icons.lock,
-                          hint: 'password',
-                          hintStyle: const TextStyle(color: Colors.grey),
-                          show: cubit.passwordShow,
-                          suffix: cubit.suffixIcon,
-                          suffixPress: () {
-                            cubit.changePasswordIcon();
-                          }),
-                      const SizedBox(
-                        height: 40,
+                        height: 30,
                       ),
                       if (state is LoadingLogin) const SizedBox(height: 10),
                       state is LoadingLogin? LoadingAnimationWidget.inkDrop(
@@ -139,9 +183,9 @@ class Login extends StatelessWidget {
                         size: 20,
                       ):
                       DefaultButton(
-                        backgroundColor: Colors.black,
+                        backgroundColor: HexColor('#07094D'),
                         buttonWidget: const Text(
-                          'Sign In',
+                          'Login',
                           style: TextStyle(color: Colors.white),
                         ),
                         function: () {
@@ -152,18 +196,17 @@ class Login extends StatelessWidget {
                           }
                         },
                       ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      DefaultButton(
-                        backgroundColor: Colors.white,
-                        buttonWidget: const Text(
-                          'create Account ',
-                          style: TextStyle(color: Colors.black),
+
+                      Padding(
+                        padding: const EdgeInsets.only(left: 30,top: 10),
+                        child: Row(
+                          children: [
+                            Text('I don\'t Have account?'),
+                            MaterialButton(onPressed:(){
+                              navigateTo(context, Register());
+                            },child: Text('Create Account',style: TextStyle(color: HexColor('#07094D'),),))
+                          ],
                         ),
-                        function: () {
-                          //navigateTo(context, Register());
-                        },
                       )
                     ],
                   ),

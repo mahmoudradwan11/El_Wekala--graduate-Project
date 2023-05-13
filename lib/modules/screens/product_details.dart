@@ -249,11 +249,11 @@ class ProductDetails extends StatelessWidget {
                                   LinearPercentIndicator(
                                     width: 140.0,
                                     lineHeight: 4,
-                                    percent: (model.countInStock*0.0100),
+                                    percent: model.countInStock>=10?1.0:(model.countInStock*.10),
                                     backgroundColor:HexColor('#D9D9D9'),
                                     progressColor: HexColor('#00AC07'),
                                   ),
-                                  Text('${model.countInStock*10}%',style: TextStyle(fontWeight: FontWeight.w600,fontSize:10,color:HexColor('#00AC07'),),)
+                                  Text('${model.countInStock>=10?100:model.countInStock*10}%',style: TextStyle(fontWeight: FontWeight.w600,fontSize:10,color:HexColor('#00AC07'),),)
                                 ],
                               ),
                             )
@@ -406,96 +406,684 @@ class ProductDetails extends StatelessWidget {
                              const SizedBox(
                               height: 10,
                             ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 2,right:20,top: 10),
-                              child: Container(
-                                height:32,
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                  color: HexColor('#9B9CB7').withOpacity(0.36),
-                                  borderRadius: BorderRadius.circular(4),
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 20,
-                                  right: 100),
-                                  child: Row(
-                                    children:const [
-                                      Text('Color Name',style: TextStyle(fontSize: 12,fontWeight: FontWeight.w500),),
-                                      Spacer(),
-                                      Text('Black',style: TextStyle(fontSize: 12,fontWeight: FontWeight.w500))
-                                    ],
+                            if(model.category=='Laptops')
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 2, right: 20, top: 10),
+                                child: Container(
+                                  height: 32,
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    color: HexColor('#9B9CB7').withOpacity(
+                                        0.36),
+                                    borderRadius: BorderRadius.circular(4),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(left: 20,
+                                        right: 95),
+                                    child: Row(
+                                      children: const [
+                                        Text('Color Name', style: TextStyle(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w500),),
+                                        Spacer(),
+                                        Text('Black', style: TextStyle(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w500))
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 2,right:20),
-                              child: Container(
-                                height:32,
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                  color: HexColor('#FEFEFE').withOpacity(0.36),
-                                  borderRadius: BorderRadius.circular(4),
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 20,
-                                      right: 100),
-                                  child: Row(
-                                    children:const [
-                                      Text('Country',style: TextStyle(fontSize: 12,fontWeight: FontWeight.w500),),
-                                      Spacer(),
-                                      Text('USA',style: TextStyle(fontSize: 12,fontWeight: FontWeight.w500))
-                                    ],
+                            if(model.category=='Laptops')
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 2, right: 20),
+                                child: Container(
+                                  height: 32,
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    color: HexColor('#FEFEFE').withOpacity(
+                                        0.36),
+                                    borderRadius: BorderRadius.circular(4),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(left: 20,
+                                        right: 100),
+                                    child: Row(
+                                      children: const [
+                                        Text('Country', style: TextStyle(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w500),),
+                                        Spacer(),
+                                        Text('USA', style: TextStyle(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w500))
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 2,right:20),
-                              child: Container(
-                                height:32,
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                  color: HexColor('#9B9CB7').withOpacity(0.36),
-                                  borderRadius: BorderRadius.circular(4),
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 20,
-                                      right: 100),
-                                  child: Row(
-                                    children:const [
-                                      Text('Graphics Memory',style: TextStyle(fontSize: 12,fontWeight: FontWeight.w500),),
-                                      Spacer(),
-                                      Text('8 GB',style: TextStyle(fontSize: 12,fontWeight: FontWeight.w500))
-                                    ],
+                            if(model.category=='Laptops')
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 2, right: 20),
+                                child: Container(
+                                  height: 32,
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    color: HexColor('#9B9CB7').withOpacity(
+                                        0.36),
+                                    borderRadius: BorderRadius.circular(4),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(left: 20,
+                                        right: 100),
+                                    child: Row(
+                                      children: const [
+                                        Text('Graphics Memory',
+                                          style: TextStyle(fontSize: 12,
+                                              fontWeight: FontWeight.w500),),
+                                        Spacer(),
+                                        Text('8 GB', style: TextStyle(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w500))
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 2,right:20),
-                              child: Container(
-                                height:32,
-                                width: double.infinity,
-                                decoration: BoxDecoration(
-                                  color: HexColor('#FEFEFE').withOpacity(0.36),
-                                  borderRadius: BorderRadius.circular(4),
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.only(left: 20,
-                                      right: 100),
-                                  child: Row(
-                                    children:const [
-                                      Text('Display Resolution Type',style: TextStyle(fontSize: 12,fontWeight: FontWeight.w500),),
-                                      Spacer(),
-                                      Text('QHD',style: TextStyle(fontSize: 12,fontWeight: FontWeight.w500))
-                                    ],
+                            if(model.category=='Laptops')
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 2, right: 20),
+                                child: Container(
+                                  height: 32,
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    color: HexColor('#FEFEFE').withOpacity(
+                                        0.36),
+                                    borderRadius: BorderRadius.circular(4),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(left: 20,
+                                        right: 100),
+                                    child: Row(
+                                      children: const [
+                                        Text('Display Resolution Type',
+                                          style: TextStyle(fontSize: 12,
+                                              fontWeight: FontWeight.w500),),
+                                        Spacer(),
+                                        Text('QHD', style: TextStyle(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w500))
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
+                            if(model.category=='Laptops')
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 2, right: 20),
+                                child: Container(
+                                  height: 32,
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    color: HexColor('#9B9CB7').withOpacity(
+                                        0.36),
+                                    borderRadius: BorderRadius.circular(4),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(left: 20,
+                                        right: 50),
+                                    child: Row(
+                                      children: const [
+                                        Text('External Graphics',
+                                          style: TextStyle(fontSize: 12,
+                                              fontWeight: FontWeight.w500),),
+                                        Spacer(),
+                                        Text('Graphic Card', style: TextStyle(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w500))
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            if(model.category=='Smart Phones')
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 2, right: 20, top: 10),
+                                child: Container(
+                                  height: 32,
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    color: HexColor('#9B9CB7').withOpacity(
+                                        0.36),
+                                    borderRadius: BorderRadius.circular(4),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(left: 20,
+                                        right: 95),
+                                    child: Row(
+                                      children: const [
+                                        Text('Color Name', style: TextStyle(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w500),),
+                                        Spacer(),
+                                        Text('Black', style: TextStyle(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w500))
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            if(model.category=='Smart Phones')
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 2, right: 20),
+                                child: Container(
+                                  height: 32,
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    color: HexColor('#FEFEFE').withOpacity(
+                                        0.36),
+                                    borderRadius: BorderRadius.circular(4),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(left: 20,
+                                        right: 100),
+                                    child: Row(
+                                      children: const [
+                                        Text('Country', style: TextStyle(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w500),),
+                                        Spacer(),
+                                        Text('USA', style: TextStyle(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w500))
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            if(model.category=='Smart Phones')
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 2, right: 20),
+                                child: Container(
+                                  height: 32,
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    color: HexColor('#9B9CB7').withOpacity(
+                                        0.36),
+                                    borderRadius: BorderRadius.circular(4),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(left: 20,
+                                        right: 90),
+                                    child: Row(
+                                      children: const [
+                                        Text('RAM',
+                                          style: TextStyle(fontSize: 12,
+                                              fontWeight: FontWeight.w500),),
+                                        Spacer(),
+                                        Text('12 GB', style: TextStyle(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w500))
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            if(model.category=='Smart Phones')
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 2, right: 20),
+                                child: Container(
+                                  height: 32,
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    color: HexColor('#FEFEFE').withOpacity(
+                                        0.36),
+                                    borderRadius: BorderRadius.circular(4),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(left: 20,
+                                        right: 80),
+                                    child: Row(
+                                      children: const [
+                                        Text('Storage',
+                                          style: TextStyle(fontSize: 12,
+                                              fontWeight: FontWeight.w500),),
+                                        Spacer(),
+                                        Text('512 GB', style: TextStyle(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w500))
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            if(model.category=='Smart Phones')
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 2, right: 20),
+                                child: Container(
+                                  height: 32,
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    color: HexColor('#9B9CB7').withOpacity(
+                                        0.36),
+                                    borderRadius: BorderRadius.circular(4),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(left: 20,
+                                        right: 85),
+                                    child: Row(
+                                      children: const [
+                                        Text('Camera',
+                                          style: TextStyle(fontSize: 12,
+                                              fontWeight: FontWeight.w500),),
+                                        Spacer(),
+                                        Text('64 MP', style: TextStyle(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w500))
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            if(model.category=='Smart Watches')
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 2, right: 20, top: 10),
+                                child: Container(
+                                  height: 32,
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    color: HexColor('#9B9CB7').withOpacity(
+                                        0.36),
+                                    borderRadius: BorderRadius.circular(4),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(left: 20,
+                                        right: 95),
+                                    child: Row(
+                                      children: const [
+                                        Text('Color Name', style: TextStyle(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w500),),
+                                        Spacer(),
+                                        Text('Black', style: TextStyle(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w500))
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            if(model.category=='Smart Watches')
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 2, right: 20),
+                                child: Container(
+                                  height: 32,
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    color: HexColor('#FEFEFE').withOpacity(
+                                        0.36),
+                                    borderRadius: BorderRadius.circular(4),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(left: 20,
+                                        right: 100),
+                                    child: Row(
+                                      children: const [
+                                        Text('Country', style: TextStyle(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w500),),
+                                        Spacer(),
+                                        Text('USA', style: TextStyle(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w500))
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            if(model.category=='Smart Watches')
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 2, right: 20),
+                                child: Container(
+                                  height: 32,
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    color: HexColor('#9B9CB7').withOpacity(
+                                        0.36),
+                                    borderRadius: BorderRadius.circular(4),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(left: 20,
+                                        right: 100),
+                                    child: Row(
+                                      children: const [
+                                        Text('RAM',
+                                          style: TextStyle(fontSize: 12,
+                                              fontWeight: FontWeight.w500),),
+                                        Spacer(),
+                                        Text('1 GB', style: TextStyle(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w500))
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            if(model.category=='Smart Watches')
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 2, right: 20),
+                                child: Container(
+                                  height: 32,
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    color: HexColor('#FEFEFE').withOpacity(
+                                        0.36),
+                                    borderRadius: BorderRadius.circular(4),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(left: 20,
+                                        right: 100),
+                                    child: Row(
+                                      children: const [
+                                        Text('Storage',
+                                          style: TextStyle(fontSize: 12,
+                                              fontWeight: FontWeight.w500),),
+                                        Spacer(),
+                                        Text('4 GB', style: TextStyle(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w500))
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
                           ],
                         ),
+                      ),
+                    if(cubit.currentTabViewIndex==2)
+                      Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const CircleAvatar(
+                                radius:30,
+                                backgroundImage: AssetImage('images/1.png'),
+                              ),
+                              SizedBox(
+                                width: 20,
+                              ),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children:const [
+                                      Text('Lile Amins',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 12),),
+                                      SizedBox(
+                                        width: 150,
+                                      ),
+                                      Text('13 May,2023',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 12,color: Colors.grey),),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  const SizedBox(
+                                    width: 300,
+                                      child: Text('Storage expandability, average Battery, bright Screen, powerful gpu and cpu',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 12,color: Colors.black38),)),
+                                  Row(
+                                    children:[
+                                      const SizedBox(
+                                        width:180,
+                                      ),
+                                      Icon(
+                                        Icons.star,
+                                        color: HexColor('#07094D'),
+                                      ),
+                                      Icon(
+                                        Icons.star,
+                                        color: HexColor('#07094D'),
+                                      ),
+                                      Icon(
+                                        Icons.star,
+                                        color: HexColor('#07094D'),
+                                      ),
+                                      Icon(
+                                        Icons.star,
+                                        color: HexColor('#07094D'),
+                                      ),
+                                      Icon(
+                                        Icons.star,
+                                        color: HexColor('#07094D'),
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const CircleAvatar(
+                                radius:30,
+                                backgroundImage: AssetImage('images/2.png'),
+                              ),
+                              const SizedBox(
+                                width: 20,
+                              ),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children:const [
+                                      Text('Jasmine Pie',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 12),),
+                                      SizedBox(
+                                        width: 140,
+                                      ),
+                                      Text('15 May,2023',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 12,color: Colors.grey),),
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  const SizedBox(
+                                      width: 300,
+                                      child: Text('Excellent experience 👏',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 12,color: Colors.black38),)),
+                                  Row(
+                                    children:[
+                                      const SizedBox(
+                                        width:180,
+                                      ),
+                                      Icon(
+                                        Icons.star,
+                                        color: HexColor('#07094D'),
+                                      ),
+                                      Icon(
+                                        Icons.star,
+                                        color: HexColor('#07094D'),
+                                      ),
+                                      Icon(
+                                        Icons.star,
+                                        color: HexColor('#07094D'),
+                                      ),
+                                      Icon(
+                                        Icons.star,
+                                        color: HexColor('#07094D'),
+                                      ),
+                                      Icon(
+                                        Icons.star,
+                                        color: HexColor('#07094D'),
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const CircleAvatar(
+                                radius:30,
+                                backgroundImage: AssetImage('images/3.png'),
+                              ),
+                              const SizedBox(
+                                width: 20,
+                              ),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children:const [
+                                      Text('Mark Joe',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 12),),
+                                      SizedBox(
+                                        width: 150,
+                                      ),
+                                      Text('19 May,2023',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 12,color: Colors.grey),),
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  const SizedBox(
+                                      width: 300,
+                                      child: Text('Good computer, but I prefer the older model honestly...',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 12,color: Colors.black38),)),
+                                  Row(
+                                    children:[
+                                      const SizedBox(
+                                        width:180,
+                                      ),
+                                      Icon(
+                                        Icons.star,
+                                        color: HexColor('#07094D'),
+                                      ),
+                                      Icon(
+                                        Icons.star,
+                                        color: HexColor('#07094D'),
+                                      ),
+                                      Icon(
+                                        Icons.star,
+                                        color: HexColor('#07094D'),
+                                      ),
+                                      Icon(
+                                        Icons.star,
+                                        color: HexColor('#07094D'),
+                                      ),
+                                      Icon(
+                                        Icons.star,
+                                        color: HexColor('#07094D'),
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const CircleAvatar(
+                                radius:30,
+                                backgroundImage: AssetImage('images/4.png'),
+                              ),
+                              const SizedBox(
+                                width: 20,
+                              ),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children:const [
+                                      Text('jack Wily',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 12),),
+                                      SizedBox(
+                                        width: 150,
+                                      ),
+                                      Text('23 May,2023',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 12,color: Colors.grey),),
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  const SizedBox(
+                                      width: 300,
+                                      child: Text('Not really designed as a good gaming laptop.',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 12,color: Colors.black38),)),
+                                 SizedBox(
+                                   height: 5,
+                                 ),
+                                  Row(
+                                    children:[
+                                      const SizedBox(
+                                        width:180,
+                                      ),
+                                      Icon(
+                                        Icons.star,
+                                        color: HexColor('#07094D'),
+                                      ),
+                                      Icon(
+                                        Icons.star,
+                                        color: HexColor('#07094D'),
+                                      ),
+                                      Icon(
+                                        Icons.star,
+                                        color: HexColor('#07094D'),
+                                      ),
+                                      Icon(
+                                        Icons.star,
+                                        color: HexColor('#07094D'),
+                                      ),
+                                      Icon(
+                                        Icons.star,
+                                        color: HexColor('#07094D'),
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ],
+                          ),
+
+                        ],
                       ),
                     Padding(
                       padding: const EdgeInsets.all(20),

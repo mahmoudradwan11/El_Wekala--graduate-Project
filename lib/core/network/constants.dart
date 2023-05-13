@@ -10,9 +10,9 @@ class ApiConstant {
   static const UPDATE = 'https://elwekala.onrender.com/user/update';
   static const DELETEUSER = 'https://elwekala.onrender.com/user/delete';//del
   static const FAVORITE = 'https://elwekala.onrender.com/favorite';
-  static const HOMELAPTOPS = 'https://elwekala.onrender.com/product/Laptops';
-  static const HOMESMARTPHONE= 'https://elwekala.onrender.com/product/Smart Phones';
-  static const HOMESMARTWATCHS = 'https://elwekala.onrender.com/product/Smart%20Watches';
+  static const HOMELAPTOPS = 'https://elwekala.onrender.com/product/inCart/Laptops';
+  static const HOMESMARTPHONE= 'https://elwekala.onrender.com/product/inCart/Smart Phones';
+  static const HOMESMARTWATCHS = 'https://elwekala.onrender.com/product/inCart/Smart Watches';
   static const ADDTOCART = 'https://elwekala.onrender.com/cart/add';
   static const GETMYCART = 'https://elwekala.onrender.com/cart/allProducts';
   static const TOTALPRICE = 'https://elwekala.onrender.com/cart/total';
