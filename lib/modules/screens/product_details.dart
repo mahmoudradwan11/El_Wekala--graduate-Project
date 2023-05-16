@@ -1,7 +1,9 @@
 import 'package:el_wekala/core/controllers/store_cubit/store_cubit.dart';
 import 'package:el_wekala/core/controllers/store_cubit/store_states.dart';
 import 'package:el_wekala/modules/screens/sellers.dart';
+import 'package:el_wekala/modules/widgets/builders/build_review_item.dart';
 import 'package:el_wekala/modules/widgets/builders/defaultBotton.dart';
+import 'package:el_wekala/modules/widgets/builders/defaultFieldForm.dart';
 import 'package:el_wekala/modules/widgets/functions/navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,7 +14,10 @@ import 'package:percent_indicator/linear_percent_indicator.dart';
 class ProductDetails extends StatelessWidget {
   ProductDetails({Key? key, this.model}) : super(key: key);
   var model;
-
+  var commentsController = TextEditingController();
+  var rateController = TextEditingController();
+  var scaffoldKey = GlobalKey<ScaffoldState>();
+  var formKey = GlobalKey<FormState>();
   //TabController _tabController = TabController(length: 3, vsync: this);
   @override
   Widget build(BuildContext context) {
@@ -21,6 +26,7 @@ class ProductDetails extends StatelessWidget {
         builder: (context, state) {
           var cubit = ElWekalaCubit.get(context);
           return Scaffold(
+            key: scaffoldKey,
             body: SingleChildScrollView(
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -816,6 +822,69 @@ class ProductDetails extends StatelessWidget {
                         ),
                       ),
                     if(cubit.currentTabViewIndex==2)
+                     Column(
+                       children:[
+                         MaterialButton(onPressed:(){
+                           scaffoldKey.currentState!.showBottomSheet((context) =>Container(
+                             height: 200,
+                             decoration: BoxDecoration(color: Colors.grey[300],
+                                 borderRadius:BorderRadius.circular(10)),
+                             child: SingleChildScrollView(
+                               child:Form(
+                                 key: formKey,
+                                 child: Padding(
+                                   padding: const EdgeInsets.all(10.0),
+                                   child: Column(
+                                     children: [
+                                       DefaultFieldForm(
+                                         show:false,
+                                         controller:commentsController,
+                                         keyboard:TextInputType.text,
+                                         valid:(value){
+                                           if(value.isEmpty){
+                                             return 'Comments Must Not Be Empty';
+                                           }
+                                           return null;
+                                         },
+                                         label:'Comments',
+                                         prefix:Icons.comment,
+                                       ),
+                                       const SizedBox(
+                                         height: 15,
+                                       ),
+                                       DefaultFieldForm(
+                                         show:false,
+                                         controller:rateController,
+                                         keyboard:TextInputType.number,
+                                         valid:(value){
+                                           if(value.isEmpty){
+                                             return 'rate Must Not Be Empty';
+                                           }
+                                           return null;
+                                         },
+                                         label:'Rating',
+                                         prefix:Icons.rate_review,
+                                       ),
+                                       const SizedBox(
+                                         height: 15,
+                                       ),
+                                       DefaultButton(buttonWidget:const Text('Add Reviews'), function:(){
+                                          if(formKey.currentState!.validate()){
+                                           cubit.addReview(model.sId, commentsController.text, rateController.text);
+                                           cubit.getAllReviews(model.sId);
+                                          }
+                                       })
+                                     ],
+                                   ),
+                                 ),
+
+                               )
+                             ),
+                           ));
+                         },child: Text('Add Review'),)
+                       ],
+                     ),
+/*
                       Column(
                         children: [
                           Row(
@@ -1085,6 +1154,22 @@ class ProductDetails extends StatelessWidget {
 
                         ],
                       ),
+
+                       */
+
+                    if(cubit.currentTabViewIndex==2)
+                    if(cubit.reviewModel!.reviews!.isEmpty)
+                      const Text('No Reviews For This Items'),
+                    if(cubit.currentTabViewIndex==2)
+                    if(cubit.reviewModel!.reviews!.isNotEmpty)
+                      ListView.separated(
+                        shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          itemBuilder:(context,index)=>buildReviewItem(cubit.reviewModel!.reviews![index]),
+                          separatorBuilder:(context,index)=>const SizedBox(
+                            height: 20,
+                          ),
+                          itemCount: cubit.reviewModel!.reviews!.length),
                     Padding(
                       padding: const EdgeInsets.all(20),
                       child: Row(
@@ -1112,7 +1197,13 @@ class ProductDetails extends StatelessWidget {
                           DefaultButton(buttonWidget: Text('Add to Cart',style: TextStyle(color: Colors.white),),function:(){
                             cubit.addToMyCart(model.sId);
                           },radius: 11,backgroundColor: HexColor('#07094D'),borderColor: Colors.transparent,))
+
+
+
+
                         ],
+
+
                       ),
                     )
                   ]),

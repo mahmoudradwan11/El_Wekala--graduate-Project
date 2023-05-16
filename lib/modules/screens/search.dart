@@ -1,12 +1,15 @@
 import 'package:el_wekala/core/controllers/store_cubit/store_cubit.dart';
 import 'package:el_wekala/core/controllers/store_cubit/store_states.dart';
+import 'package:el_wekala/core/themes/Icon_Borken.dart';
+import 'package:el_wekala/modules/screens/cart.dart';
 import 'package:el_wekala/modules/widgets/builders/build_product_item.dart';
 import 'package:el_wekala/modules/widgets/builders/custom_tap.dart';
+import 'package:el_wekala/modules/widgets/functions/navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hexcolor/hexcolor.dart';
-
+import 'package:badges/badges.dart' as badges;
 class Search extends StatelessWidget {
   Search({Key? key}) : super(key: key);
   var searchController = TextEditingController();
@@ -29,6 +32,37 @@ class Search extends StatelessWidget {
               ),
               centerTitle: true,
               title:const Text('Popular Product'),
+               actions:[
+                 Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: IconButton(
+                      onPressed: () {
+                        navigateTo(context,Cart());
+                      },
+                      icon: badges.Badge(
+                        badgeAnimation: const badges.BadgeAnimation.slide(
+                          animationDuration: Duration(seconds: 1),
+                          colorChangeAnimationDuration: Duration(seconds: 1),
+                          loopAnimation: false,
+                          curve: Curves.fastOutSlowIn,
+                          colorChangeAnimationCurve: Curves.easeInCubic,
+                        ),
+                        position:
+                        badges.BadgePosition.topEnd(top: -15, end: -12),
+                        badgeStyle: badges.BadgeStyle(
+                          padding: const EdgeInsets.all(3),
+                          borderRadius: BorderRadius.circular(4),
+                          badgeColor: Colors.red,
+                        ),
+                        badgeContent: Text(
+                          '${cubit.cartModel!.products!.length}',
+                          style: const TextStyle(color: Colors.white),
+                        ),
+                        child:
+                         Icon(IconBroken.Bag_2,color: HexColor('#07094D'),),
+                      )),
+                )
+          ]
             ),
             body: SingleChildScrollView(
           child: Column(

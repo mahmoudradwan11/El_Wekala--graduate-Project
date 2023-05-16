@@ -16,6 +16,7 @@ import 'package:el_wekala/models/store_model/home/smartphone.dart';
 import 'package:el_wekala/models/store_model/home/smartwatch.dart';
 import 'package:el_wekala/models/store_model/laptops.dart';
 import 'package:el_wekala/models/store_model/phones.dart';
+import 'package:el_wekala/models/store_model/review_model.dart';
 import 'package:el_wekala/models/store_model/search.dart';
 import 'package:el_wekala/models/store_model/search_fliter.dart';
 import 'package:el_wekala/models/store_model/seller.dart';
@@ -493,6 +494,34 @@ void update({String? name,String? phone,String? email}){
     }).catchError((error){
       print(error.toString());
       emit(ErrorGetAllSellerProducts());
+    });
+  }
+  void addReview(productId,comment,rate){
+    DioHelperStore.postData(url:'https://elwekala.onrender.com/review', data:{
+      "user": nationalId,
+      "productId": productId,
+      "title": "Good",
+      "comment":comment,
+      "rating": rate
+    }).then((value){
+   showToast('Review Added', ToastStates.SUCCESS);
+   getAllReviews(productId);
+   emit(AddReview());
+    }).catchError((error){
+      print(error.toString());
+      emit(ErrorAddReview());
+    });
+  }
+  ReviewModel? reviewModel;
+  void getAllReviews(productId){
+    DioHelperStore.getData(url:'https://elwekala.onrender.com/review/allreviews/$productId')
+    .then((value){
+      reviewModel = ReviewModel.fromJson(value.data);
+      print('Reviews = ${reviewModel!.reviews!.length}');
+      emit(GetAllReviews());
+    }).catchError((error){
+      print(error.toString());
+      emit(ErrorGetAllReviews());
     });
   }
 }

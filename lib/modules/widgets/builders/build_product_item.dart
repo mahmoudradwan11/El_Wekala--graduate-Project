@@ -7,6 +7,7 @@ import 'package:hexcolor/hexcolor.dart';
 
 Widget buildProductItem(product,context) =>InkWell(
   onTap:(){
+    ElWekalaCubit.get(context).getAllReviews(product.sId);
     navigateTo(context,ProductDetails(model: product,));
   },
   child:   Padding(

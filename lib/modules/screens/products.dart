@@ -29,6 +29,12 @@ class _ProductsState extends State<Products> {
     ElWekalaCubit.get(context).getMyFavorite();
     ElWekalaCubit.get(context).getMyCart();
     ElWekalaCubit.get(context).getTotal();
+    ElWekalaCubit.get(context).getHomeLaptops();
+    ElWekalaCubit.get(context).getHomeSmartPhone();
+    ElWekalaCubit.get(context).getHomeSmartWatch();
+    ElWekalaCubit.get(context).getAllPhones();
+    ElWekalaCubit.get(context).getAllLaptops();
+    ElWekalaCubit.get(context).getAllReviews('645f8ffd1489fc879fdf22df');
   }
 
   var smoothController = PageController();
