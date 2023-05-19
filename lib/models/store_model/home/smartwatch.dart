@@ -26,6 +26,7 @@ class Product {
   String? description;
   String? image;
   String? company;
+  List<String>? images;
   dynamic countInStock;
   dynamic iV;
   bool? inCart = false;
@@ -54,6 +55,7 @@ class Product {
     description = json['description'];
     image = json['image'];
     company = json['company'];
+    images = json['images'].cast<String>();
     countInStock = json['countInStock'];
     iV = json['__v'];
     inCart = json['inCart'];

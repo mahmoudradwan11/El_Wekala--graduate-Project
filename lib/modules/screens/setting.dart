@@ -74,8 +74,8 @@ class Setting extends StatelessWidget {
                                   height: 71,
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10),
-                                    image: const DecorationImage(
-                                      image: AssetImage('images/Person.png'),
+                                    image: DecorationImage(
+                                      image: NetworkImage(cubit.profileModel!.user!.profileImage!),
                                       fit: BoxFit.contain,
                                     ),
                                   ),

@@ -1,7 +1,9 @@
 import 'package:el_wekala/core/controllers/store_cubit/store_cubit.dart';
 import 'package:el_wekala/core/controllers/store_cubit/store_states.dart';
+import 'package:el_wekala/modules/screens/search_acc.dart';
 import 'package:el_wekala/modules/screens/search_lap.dart';
 import 'package:el_wekala/modules/screens/search_phone.dart';
+import 'package:el_wekala/modules/screens/search_tvs.dart';
 import 'package:el_wekala/modules/screens/search_watch.dart';
 import 'package:el_wekala/modules/widgets/builders/cateogy_screen_item.dart';
 import 'package:el_wekala/modules/widgets/functions/navigator.dart';
@@ -51,10 +53,20 @@ class NewsProducts extends StatelessWidget {
                     onTap:(){
                       navigateTo(context,SearchWatch());
                     },
-                    child: buildCategoryScreenItem('Smart Watches',cubit.homeSmartWatch!.product!.length))
+                    child: buildCategoryScreenItem('Smart Watches',cubit.homeSmartWatch!.product!.length)),
+                InkWell(onTap:(){
+                  cubit.customIndex =1;
+                  navigateTo(context, SearchTVS());
+                },
+                  child:buildCategoryScreenItem('Smart TVS', cubit.homeTVS!.newProduct!.length),
+                ),
+                InkWell(onTap:(){
+                  navigateTo(context, SearchAccessoures());
+                },
+                  child:buildCategoryScreenItem('PC Accessories', cubit.homeAccessories!.product!.length),
+                )
               ],
             ),
-
           );
     }
     );

@@ -26,6 +26,7 @@ class ProductsFiltee {
   String? status;
   String? category;
   String? name;
+  List<String>? images;
   dynamic price;
   String? description;
   String? image;
@@ -55,6 +56,7 @@ class ProductsFiltee {
     description = json['description'];
     image = json['image'];
     company = json['company'];
+    images = json['images'].cast<String>();
     countInStock = json['countInStock'];
     iV = json['__v'];
   }

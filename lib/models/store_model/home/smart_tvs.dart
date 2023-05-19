@@ -1,20 +1,29 @@
-class SearchModel {
+class HomeTVS{
   String? status;
   String? message;
-  List<SearchProducts>? products;
-  SearchModel({this.status, this.message, this.products});
-  SearchModel.fromJson(Map<String, dynamic> json) {
+  List<Product>? newProduct;
+  List<Product>? usedProduct;
+
+  HomeTVS({this.status, this.message,});
+
+  HomeTVS.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
     if (json['products'] != null) {
-      products = <SearchProducts>[];
-      json['products'].forEach((v) {
-        products!.add(SearchProducts.fromJson(v));
+      usedProduct= <Product>[];
+      newProduct =<Product>[];
+      json['products'].forEach((v){
+        if(v['status']=='New'){
+          newProduct!.add(Product.fromJson(v));
+        }else{
+          usedProduct!.add(Product.fromJson(v));
+        }
       });
     }
   }
+
 }
-class SearchProducts {
+class Product {
   String? sId;
   String? status;
   String? category;
@@ -23,12 +32,13 @@ class SearchProducts {
   String? description;
   String? image;
   String? company;
-  List<String>? images;
   dynamic countInStock;
-  int? iV;
+  dynamic iV;
+  List<String>? images;
   bool? inCart = false;
   bool? inFavorite = false;
-  SearchProducts(
+
+  Product(
       {this.sId,
         this.status,
         this.category,
@@ -37,10 +47,14 @@ class SearchProducts {
         this.description,
         this.image,
         this.company,
+        this.images,
         this.countInStock,
-        this.iV});
+        this.iV,
+        this.inCart,
+        this.inFavorite,
+      });
 
-  SearchProducts.fromJson(Map<String, dynamic> json) {
+  Product.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
     status = json['status'];
     category = json['category'];
@@ -52,5 +66,7 @@ class SearchProducts {
     company = json['company'];
     countInStock = json['countInStock'];
     iV = json['__v'];
+    inCart = json['inCart'];
+    inFavorite = json['inFavorites'];
   }
 }

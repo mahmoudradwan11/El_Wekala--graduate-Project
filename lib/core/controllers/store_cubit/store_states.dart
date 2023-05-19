@@ -2,7 +2,6 @@ import 'package:el_wekala/models/store_model/user.dart';
 abstract class ElWekalaStates{}
 class InitState extends ElWekalaStates{}
 class ChangeScreenIndex extends ElWekalaStates{}
-class ImageChoose extends ElWekalaStates{}
 class ChangeCustomIndex extends ElWekalaStates{}
 class ChangeSettingIndex extends ElWekalaStates{}
 class SelectSort extends ElWekalaStates{}
@@ -55,3 +54,7 @@ class AddReview extends ElWekalaStates{}
 class ErrorAddReview extends ElWekalaStates{}
 class GetAllReviews extends ElWekalaStates{}
 class ErrorGetAllReviews extends ElWekalaStates{}
+class GetAllAcc extends ElWekalaStates{}
+class ErrorGetAllAcc extends ElWekalaStates{}
+class GetAllTvs extends ElWekalaStates{}
+class ErrorGetAllTvs extends ElWekalaStates{}

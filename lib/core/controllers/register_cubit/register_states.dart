@@ -17,3 +17,5 @@ class RegisterErrorState extends RegisterStates {
 }
 
 class RegisterChangePasswordVisibilityState extends RegisterStates {}
+class ImageChoose extends RegisterStates{}
+

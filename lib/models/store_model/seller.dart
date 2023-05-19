@@ -23,6 +23,7 @@ class SellersProducts {
   String? name;
   dynamic price;
   String? description;
+  List<String>? images;
   String? image;
   String? company;
   dynamic countInStock;
@@ -47,6 +48,7 @@ class SellersProducts {
     category = json['category'];
     name = json['name'];
     price = json['price'];
+    images = json['images'].cast<String>();
     description = json['description'];
     image = json['image'];
     company = json['company'];

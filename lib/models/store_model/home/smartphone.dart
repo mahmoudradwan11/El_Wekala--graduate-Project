@@ -31,6 +31,7 @@ class Product {
   dynamic price;
   String? description;
   String? image;
+  List<String>? images;
   String? company;
   dynamic countInStock;
   dynamic iV;
@@ -62,6 +63,7 @@ class Product {
     company = json['company'];
     countInStock = json['countInStock'];
     iV = json['__v'];
+    images = json['images'].cast<String>();
     inCart = json['inCart'];
     inFavorite = json['inFavorites'];
   }

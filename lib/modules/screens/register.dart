@@ -75,6 +75,9 @@ class Register extends StatelessWidget {
                         const SizedBox(
                           height: 20,
                         ),
+                        MaterialButton(onPressed:(){
+                          cubit.addImage();
+                        },child: const Text('Selected Image'),),
                         Container(
                           width: 150,
                           child: Row(

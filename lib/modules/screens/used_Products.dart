@@ -2,6 +2,7 @@ import 'package:el_wekala/core/controllers/store_cubit/store_cubit.dart';
 import 'package:el_wekala/core/controllers/store_cubit/store_states.dart';
 import 'package:el_wekala/modules/screens/search_lap.dart';
 import 'package:el_wekala/modules/screens/search_phone.dart';
+import 'package:el_wekala/modules/screens/search_tvs.dart';
 import 'package:el_wekala/modules/widgets/builders/cateogy_screen_item.dart';
 import 'package:el_wekala/modules/widgets/functions/navigator.dart';
 import 'package:flutter/material.dart';
@@ -46,9 +47,14 @@ class UsedProducts extends StatelessWidget {
                       navigateTo(context,SearchPhone());
                     },
                     child: buildCategoryScreenItem('Smart Phones',cubit.homeSmartPhone!.usedProduct!.length)),
+              InkWell(
+                  onTap:(){
+                    cubit.customIndex = 2;
+                    navigateTo(context,SearchTVS());
+                  },
+                  child: buildCategoryScreenItem('Smart Tvs',cubit.homeTVS!.usedProduct!.length)),
               ],
-            ),
-
+            )
           );
         }
     );

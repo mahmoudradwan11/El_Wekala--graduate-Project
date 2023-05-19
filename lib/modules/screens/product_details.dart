@@ -10,10 +10,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class ProductDetails extends StatelessWidget {
   ProductDetails({Key? key, this.model}) : super(key: key);
   var model;
+  var imagesController = PageController();
   var commentsController = TextEditingController();
   var rateController = TextEditingController();
   var scaffoldKey = GlobalKey<ScaffoldState>();
@@ -108,10 +110,32 @@ class ProductDetails extends StatelessWidget {
                       width: double.infinity,
                       color: Colors.white,
                       height: 300,
-                      child: Image(
-                        fit: BoxFit.contain,
-                        image: NetworkImage(model.image),
+                      child:PageView.builder(
+                        itemBuilder: (context, index) => Container(
+                          //height: 100,
+                          child: Image(
+                            height: 100,
+                            image: NetworkImage(model!.images![index]),
+                          ),
+                        ),
+                        itemCount: model!.images!.length,
+                        controller: imagesController,
                       ),
+                    ),
+                    const SizedBox(height: 20,),
+                    Align(
+                      alignment: AlignmentDirectional.center,
+                      child: SmoothPageIndicator(
+                          effect: JumpingDotEffect(
+                            dotColor: Colors.grey[400]!,
+                            activeDotColor: Colors.black,
+                            dotHeight: 12,
+                            dotWidth: 12,
+                            // expansionFactor: 4,
+                            spacing: 5.0,
+                          ),
+                          controller: imagesController,
+                          count: model!.images!.length),
                     ),
                     Padding(
                       padding:
@@ -884,279 +908,6 @@ class ProductDetails extends StatelessWidget {
                          },child: Text('Add Review'),)
                        ],
                      ),
-/*
-                      Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const CircleAvatar(
-                                radius:30,
-                                backgroundImage: AssetImage('images/1.png'),
-                              ),
-                              SizedBox(
-                                width: 20,
-                              ),
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children:const [
-                                      Text('Lile Amins',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 12),),
-                                      SizedBox(
-                                        width: 150,
-                                      ),
-                                      Text('13 May,2023',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 12,color: Colors.grey),),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  const SizedBox(
-                                    width: 300,
-                                      child: Text('Storage expandability, average Battery, bright Screen, powerful gpu and cpu',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 12,color: Colors.black38),)),
-                                  Row(
-                                    children:[
-                                      const SizedBox(
-                                        width:180,
-                                      ),
-                                      Icon(
-                                        Icons.star,
-                                        color: HexColor('#07094D'),
-                                      ),
-                                      Icon(
-                                        Icons.star,
-                                        color: HexColor('#07094D'),
-                                      ),
-                                      Icon(
-                                        Icons.star,
-                                        color: HexColor('#07094D'),
-                                      ),
-                                      Icon(
-                                        Icons.star,
-                                        color: HexColor('#07094D'),
-                                      ),
-                                      Icon(
-                                        Icons.star,
-                                        color: HexColor('#07094D'),
-                                      ),
-                                    ],
-                                  )
-                                ],
-                              ),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const CircleAvatar(
-                                radius:30,
-                                backgroundImage: AssetImage('images/2.png'),
-                              ),
-                              const SizedBox(
-                                width: 20,
-                              ),
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children:const [
-                                      Text('Jasmine Pie',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 12),),
-                                      SizedBox(
-                                        width: 140,
-                                      ),
-                                      Text('15 May,2023',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 12,color: Colors.grey),),
-                                    ],
-                                  ),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
-                                  const SizedBox(
-                                      width: 300,
-                                      child: Text('Excellent experience 👏',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 12,color: Colors.black38),)),
-                                  Row(
-                                    children:[
-                                      const SizedBox(
-                                        width:180,
-                                      ),
-                                      Icon(
-                                        Icons.star,
-                                        color: HexColor('#07094D'),
-                                      ),
-                                      Icon(
-                                        Icons.star,
-                                        color: HexColor('#07094D'),
-                                      ),
-                                      Icon(
-                                        Icons.star,
-                                        color: HexColor('#07094D'),
-                                      ),
-                                      Icon(
-                                        Icons.star,
-                                        color: HexColor('#07094D'),
-                                      ),
-                                      Icon(
-                                        Icons.star,
-                                        color: HexColor('#07094D'),
-                                      ),
-                                    ],
-                                  )
-                                ],
-                              ),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const CircleAvatar(
-                                radius:30,
-                                backgroundImage: AssetImage('images/3.png'),
-                              ),
-                              const SizedBox(
-                                width: 20,
-                              ),
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children:const [
-                                      Text('Mark Joe',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 12),),
-                                      SizedBox(
-                                        width: 150,
-                                      ),
-                                      Text('19 May,2023',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 12,color: Colors.grey),),
-                                    ],
-                                  ),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
-                                  const SizedBox(
-                                      width: 300,
-                                      child: Text('Good computer, but I prefer the older model honestly...',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 12,color: Colors.black38),)),
-                                  Row(
-                                    children:[
-                                      const SizedBox(
-                                        width:180,
-                                      ),
-                                      Icon(
-                                        Icons.star,
-                                        color: HexColor('#07094D'),
-                                      ),
-                                      Icon(
-                                        Icons.star,
-                                        color: HexColor('#07094D'),
-                                      ),
-                                      Icon(
-                                        Icons.star,
-                                        color: HexColor('#07094D'),
-                                      ),
-                                      Icon(
-                                        Icons.star,
-                                        color: HexColor('#07094D'),
-                                      ),
-                                      Icon(
-                                        Icons.star,
-                                        color: HexColor('#07094D'),
-                                      ),
-                                    ],
-                                  )
-                                ],
-                              ),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const CircleAvatar(
-                                radius:30,
-                                backgroundImage: AssetImage('images/4.png'),
-                              ),
-                              const SizedBox(
-                                width: 20,
-                              ),
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children:const [
-                                      Text('jack Wily',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 12),),
-                                      SizedBox(
-                                        width: 150,
-                                      ),
-                                      Text('23 May,2023',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 12,color: Colors.grey),),
-                                    ],
-                                  ),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
-                                  const SizedBox(
-                                      width: 300,
-                                      child: Text('Not really designed as a good gaming laptop.',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 12,color: Colors.black38),)),
-                                 SizedBox(
-                                   height: 5,
-                                 ),
-                                  Row(
-                                    children:[
-                                      const SizedBox(
-                                        width:180,
-                                      ),
-                                      Icon(
-                                        Icons.star,
-                                        color: HexColor('#07094D'),
-                                      ),
-                                      Icon(
-                                        Icons.star,
-                                        color: HexColor('#07094D'),
-                                      ),
-                                      Icon(
-                                        Icons.star,
-                                        color: HexColor('#07094D'),
-                                      ),
-                                      Icon(
-                                        Icons.star,
-                                        color: HexColor('#07094D'),
-                                      ),
-                                      Icon(
-                                        Icons.star,
-                                        color: HexColor('#07094D'),
-                                      ),
-                                    ],
-                                  )
-                                ],
-                              ),
-                            ],
-                          ),
-
-                        ],
-                      ),
-
-                       */
-
                     if(cubit.currentTabViewIndex==2)
                     if(cubit.reviewModel!.reviews!.isEmpty)
                       const Text('No Reviews For This Items'),

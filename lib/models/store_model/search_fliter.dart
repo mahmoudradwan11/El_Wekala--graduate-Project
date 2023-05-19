@@ -28,6 +28,7 @@ class SearchProducts {
   dynamic price;
   String? description;
   String? image;
+  List<String>? images;
   String? company;
   dynamic countInStock;
   int? iV;
@@ -53,6 +54,7 @@ class SearchProducts {
     price = json['price'];
     description = json['description'];
     image = json['image'];
+    images = json['images'].cast<String>();
     company = json['company'];
     countInStock = json['countInStock'];
     iV = json['__v'];

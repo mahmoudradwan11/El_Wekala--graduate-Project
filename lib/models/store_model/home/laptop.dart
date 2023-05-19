@@ -34,6 +34,7 @@ class Product {
   String? company;
   dynamic countInStock;
   dynamic iV;
+  List<String>? images;
   bool? inCart = false;
   bool? inFavorite = false;
 
@@ -46,6 +47,7 @@ class Product {
         this.description,
         this.image,
         this.company,
+        this.images,
         this.countInStock,
         this.iV,
         this.inCart,
@@ -58,6 +60,7 @@ class Product {
     category = json['category'];
     name = json['name'];
     price = json['price'];
+    images = json['images'].cast<String>();
     description = json['description'];
     image = json['image'];
     company = json['company'];

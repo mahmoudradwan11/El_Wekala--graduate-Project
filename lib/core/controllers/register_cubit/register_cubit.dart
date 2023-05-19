@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:io';
+import 'dart:typed_data';
 import 'package:bloc/bloc.dart';
 import 'package:el_wekala/core/controllers/register_cubit/register_states.dart';
 import 'package:el_wekala/core/network/constants.dart';
@@ -6,6 +9,7 @@ import 'package:el_wekala/models/store_model/user.dart';
 import 'package:el_wekala/modules/widgets/functions/toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 
 class RegisterCubit extends Cubit<RegisterStates> {
   RegisterCubit() : super(RegisterInitialState());
@@ -32,6 +36,7 @@ class RegisterCubit extends Cubit<RegisterStates> {
         'phone': phone,
         'nationalId':nationalId,
         'gender':'male',
+        'profileImage':img64
       },
     ).then((value) {
       print(value.data);
@@ -56,5 +61,20 @@ class RegisterCubit extends Cubit<RegisterStates> {
 
     emit(RegisterChangePasswordVisibilityState());
   }
-
+  ImagePicker picker = ImagePicker();
+  File? image;
+  Uint8List? bytes;
+  String? img64;
+  Future<void> addImage() async {
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      image = File(pickedFile.path);
+      bytes = File(image!.path).readAsBytesSync();
+      img64 = base64Encode(bytes!);
+      print('images = $img64');
+      emit(ImageChoose());
+    } else {
+      print('no image selected');
+    }
+  }
 }

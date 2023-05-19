@@ -16,6 +16,7 @@ class UserData{
   String? nationalId;
   String? gender;
   String? token;
+  String? profileImage;
 
     UserData.fromJson(Map<String, dynamic> json) {
     name = json['name'];
@@ -24,6 +25,7 @@ class UserData{
     nationalId = json['nationalId'];
     gender = json['gender'];
     token = json['token'];
+    profileImage = json['profileImage'];
   }
 
 }
