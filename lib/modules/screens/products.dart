@@ -37,6 +37,7 @@ class _ProductsState extends State<Products> {
     ElWekalaCubit.get(context).getHomeSmartWatch();
     ElWekalaCubit.get(context).getAllPhones();
     ElWekalaCubit.get(context).getAllLaptops();
+    ElWekalaCubit.get(context).getMessages();
     ElWekalaCubit.get(context).getAllReviews('645f8ffd1489fc879fdf22df');
   }
 

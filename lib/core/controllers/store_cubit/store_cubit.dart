@@ -14,6 +14,7 @@ import 'package:el_wekala/models/store_model/home/smart_tvs.dart';
 import 'package:el_wekala/models/store_model/home/smartphone.dart';
 import 'package:el_wekala/models/store_model/home/smartwatch.dart';
 import 'package:el_wekala/models/store_model/laptops.dart';
+import 'package:el_wekala/models/store_model/message.dart';
 import 'package:el_wekala/models/store_model/phones.dart';
 import 'package:el_wekala/models/store_model/review_model.dart';
 import 'package:el_wekala/models/store_model/search.dart';
@@ -586,7 +587,9 @@ class ElWekalaCubit extends Cubit<ElWekalaStates> {
       emit(ErrorGetAllTvs());
     });
   }
+
   TVS? tvs;
+
   void getAllTVS() {
     DioHelperStore.getData(url: ApiConstant.HOMETVS, data: {
       "nationalId": nationalId
@@ -606,12 +609,42 @@ class ElWekalaCubit extends Cubit<ElWekalaStates> {
       "nationalId": nationalId
     }).then((value) {
       homeAccessories = HomeAccessories.fromJson(value.data);
-     // print(homeAccessories!.product!.length);
-     // print(homeAccessories!.message!);
+      // print(homeAccessories!.product!.length);
+      // print(homeAccessories!.message!);
       emit(GetAllAcc());
     }).catchError((error) {
       print(error.toString());
       emit(ErrorGetAllAcc());
     });
+  }
+  MessagesModel? messagesModel;
+  void getMessages() {
+    DioHelperStore.getData(url: 'https://elwekala.onrender.com/chat/',data:{
+      "senderNationalId": nationalId,
+      "receiverNationalId": "30103131301721"
+    }).then((
+        value){
+      messagesModel = MessagesModel.fromJson(value.data);
+      print(messagesModel!.messages!.length);
+     emit(GetAllMessages());
+    }).catchError((error){
+      print(error.toString());
+      emit(ErrorGetAllMessages());
+    });
+  }
+  void sendMessage(content){
+    DioHelperStore.postData(url:'https://elwekala.onrender.com/chat/', data:
+      {
+        "senderNationalId": nationalId,
+        "receiverNationalId": "30103131301721",
+        "content": content
+    }).then((value){
+      emit(SendMessage());
+      getMessages();
+    }).catchError((error){
+      print(error.toString());
+      emit(ErrorSendMessage());
+    });
+    
   }
 }

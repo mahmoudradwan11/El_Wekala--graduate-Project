@@ -1,3 +1,4 @@
+import 'package:el_wekala/core/controllers/store_cubit/store_cubit.dart';
 import 'package:el_wekala/models/store_model/user.dart';
 abstract class ElWekalaStates{}
 class InitState extends ElWekalaStates{}
@@ -58,3 +59,7 @@ class GetAllAcc extends ElWekalaStates{}
 class ErrorGetAllAcc extends ElWekalaStates{}
 class GetAllTvs extends ElWekalaStates{}
 class ErrorGetAllTvs extends ElWekalaStates{}
+class GetAllMessages extends ElWekalaStates{}
+class ErrorGetAllMessages extends ElWekalaStates{}
+class SendMessage extends ElWekalaStates{}
+class ErrorSendMessage extends ElWekalaStates{}

@@ -11,7 +11,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-
 class ProductDetails extends StatelessWidget {
   ProductDetails({Key? key, this.model}) : super(key: key);
   var model;
@@ -62,8 +61,8 @@ class ProductDetails extends StatelessWidget {
                                 child: Row(
                                   children: [
                                     Expanded(
-                                      flex:2,
-                                        child: Text('Chat',style: TextStyle(color: HexColor('#07094D'),fontWeight: FontWeight.w600),)),
+                                      child: Text('Chat',style: TextStyle(color: HexColor('#07094D'),fontWeight: FontWeight.w600),),
+                                    ),
                                     Expanded(child: Icon(Icons.chat,color:HexColor('#07094D')))
                                   ],
                                 ),
