@@ -103,6 +103,7 @@ Widget buildFavoriteItem(FavoriteProducts favoriteProducts,context) => Padding(
                                       fontWeight: FontWeight.w600),
                                 ),
                               ),
+                              if(favoriteProducts.status=='New')
                               Expanded(
                                 child: Container(
                                     height: 30,

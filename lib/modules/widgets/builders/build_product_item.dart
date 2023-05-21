@@ -115,7 +115,8 @@ Widget buildProductItem(product,context) =>InkWell(
                                         fontWeight: FontWeight.w600),
                                   ),
                                 ),
-                                Expanded(
+                                if(product.status=='New')
+                                  Expanded(
                                   child: Container(
                                       height: 30,
                                       decoration: BoxDecoration(

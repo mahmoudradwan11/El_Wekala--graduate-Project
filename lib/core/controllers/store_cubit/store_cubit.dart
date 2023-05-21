@@ -645,6 +645,5 @@ class ElWekalaCubit extends Cubit<ElWekalaStates> {
       print(error.toString());
       emit(ErrorSendMessage());
     });
-    
   }
 }

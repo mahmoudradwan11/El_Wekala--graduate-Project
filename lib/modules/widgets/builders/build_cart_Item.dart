@@ -38,6 +38,7 @@ Widget buildCartItem(CartProducts cartProducts,context) => Container(
                             ),
                           ),
                         ),
+                        if(cartProducts.status=='New')
                         Expanded(
                             child: Container(
                           decoration: const BoxDecoration(

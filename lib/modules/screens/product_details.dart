@@ -49,25 +49,6 @@ class ProductDetails extends StatelessWidget {
                               ),
                             ),
                             Spacer(),
-                            Container(
-                              height: 31,
-                              width: 80,
-                              decoration: BoxDecoration(
-                                color: HexColor('#E6E7E8'),
-                                borderRadius: BorderRadius.circular(6)
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Row(
-                                  children: [
-                                    Expanded(
-                                      child: Text('Chat',style: TextStyle(color: HexColor('#07094D'),fontWeight: FontWeight.w600),),
-                                    ),
-                                    Expanded(child: Icon(Icons.chat,color:HexColor('#07094D')))
-                                  ],
-                                ),
-                              )
-                            )
                           ],
                         ),
                       ),
@@ -125,13 +106,11 @@ class ProductDetails extends StatelessWidget {
                     Align(
                       alignment: AlignmentDirectional.center,
                       child: SmoothPageIndicator(
-                          effect: JumpingDotEffect(
-                            dotColor: Colors.grey[400]!,
-                            activeDotColor: Colors.black,
-                            dotHeight: 12,
-                            dotWidth: 12,
-                            // expansionFactor: 4,
-                            spacing: 5.0,
+                          effect: ExpandingDotsEffect(
+                              dotHeight: 8,
+                              dotWidth: 9,
+                              dotColor:HexColor('#AFAFAF')
+                            // strokeWidth: 5,
                           ),
                           controller: imagesController,
                           count: model!.images!.length),
