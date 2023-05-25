@@ -229,7 +229,7 @@ class Register extends StatelessWidget {
                             keyboard: TextInputType.number,
                             valid: (value) {
                               if (value.isEmpty) {
-                                return 'Please Enter Your Email';
+                                return 'Please Enter Your National';
                               }
                               return null;
                             },
@@ -237,6 +237,47 @@ class Register extends StatelessWidget {
                             hint: 'national Id',
                             hintStyle: const TextStyle(color: Colors.grey),
                             show: false),
+                        const SizedBox(
+                          height: 40,
+                        ),
+                        Row(
+                          children:[
+                            Expanded(
+                              child: InkWell(
+                                onTap:(){
+                                  cubit.changeToMale();
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color:cubit.isMale?HexColor('#07094D'):Colors.grey[400],
+                                  ),
+                                  height: 53,
+                                  width: 160,
+                                  child: const Center(child:  Text('Male',style: TextStyle(color: Colors.white),)),),
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 20,
+                            ),
+                            Expanded(
+                              child: InkWell(
+                                onTap:(){
+                                  cubit.changeToFemale();
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color:cubit.isMale?Colors.grey[400]:HexColor('#07094D'),
+                                  ),
+                                  height: 53,
+                                  width: 160,
+                                  child:const Center(child: Text('Female',style: TextStyle(color: Colors.white),)),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                         const SizedBox(
                           height: 40,
                         ),

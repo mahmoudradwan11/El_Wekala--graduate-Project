@@ -1,5 +1,6 @@
 import 'package:el_wekala/core/controllers/store_cubit/store_cubit.dart';
 import 'package:el_wekala/modules/screens/edit_profile.dart';
+import 'package:el_wekala/modules/screens/report.dart';
 import 'package:el_wekala/modules/widgets/builders/defaultBotton.dart';
 import 'package:el_wekala/modules/widgets/builders/mypainter.dart';
 import 'package:el_wekala/modules/widgets/functions/navigator.dart';
@@ -227,7 +228,9 @@ Widget buildGeneralItems(context) => Padding(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 InkWell(
-                     onTap: (){},
+                     onTap: (){
+                       navigateTo(context,ContactUs());
+                     },
                     child: Text('Contact us',style: TextStyle(color:HexColor('#07094D'),fontWeight: FontWeight.w600),),),
                 const Spacer(),
                  InkWell(onTap: (){

@@ -1,12 +1,11 @@
 import 'package:el_wekala/core/controllers/store_cubit/store_cubit.dart';
 import 'package:el_wekala/core/controllers/store_cubit/store_states.dart';
+import 'package:el_wekala/core/network/constants.dart';
 import 'package:el_wekala/modules/widgets/builders/messages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:hexcolor/hexcolor.dart';
-
-import '../../core/network/constants.dart';
-
 class ChatScreen extends StatelessWidget {
   // UserData? userModel;
   var textController = TextEditingController();
@@ -28,18 +27,28 @@ class ChatScreen extends StatelessWidget {
                 backgroundColor: Colors.grey[400],
                 appBar: AppBar(
                   titleSpacing: 0.0,
-                  title: Row(
-                    children: [
-                      CircleAvatar(
-                        radius: 20.0,
-                        backgroundImage: NetworkImage(cubit.profileModel!.user!
-                            .profileImage!),
-                      ),
-                      const SizedBox(
-                        width: 15.0,
-                      ),
-                      const Text('El Wekala'),
-                    ],
+                  leading: Padding(
+                    padding: const EdgeInsets.only(left: 25),
+                    child: InkWell(
+                        onTap: (){
+                          Navigator.pop(context);
+                        },
+                        child: SvgPicture.asset('images/setting_icon.svg')),
+                  ),
+                  title: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Row(
+                      children:const [
+                        CircleAvatar(
+                          radius: 20.0,
+                          backgroundImage: NetworkImage('https://th.bing.com/th/id/OIP.7O-gEH4p86LWGZNOnddO2AHaHa?pid=ImgDet&rs=1'),
+                        ),
+                         SizedBox(
+                          width: 15.0,
+                        ),
+                        Text('Elwekala Community',style: TextStyle(fontSize: 18),),
+                      ],
+                    ),
                   ),
                 ),
                 body: Padding(
@@ -63,9 +72,13 @@ class ChatScreen extends StatelessWidget {
                           itemCount: messages!.length,
                         ),
                       ),
+                      const SizedBox(
+                        height: 20,
+                      ),
                       Container(
                         clipBehavior: Clip.antiAliasWithSaveLayer,
                         decoration: BoxDecoration(
+                          color: Colors.white,
                           border: Border.all(
                             color: Colors.white,
                             width: 1.0,
@@ -81,23 +94,26 @@ class ChatScreen extends StatelessWidget {
                                   controller: textController,
                                   decoration: const InputDecoration(
                                     border: InputBorder.none,
-                                    hintText: 'type your message ... ',
+                                    hintText: 'Type Something ... ',
                                   ),
                                 ),
                               ),
                             ),
-                            Container(
-                              height: 50.0,
-                              color: HexColor('#07094D'),
-                              child: MaterialButton(
-                                onPressed: () {
-                                  cubit.sendMessage(textController.text);
-                                },
-                                minWidth: 1.0,
-                                child: const Icon(
-                                  Icons.send,
-                                  color: Colors.white,
-                                  size: 16.0,
+                            Padding(
+                              padding: const EdgeInsets.only(right:5,top: 5,bottom: 5),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  color: HexColor('#07094D'),
+                                  borderRadius: BorderRadius.circular(10)
+                                ),
+                                height: 40.0,
+                                width: 40,
+                                child: MaterialButton(
+                                  onPressed: () {
+                                    cubit.sendMessage(textController.text);
+                                  },
+                                  minWidth: 1.0,
+                                  child:const Icon(Icons.send,color: Colors.white,size: 16,)
                                 ),
                               ),
                             ),

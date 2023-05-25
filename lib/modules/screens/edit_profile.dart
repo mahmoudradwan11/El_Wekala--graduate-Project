@@ -64,7 +64,11 @@ class EditProfile extends StatelessWidget {
                         Positioned(
                             top: 55,
                             left: 30,
-                            child: SvgPicture.asset('images/setting_icon.svg')),
+                            child: InkWell(
+                              onTap:(){
+                                Navigator.pop(context);
+                              },
+                                child: SvgPicture.asset('images/setting_icon.svg'))),
                       ],
                     ),
                   ),

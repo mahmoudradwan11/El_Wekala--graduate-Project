@@ -15,7 +15,7 @@ class RegisterCubit extends Cubit<RegisterStates> {
   RegisterCubit() : super(RegisterInitialState());
 
   static RegisterCubit get(context) => BlocProvider.of(context);
-
+  bool isMale = true;
   UserModel? loginModel;
 
   void userRegister({
@@ -35,7 +35,7 @@ class RegisterCubit extends Cubit<RegisterStates> {
         'password': password,
         'phone': phone,
         'nationalId':nationalId,
-        'gender':'male',
+        'gender':isMale?'male':'female',
         'profileImage':img64
       },
     ).then((value) {
@@ -76,5 +76,13 @@ class RegisterCubit extends Cubit<RegisterStates> {
     } else {
       print('no image selected');
     }
+  }
+  void changeToMale(){
+    isMale = true;
+    emit(IsMaleChoose());
+  }
+  void changeToFemale(){
+    isMale = false;
+    emit(IsFemaleChoose());
   }
 }

@@ -69,14 +69,16 @@ class Setting extends StatelessWidget {
                             children: [
                               Expanded(
                                 flex: 1,
-                                child: Container(
-                                  width: 71,
-                                  height: 71,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(10),
-                                    image: DecorationImage(
-                                      image: NetworkImage(cubit.profileModel!.user!.profileImage!),
-                                      fit: BoxFit.contain,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(left: 30,right: 30),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(20),
+                                      image: DecorationImage(
+                                        image: NetworkImage(cubit.profileModel!.user!.profileImage!),
+                                        fit: BoxFit.contain,
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -134,86 +136,3 @@ class Setting extends StatelessWidget {
         });
   }
 }
-/*
-class Test extends StatelessWidget {
-  const Test({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    return Center(
-      child: Padding(
-        padding: EdgeInsets.all(size.width * 0.1),
-        child: SizedBox(
-          height: size.height * 0.1,
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(25),
-            child: LayoutBuilder(
-              builder: (context, con) {
-                return Container(
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                  ),
-                  child: CustomPaint(
-                    painter: MyPainter(),
-                    child: Row(
-                      children: [
-                        SizedBox(
-                          width: con.maxWidth * 0.06,
-                        ),
-                        Container(
-                          decoration: const BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Colors.white,
-                          ),
-                          padding: const EdgeInsets.all(10),
-                          child: const Icon(
-                            Icons.privacy_tip_outlined,
-                            size: 20,
-                          ),
-                        ),
-                        const SizedBox(width: 16),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children:const [
-                               Text('Privacy'),
-                               Text('Terms, Privacy'),
-                            ],
-                          ),
-                        ),
-                        const Icon(
-                          Icons.keyboard_arrow_right_rounded,
-                          size: 20,
-                        ),
-                        const SizedBox(width: 16),
-                      ],
-                    ),
-                  ),
-                );
-              },
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class MyPainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    final paint1 = Paint()..color = Colors.grey;
-    final path = Path()
-      ..lineTo(size.width * 0.2, 0)
-      ..lineTo(0, size.height);
-    canvas.drawPath(path, paint1);
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return false
-}
-
- */

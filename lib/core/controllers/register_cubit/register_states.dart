@@ -15,7 +15,10 @@ class RegisterErrorState extends RegisterStates {
   final String error;
   RegisterErrorState(this.error);
 }
-
 class RegisterChangePasswordVisibilityState extends RegisterStates {}
 class ImageChoose extends RegisterStates{}
+class IsMaleChoose extends RegisterStates{}
+class IsFemaleChoose extends RegisterStates{}
+
+
 

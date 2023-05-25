@@ -13,7 +13,7 @@ Widget builtMessage(Messages model,context)=>Align(
           borderRadius: BorderRadiusDirectional.only(
             bottomEnd: Radius.circular(10.0),
             topEnd: Radius.circular(10.0),
-            topStart: Radius.circular(10.0),
+            bottomStart: Radius.circular(10.0),
           ),
         ),
         padding: const EdgeInsets.symmetric(
@@ -35,7 +35,7 @@ Widget builtMyMessage(Messages model,context)=>Align(
           color:HexColor('#07094D'),
           borderRadius:const BorderRadiusDirectional.only(
             bottomStart: Radius.circular(10.0),
-            topEnd:Radius.circular(10.0),
+            bottomEnd:Radius.circular(10.0),
             topStart: Radius.circular(10.0),
           ),
         ),

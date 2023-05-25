@@ -36,6 +36,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:quickalert/models/quickalert_type.dart';
+import 'package:quickalert/widgets/quickalert_dialog.dart';
 
 class ElWekalaCubit extends Cubit<ElWekalaStates> {
   ElWekalaCubit() : super(InitState());
@@ -644,6 +646,24 @@ class ElWekalaCubit extends Cubit<ElWekalaStates> {
     }).catchError((error){
       print(error.toString());
       emit(ErrorSendMessage());
+    });
+  }
+  void showAlert(context) {
+    QuickAlert.show(
+        context: context,
+        type: QuickAlertType.success,
+        title: 'Send Success',
+        text: 'We will work on your complaint ');
+  }
+  void sendReport(problem){
+    DioHelperStore.postData(url:'https://elwekala.onrender.com/report', data:{
+      "nationalId":nationalId,
+      "problem":problem
+    }).then((value){
+      emit(SendContact());
+    }).catchError((error){
+      print(error.toString());
+      emit(ErrorContact());
     });
   }
 }
