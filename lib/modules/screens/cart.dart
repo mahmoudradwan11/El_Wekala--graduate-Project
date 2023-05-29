@@ -1,7 +1,9 @@
 import 'package:el_wekala/core/controllers/store_cubit/store_cubit.dart';
 import 'package:el_wekala/core/controllers/store_cubit/store_states.dart';
+import 'package:el_wekala/modules/screens/payment_basic.dart';
 import 'package:el_wekala/modules/widgets/builders/build_cart_Item.dart';
 import 'package:el_wekala/modules/widgets/builders/defaultBotton.dart';
+import 'package:el_wekala/modules/widgets/functions/navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -71,7 +73,7 @@ class Cart extends StatelessWidget {
                         ),
                       )
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20,
                     ),
                     Container(
@@ -162,7 +164,11 @@ class Cart extends StatelessWidget {
                           const SizedBox(
                             width: 150,
                           ),
-                          const Text('Checkout',style: TextStyle(color: Colors.white,fontSize: 17,fontWeight: FontWeight.w500),),
+                          InkWell(
+                            onTap:(){
+                              navigateTo(context,PaymentBasic(price:cubit.totalCart!.totalPrice.round()+10,));
+                            },
+                              child: const Text('Checkout',style: TextStyle(color: Colors.white,fontSize: 17,fontWeight: FontWeight.w500),)),
                           const SizedBox(
                             width:92,
                           ),

@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import 'home.dart';
 import 'login.dart';
@@ -75,9 +76,24 @@ class Register extends StatelessWidget {
                         const SizedBox(
                           height: 20,
                         ),
-                        MaterialButton(onPressed:(){
+                        cubit.image==null? MaterialButton(onPressed:(){
                           cubit.addImage();
-                        },child: const Text('Selected Image'),),
+                        },child: const Text('Select Your Image'),):CircleAvatar(
+                          radius:50,
+                          child: ClipOval(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: FileImage(cubit.image!),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
                         Container(
                           width: 150,
                           child: Row(
@@ -114,7 +130,7 @@ class Register extends StatelessWidget {
                                 width: 100,
                                 color: Colors.black,
                               ),
-                              Text('Or',style: TextStyle(fontWeight: FontWeight.w600),),
+                              const Text('Or',style: TextStyle(fontWeight: FontWeight.w600),),
                               Container(
                                 height: 1,
                                 width: 100,
@@ -281,6 +297,11 @@ class Register extends StatelessWidget {
                         const SizedBox(
                           height: 40,
                         ),
+                        if (state is RegisterLoadingState) const SizedBox(height: 10),
+                        state is RegisterLoadingState? LoadingAnimationWidget.inkDrop(
+                          color: Colors.black,
+                          size: 20,
+                        ):
                         DefaultButton(
                           backgroundColor:HexColor('#07094D'),
                           buttonWidget: const Text(
@@ -302,8 +323,8 @@ class Register extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.only(left: 30,top: 10),
                           child: Row(
-                            children: [
-                              Text('Already have an account?'),
+                            children:[
+                              const Text('Already have an account?'),
                               MaterialButton(onPressed:(){
                                 navigateTo(context, Login());
                               },child: Text('Sign In',style: TextStyle(color: HexColor('#07094D'),),))
