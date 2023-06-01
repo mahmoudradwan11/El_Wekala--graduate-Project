@@ -3,6 +3,7 @@ import 'package:el_wekala/core/controllers/store_cubit/store_states.dart';
 import 'package:el_wekala/modules/widgets/builders/buildSettingItem.dart';
 import 'package:el_wekala/modules/widgets/builders/general.dart';
 import 'package:el_wekala/modules/widgets/builders/notification.dart';
+import 'package:el_wekala/modules/widgets/builders/pay.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
@@ -127,7 +128,7 @@ class Setting extends StatelessWidget {
                   ),
                 ),
                 if (cubit.settingIndex == 0) buildGeneralItems(context),
-                if (cubit.settingIndex == 1) Text('Payment'),
+                if (cubit.settingIndex == 1) buildPayment(context),
                 if (cubit.settingIndex == 2) buildNotificationUi(context),
               ],
             ),

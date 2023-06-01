@@ -14,8 +14,8 @@ Widget buildNotificationUi(context)=>Padding(
       ),
       Container(
         decoration:BoxDecoration(
-          color: HexColor('#F2F2F2'),
-          borderRadius: BorderRadius.circular(10)
+            color: HexColor('#F2F2F2'),
+            borderRadius: BorderRadius.circular(10)
         ),
         width: double.infinity,
         height:101,
