@@ -69,6 +69,7 @@ class MyApp extends StatelessWidget {
               ..getHomeTvs()
               ..getAllTVS()
               ..getMessages()
+              ..getFilter()
         ),
         BlocProvider(
             lazy: true, create: (context) => PaymentCubit()..getAuthToken()),

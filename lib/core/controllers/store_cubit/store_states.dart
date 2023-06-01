@@ -65,3 +65,5 @@ class SendMessage extends ElWekalaStates{}
 class ErrorSendMessage extends ElWekalaStates{}
 class SendContact extends ElWekalaStates {}
 class ErrorContact extends ElWekalaStates {}
+class GetFilter extends ElWekalaStates{}
+class ErrorFilter extends ElWekalaStates{}

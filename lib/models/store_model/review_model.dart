@@ -1,4 +1,4 @@
-class ReviewModel{
+class ReviewModel {
   String? status;
   String? message;
   List<ReviewsItems>? reviews;
@@ -17,35 +17,43 @@ class ReviewModel{
   }
 }
 
-class ReviewsItems{
+class ReviewsItems {
   String? sId;
+  UserReview? user;
   String? product;
   String? title;
   String? comment;
   dynamic rating;
   String? createdAt;
-  String? updatedAt;
-  int? iV;
 
   ReviewsItems(
       {this.sId,
+        this.user,
         this.product,
         this.title,
         this.comment,
         this.rating,
-        this.createdAt,
-        this.updatedAt,
-        this.iV});
+        this.createdAt});
 
   ReviewsItems.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
+    user = json['user'] != null ? UserReview.fromJson(json['user']) : null;
     product = json['product'];
     title = json['title'];
     comment = json['comment'];
     rating = json['rating'];
     createdAt = json['createdAt'];
-    updatedAt = json['updatedAt'];
-    iV = json['__v'];
   }
+}
 
+class UserReview {
+  String? name;
+  String? profileImage;
+
+  UserReview({this.name, this.profileImage});
+
+  UserReview.fromJson(Map<String, dynamic> json) {
+    name = json['name'];
+    profileImage = json['profileImage'];
+  }
 }

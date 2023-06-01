@@ -8,6 +8,7 @@ import 'package:el_wekala/models/store_model/cate.dart';
 import 'package:el_wekala/models/store_model/custom_tap.dart';
 import 'package:el_wekala/models/store_model/favorite.dart';
 import 'package:el_wekala/models/store_model/filter.dart';
+import 'package:el_wekala/models/store_model/fliter_products.dart';
 import 'package:el_wekala/models/store_model/home/accessories.dart';
 import 'package:el_wekala/models/store_model/home/laptop.dart';
 import 'package:el_wekala/models/store_model/home/smart_tvs.dart';
@@ -214,10 +215,12 @@ class ElWekalaCubit extends Cubit<ElWekalaStates> {
       "name": name,
       "email": email,
       "phone": phone,
-      "gender": genderProfile ?? profileModel!.user!.gender,
+      "password":"12345678",
+      "gender":genderProfile ?? profileModel!.user!.gender,
     }).then((value) {
       profileModel = UserModel.fromJson(value.data);
       print(profileModel!.user!.name!);
+      getUserData();
       emit(UserUpdateStates());
     }).catchError((error) {
       print(error.toString());
@@ -665,5 +668,22 @@ class ElWekalaCubit extends Cubit<ElWekalaStates> {
       print(error.toString());
       emit(ErrorContact());
     });
+  }
+  FilterProducts? filterProducts;
+  void getFilter({min,max,category,company})
+  {
+      DioHelperStore.getData(url:'https://elwekala.onrender.com/product/filer/get',data:{
+          "categories": ["Smart Phones","Laptops"],
+          "companies": ["Apple","Samsung"],
+          "minPrice": 10,
+          "maxPrice": 1000
+      }).then((value){
+      filterProducts = FilterProducts.fromJson(value.data);
+      print(filterProducts!.products!.length);
+      emit(GetFilter());
+      }).catchError((error){
+      print(error.toString());
+      emit(ErrorFilter());
+      });
   }
 }
