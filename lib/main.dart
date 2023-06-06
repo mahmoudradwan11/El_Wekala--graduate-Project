@@ -2,6 +2,7 @@ import 'package:el_wekala/core/controllers/store_cubit/store_states.dart';
 import 'package:el_wekala/core/network/constants.dart';
 import 'package:el_wekala/core/network/remote/store_helper/store_helper.dart';
 import 'package:el_wekala/core/themes/light.dart';
+import 'package:el_wekala/modules/screens/layout.dart';
 import 'package:el_wekala/modules/screens/login.dart';
 import 'package:el_wekala/modules/screens/onboarding.dart';
 import 'package:el_wekala/modules/screens/spalsh.dart';
@@ -35,7 +36,7 @@ void main() async {
     if (token != null) {
       startScreen = const Home();
     } else {
-      startScreen = Login();
+      startScreen = const LayoutLoginAndRegister();
     }
   } else {
     startScreen = const OnBoardingScreen();
@@ -81,7 +82,7 @@ class MyApp extends StatelessWidget {
               debugShowCheckedModeBanner: false,
               title: 'EL Wekala',
               theme: lightTheme,
-              home: SplashScreen(nextScreen: startWidget!),
+              home: SplashScreen(nextScreen:startWidget!),
             );
           }),
     );

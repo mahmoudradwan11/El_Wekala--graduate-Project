@@ -56,7 +56,7 @@ class Login extends StatelessWidget {
                     children: [
                       const SizedBox(height: 80),
                       const Text(
-                        'Welcome',
+                        'Welcome!',
                         style: TextStyle(
                             color: Colors.black,
                             fontSize: 24,

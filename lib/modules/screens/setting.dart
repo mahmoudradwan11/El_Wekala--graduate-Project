@@ -78,7 +78,7 @@ class Setting extends StatelessWidget {
                                       borderRadius: BorderRadius.circular(20),
                                       image: DecorationImage(
                                         image: NetworkImage(cubit.profileModel!.user!.profileImage!),
-                                        fit: BoxFit.contain,
+                                        fit: BoxFit.cover,
                                       ),
                                     ),
                                   ),
@@ -87,7 +87,7 @@ class Setting extends StatelessWidget {
                               Expanded(
                                 flex: 2,
                                 child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children:[
                                     Text(

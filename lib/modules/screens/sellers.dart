@@ -17,8 +17,22 @@ class SellersScreen extends StatelessWidget {
         builder: (context, state){
           var cubit = ElWekalaCubit.get(context);
           if(cubit.sellersModel==null){
-            return const Scaffold(
-              body: Center(
+            return Scaffold(
+              appBar: AppBar(
+                leading: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: InkWell(
+                    onTap:(){
+                      Navigator.pop(context);
+                    },
+                    child: SvgPicture.asset(
+                      'images/setting_icon.svg',
+                      height: 31,
+                    ),
+                  ),
+                ),
+              ),
+              body:const Center(
                 child:
               CircularProgressIndicator(),),
             );
@@ -47,8 +61,8 @@ class SellersScreen extends StatelessWidget {
                     height: 1,
                   ),
                   Container(
-                      height:50,
-                      width:50,
+                      height:80,
+                      width:80,
                       decoration:BoxDecoration(
                           borderRadius: BorderRadius.circular(6),
                           image: DecorationImage(
@@ -59,7 +73,10 @@ class SellersScreen extends StatelessWidget {
                   const SizedBox(
                     height: 10,
                   ),
-                  Text('$name Official Store'),
+                  Text('$name Official Store',style: TextStyle(fontSize: 18,fontWeight: FontWeight.w600),),
+                  const SizedBox(
+                    height: 20,
+                  ),
                   Padding(
                     padding: const EdgeInsets.only(left:0,top: 10,right: 20,bottom: 10),
                     child: Row(

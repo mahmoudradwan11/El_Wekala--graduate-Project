@@ -11,6 +11,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+
 class ProductDetails extends StatelessWidget {
   ProductDetails({Key? key, this.model}) : super(key: key);
   var model;
@@ -31,16 +32,17 @@ class ProductDetails extends StatelessWidget {
             body: SingleChildScrollView(
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children:[
+                  children: [
                     Padding(
-                      padding: const EdgeInsets.only(top: 30,left: 20,right: 20),
+                      padding:
+                          const EdgeInsets.only(top: 30, left: 20, right: 20),
                       child: Container(
                         width: double.infinity,
                         height: 50,
                         child: Row(
                           children: [
                             InkWell(
-                              onTap:(){
+                              onTap: () {
                                 Navigator.pop(context);
                               },
                               child: SvgPicture.asset(
@@ -63,11 +65,11 @@ class ProductDetails extends StatelessWidget {
                             Expanded(
                                 child: Text(
                               model.name,
-                              style:const TextStyle(
+                              style: const TextStyle(
                                   fontSize: 18, fontWeight: FontWeight.w600),
                             )),
                             InkWell(
-                              onTap:(){
+                              onTap: () {
                                 cubit.addtoMyFavorite(model.sId);
                               },
                               child: Container(
@@ -90,7 +92,7 @@ class ProductDetails extends StatelessWidget {
                       width: double.infinity,
                       color: Colors.white,
                       height: 300,
-                      child:PageView.builder(
+                      child: PageView.builder(
                         itemBuilder: (context, index) => Container(
                           //height: 100,
                           child: Image(
@@ -102,16 +104,18 @@ class ProductDetails extends StatelessWidget {
                         controller: imagesController,
                       ),
                     ),
-                    const SizedBox(height: 20,),
+                    const SizedBox(
+                      height: 20,
+                    ),
                     Align(
                       alignment: AlignmentDirectional.center,
                       child: SmoothPageIndicator(
                           effect: ExpandingDotsEffect(
                               dotHeight: 8,
                               dotWidth: 9,
-                              dotColor:HexColor('#AFAFAF')
-                            // strokeWidth: 5,
-                          ),
+                              dotColor: HexColor('#AFAFAF')
+                              // strokeWidth: 5,
+                              ),
                           controller: imagesController,
                           count: model!.images!.length),
                     ),
@@ -206,62 +210,107 @@ class ProductDetails extends StatelessWidget {
                       child: Container(
                         height: 110,
                         width: double.infinity,
-                        decoration: BoxDecoration(color: HexColor('#E3E3E3'),borderRadius: BorderRadius.circular(6)),
-                        child:Column(
+                        decoration: BoxDecoration(
+                            color: HexColor('#E3E3E3'),
+                            borderRadius: BorderRadius.circular(6)),
+                        child: Column(
                           children: [
                             Padding(
                               padding: const EdgeInsets.all(5.0),
                               child: Row(
                                 children: [
                                   Container(
-                                      height:50,
-                                      width:50,
-                                      decoration:BoxDecoration(
-                                        borderRadius: BorderRadius.circular(6),
-                                    image: DecorationImage(
-                                      image:cubit.chooseImageCompany(model.company!),)
-                                    )
+                                      height: 50,
+                                      width: 50,
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(6),
+                                          image: DecorationImage(
+                                            image: cubit.chooseImageCompany(
+                                                model.company!),
+                                          ))),
+                                  SizedBox(
+                                    width: 20,
                                   ),
-                                  SizedBox(width: 20,),
                                   InkWell(
-                                    onTap:(){
+                                    onTap: () {
                                       cubit.getSellerProducts(model.company!);
-                                      cubit.getFilterSellerProducts(model.company);
-                                      navigateTo(context,SellersScreen(name: model.company,image: cubit.companyImage,));
+                                      cubit.getFilterSellerProducts(
+                                          model.company);
+                                      navigateTo(
+                                          context,
+                                          SellersScreen(
+                                            name: model.company,
+                                            image: cubit.companyImage,
+                                          ));
                                     },
                                     child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
-                                        Text('${model.company} Official Store',style: TextStyle(fontSize: 15,fontWeight: FontWeight.w600),),
-                                        SizedBox(height: 5,),
-                                        Text('View store',style: TextStyle(fontSize: 10,fontWeight: FontWeight.w600,color: Colors.grey[500]),)
+                                        Text(
+                                          '${model.company} Official Store',
+                                          style: TextStyle(
+                                              fontSize: 15,
+                                              fontWeight: FontWeight.w600),
+                                        ),
+                                        SizedBox(
+                                          height: 5,
+                                        ),
+                                        Text(
+                                          'View store',
+                                          style: TextStyle(
+                                              fontSize: 10,
+                                              fontWeight: FontWeight.w600,
+                                              color: Colors.grey[500]),
+                                        )
                                       ],
                                     ),
                                   )
                                 ],
                               ),
                             ),
-                            SizedBox(height: 10,),
+                            SizedBox(
+                              height: 10,
+                            ),
                             Container(
                               width: double.infinity,
                               height: 1,
                               color: Colors.grey,
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(left: 10,right: 30,top: 10),
+                              padding: const EdgeInsets.only(
+                                  left: 10, right: 30, top: 10),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children:[
-                                  const Text('Product as Described',style: TextStyle(fontWeight: FontWeight.w600,fontSize:12,),),
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  const Text(
+                                    'Product as Described',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 12,
+                                    ),
+                                  ),
                                   LinearPercentIndicator(
                                     width: 140.0,
                                     lineHeight: 4,
-                                    percent: model.countInStock>=10?1.0:(model.countInStock*.10),
-                                    backgroundColor:HexColor('#D9D9D9'),
+                                    percent: model.countInStock >= 10
+                                        ? 1.0
+                                        : (model.countInStock * .10),
+                                    backgroundColor: HexColor('#D9D9D9'),
                                     progressColor: HexColor('#00AC07'),
                                   ),
-                                  Text('${model.countInStock>=10?100:model.countInStock*10}%',style: TextStyle(fontWeight: FontWeight.w600,fontSize:10,color:HexColor('#00AC07'),),)
+                                  Text(
+                                    '${model.countInStock >= 10 ? 100 : model.countInStock * 10}%',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 10,
+                                      color: HexColor('#00AC07'),
+                                    ),
+                                  )
                                 ],
                               ),
                             )
@@ -270,7 +319,8 @@ class ProductDetails extends StatelessWidget {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(left:0,top: 10,right: 20,bottom: 10),
+                      padding: const EdgeInsets.only(
+                          left: 0, top: 10, right: 20, bottom: 10),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -281,31 +331,35 @@ class ProductDetails extends StatelessWidget {
                                 cubit.changeView(0);
                               },
                               child: Container(
-                                decoration: BoxDecoration(
-                                  border: cubit.currentTabViewIndex == 0
-                                      ? const Border()
-                                      : null,
-                                ),
-                                child: Column(
-                                  children: [
-                                    Text(
-                                      'Overview',
-                                      style: TextStyle(
-                                          color:cubit.currentTabViewIndex==0?Colors.black:Colors.black.withOpacity(0.3),
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 12),
-                                    ),
-                                    const SizedBox(
-                                      height: 5,
-                                    ),
-                                    Container(
-                                      height: 1,
-                                      width: 55,
-                                      color:cubit.currentTabViewIndex==0?HexColor('#07094D'):Colors.transparent,
-                                    )
-                                  ],
-                                )
-                              ),
+                                  decoration: BoxDecoration(
+                                    border: cubit.currentTabViewIndex == 0
+                                        ? const Border()
+                                        : null,
+                                  ),
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        'Overview',
+                                        style: TextStyle(
+                                            color: cubit.currentTabViewIndex ==
+                                                    0
+                                                ? Colors.black
+                                                : Colors.black.withOpacity(0.3),
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 12),
+                                      ),
+                                      const SizedBox(
+                                        height: 5,
+                                      ),
+                                      Container(
+                                        height: 1,
+                                        width: 55,
+                                        color: cubit.currentTabViewIndex == 0
+                                            ? HexColor('#07094D')
+                                            : Colors.transparent,
+                                      )
+                                    ],
+                                  )),
                             ),
                           ),
                           Expanded(
@@ -325,7 +379,10 @@ class ProductDetails extends StatelessWidget {
                                       Text(
                                         'Specification',
                                         style: TextStyle(
-                                            color:cubit.currentTabViewIndex==1?Colors.black:Colors.black.withOpacity(0.3),
+                                            color: cubit.currentTabViewIndex ==
+                                                    1
+                                                ? Colors.black
+                                                : Colors.black.withOpacity(0.3),
                                             fontWeight: FontWeight.w600,
                                             fontSize: 12),
                                       ),
@@ -335,7 +392,9 @@ class ProductDetails extends StatelessWidget {
                                       Container(
                                         height: 1,
                                         width: 80,
-                                        color:cubit.currentTabViewIndex==1?HexColor('#07094D'):Colors.transparent,
+                                        color: cubit.currentTabViewIndex == 1
+                                            ? HexColor('#07094D')
+                                            : Colors.transparent,
                                       )
                                     ],
                                   )),
@@ -358,7 +417,10 @@ class ProductDetails extends StatelessWidget {
                                       Text(
                                         'Review',
                                         style: TextStyle(
-                                            color:cubit.currentTabViewIndex==2?Colors.black:Colors.black.withOpacity(0.3),
+                                            color: cubit.currentTabViewIndex ==
+                                                    2
+                                                ? Colors.black
+                                                : Colors.black.withOpacity(0.3),
                                             fontWeight: FontWeight.w600,
                                             fontSize: 12),
                                       ),
@@ -368,7 +430,9 @@ class ProductDetails extends StatelessWidget {
                                       Container(
                                         height: 1,
                                         width: 45,
-                                        color:cubit.currentTabViewIndex==2?HexColor('#07094D'):Colors.transparent,
+                                        color: cubit.currentTabViewIndex == 2
+                                            ? HexColor('#07094D')
+                                            : Colors.transparent,
                                       )
                                     ],
                                   )),
@@ -379,7 +443,8 @@ class ProductDetails extends StatelessWidget {
                     ),
                     if (cubit.currentTabViewIndex == 0)
                       Padding(
-                        padding: const EdgeInsets.only(left:20.0, top: 5,right: 20),
+                        padding: const EdgeInsets.only(
+                            left: 20.0, top: 5, right: 20),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -405,16 +470,480 @@ class ProductDetails extends StatelessWidget {
                         padding: const EdgeInsets.only(left: 20.0, top: 5),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children:[
+                          children: [
                             const Text(
                               'Specification',
                               style: TextStyle(
-                                  fontSize: 15, fontWeight: FontWeight.w600,),
+                                fontSize: 15,
+                                fontWeight: FontWeight.w600,
+                              ),
                             ),
-                             const SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
-                            if(model.category=='Laptops')
+                            if (model.category == 'Laptops')
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 2, right: 20, top: 10),
+                                child: Container(
+                                  height: 32,
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    color:
+                                        HexColor('#9B9CB7').withOpacity(0.36),
+                                    borderRadius: BorderRadius.circular(4),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 20, right: 95),
+                                    child: Row(
+                                      children: const [
+                                        Text(
+                                          'Color Name',
+                                          style: TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w500),
+                                        ),
+                                        Spacer(),
+                                        Text('Black',
+                                            style: TextStyle(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w500))
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            if (model.category == 'Laptops')
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 2, right: 20),
+                                child: Container(
+                                  height: 32,
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    color:
+                                        HexColor('#FEFEFE').withOpacity(0.36),
+                                    borderRadius: BorderRadius.circular(4),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 20, right: 100),
+                                    child: Row(
+                                      children: const [
+                                        Text(
+                                          'Country',
+                                          style: TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w500),
+                                        ),
+                                        Spacer(),
+                                        Text('USA',
+                                            style: TextStyle(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w500))
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            if (model.category == 'Laptops')
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 2, right: 20),
+                                child: Container(
+                                  height: 32,
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    color:
+                                        HexColor('#9B9CB7').withOpacity(0.36),
+                                    borderRadius: BorderRadius.circular(4),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 20, right: 100),
+                                    child: Row(
+                                      children: const [
+                                        Text(
+                                          'Graphics Memory',
+                                          style: TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w500),
+                                        ),
+                                        Spacer(),
+                                        Text('8 GB',
+                                            style: TextStyle(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w500))
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            if (model.category == 'Laptops')
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 2, right: 20),
+                                child: Container(
+                                  height: 32,
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    color:
+                                        HexColor('#FEFEFE').withOpacity(0.36),
+                                    borderRadius: BorderRadius.circular(4),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 20, right: 100),
+                                    child: Row(
+                                      children: const [
+                                        Text(
+                                          'Display Resolution Type',
+                                          style: TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w500),
+                                        ),
+                                        Spacer(),
+                                        Text('QHD',
+                                            style: TextStyle(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w500))
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            if (model.category == 'Laptops')
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 2, right: 20),
+                                child: Container(
+                                  height: 32,
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    color:
+                                        HexColor('#9B9CB7').withOpacity(0.36),
+                                    borderRadius: BorderRadius.circular(4),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 20, right: 50),
+                                    child: Row(
+                                      children: const [
+                                        Text(
+                                          'External Graphics',
+                                          style: TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w500),
+                                        ),
+                                        Spacer(),
+                                        Text('Graphic Card',
+                                            style: TextStyle(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w500))
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            if (model.category == 'Smart Phones')
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 2, right: 20, top: 10),
+                                child: Container(
+                                  height: 32,
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    color:
+                                        HexColor('#9B9CB7').withOpacity(0.36),
+                                    borderRadius: BorderRadius.circular(4),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 20, right: 95),
+                                    child: Row(
+                                      children: const [
+                                        Text(
+                                          'Color Name',
+                                          style: TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w500),
+                                        ),
+                                        Spacer(),
+                                        Text('Black',
+                                            style: TextStyle(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w500))
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            if (model.category == 'Smart Phones')
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 2, right: 20),
+                                child: Container(
+                                  height: 32,
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    color:
+                                        HexColor('#FEFEFE').withOpacity(0.36),
+                                    borderRadius: BorderRadius.circular(4),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 20, right: 100),
+                                    child: Row(
+                                      children: const [
+                                        Text(
+                                          'Country',
+                                          style: TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w500),
+                                        ),
+                                        Spacer(),
+                                        Text('USA',
+                                            style: TextStyle(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w500))
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            if (model.category == 'Smart Phones')
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 2, right: 20),
+                                child: Container(
+                                  height: 32,
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    color:
+                                        HexColor('#9B9CB7').withOpacity(0.36),
+                                    borderRadius: BorderRadius.circular(4),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 20, right: 90),
+                                    child: Row(
+                                      children: const [
+                                        Text(
+                                          'RAM',
+                                          style: TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w500),
+                                        ),
+                                        Spacer(),
+                                        Text('12 GB',
+                                            style: TextStyle(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w500))
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            if (model.category == 'Smart Phones')
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 2, right: 20),
+                                child: Container(
+                                  height: 32,
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    color:
+                                        HexColor('#FEFEFE').withOpacity(0.36),
+                                    borderRadius: BorderRadius.circular(4),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 20, right: 80),
+                                    child: Row(
+                                      children: const [
+                                        Text(
+                                          'Storage',
+                                          style: TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w500),
+                                        ),
+                                        Spacer(),
+                                        Text('512 GB',
+                                            style: TextStyle(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w500))
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            if (model.category == 'Smart Phones')
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 2, right: 20),
+                                child: Container(
+                                  height: 32,
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    color:
+                                        HexColor('#9B9CB7').withOpacity(0.36),
+                                    borderRadius: BorderRadius.circular(4),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 20, right: 85),
+                                    child: Row(
+                                      children: const [
+                                        Text(
+                                          'Camera',
+                                          style: TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w500),
+                                        ),
+                                        Spacer(),
+                                        Text('64 MP',
+                                            style: TextStyle(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w500))
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            if (model.category == 'Smart Watches')
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 2, right: 20, top: 10),
+                                child: Container(
+                                  height: 32,
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    color:
+                                        HexColor('#9B9CB7').withOpacity(0.36),
+                                    borderRadius: BorderRadius.circular(4),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 20, right: 95),
+                                    child: Row(
+                                      children: const [
+                                        Text(
+                                          'Color Name',
+                                          style: TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w500),
+                                        ),
+                                        Spacer(),
+                                        Text('Black',
+                                            style: TextStyle(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w500))
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            if (model.category == 'Smart Watches')
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 2, right: 20),
+                                child: Container(
+                                  height: 32,
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    color:
+                                        HexColor('#FEFEFE').withOpacity(0.36),
+                                    borderRadius: BorderRadius.circular(4),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 20, right: 100),
+                                    child: Row(
+                                      children: const [
+                                        Text(
+                                          'Country',
+                                          style: TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w500),
+                                        ),
+                                        Spacer(),
+                                        Text('USA',
+                                            style: TextStyle(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w500))
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            if (model.category == 'Smart Watches')
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 2, right: 20),
+                                child: Container(
+                                  height: 32,
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    color:
+                                        HexColor('#9B9CB7').withOpacity(0.36),
+                                    borderRadius: BorderRadius.circular(4),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 20, right: 100),
+                                    child: Row(
+                                      children: const [
+                                        Text(
+                                          'RAM',
+                                          style: TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w500),
+                                        ),
+                                        Spacer(),
+                                        Text('1 GB',
+                                            style: TextStyle(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w500))
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            if (model.category == 'Smart Watches')
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 2, right: 20),
+                                child: Container(
+                                  height: 32,
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    color:
+                                        HexColor('#FEFEFE').withOpacity(0.36),
+                                    borderRadius: BorderRadius.circular(4),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 20, right: 100),
+                                    child: Row(
+                                      children: const [
+                                        Text(
+                                          'Storage',
+                                          style: TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w500),
+                                        ),
+                                        Spacer(),
+                                        Text('4 GB',
+                                            style: TextStyle(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w500))
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            if(model.category=='Smart TVs')
                               Padding(
                                 padding: const EdgeInsets.only(
                                     left: 2, right: 20, top: 10),
@@ -443,7 +972,7 @@ class ProductDetails extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                            if(model.category=='Laptops')
+                            if(model.category=='Smart TVs')
                               Padding(
                                 padding: const EdgeInsets.only(
                                     left: 2, right: 20),
@@ -472,7 +1001,7 @@ class ProductDetails extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                            if(model.category=='Laptops')
+                            if(model.category=='Smart TVs')
                               Padding(
                                 padding: const EdgeInsets.only(
                                     left: 2, right: 20),
@@ -486,14 +1015,14 @@ class ProductDetails extends StatelessWidget {
                                   ),
                                   child: Padding(
                                     padding: const EdgeInsets.only(left: 20,
-                                        right: 100),
+                                        right: 70),
                                     child: Row(
                                       children: const [
-                                        Text('Graphics Memory',
+                                        Text('Display Size',
                                           style: TextStyle(fontSize: 12,
                                               fontWeight: FontWeight.w500),),
                                         Spacer(),
-                                        Text('8 GB', style: TextStyle(
+                                        Text('55 inches', style: TextStyle(
                                             fontSize: 12,
                                             fontWeight: FontWeight.w500))
                                       ],
@@ -501,7 +1030,7 @@ class ProductDetails extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                            if(model.category=='Laptops')
+                            if(model.category=='Smart TVs')
                               Padding(
                                 padding: const EdgeInsets.only(
                                     left: 2, right: 20),
@@ -515,14 +1044,14 @@ class ProductDetails extends StatelessWidget {
                                   ),
                                   child: Padding(
                                     padding: const EdgeInsets.only(left: 20,
-                                        right: 100),
+                                        right: 60),
                                     child: Row(
                                       children: const [
                                         Text('Display Resolution Type',
                                           style: TextStyle(fontSize: 12,
                                               fontWeight: FontWeight.w500),),
                                         Spacer(),
-                                        Text('QHD', style: TextStyle(
+                                        Text('4K Ultra HD', style: TextStyle(
                                             fontSize: 12,
                                             fontWeight: FontWeight.w500))
                                       ],
@@ -530,7 +1059,7 @@ class ProductDetails extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                            if(model.category=='Laptops')
+                            if(model.category=='Smart TVs')
                               Padding(
                                 padding: const EdgeInsets.only(
                                     left: 2, right: 20),
@@ -539,64 +1068,6 @@ class ProductDetails extends StatelessWidget {
                                   width: double.infinity,
                                   decoration: BoxDecoration(
                                     color: HexColor('#9B9CB7').withOpacity(
-                                        0.36),
-                                    borderRadius: BorderRadius.circular(4),
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(left: 20,
-                                        right: 50),
-                                    child: Row(
-                                      children: const [
-                                        Text('External Graphics',
-                                          style: TextStyle(fontSize: 12,
-                                              fontWeight: FontWeight.w500),),
-                                        Spacer(),
-                                        Text('Graphic Card', style: TextStyle(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w500))
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            if(model.category=='Smart Phones')
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 2, right: 20, top: 10),
-                                child: Container(
-                                  height: 32,
-                                  width: double.infinity,
-                                  decoration: BoxDecoration(
-                                    color: HexColor('#9B9CB7').withOpacity(
-                                        0.36),
-                                    borderRadius: BorderRadius.circular(4),
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(left: 20,
-                                        right: 95),
-                                    child: Row(
-                                      children: const [
-                                        Text('Color Name', style: TextStyle(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w500),),
-                                        Spacer(),
-                                        Text('Black', style: TextStyle(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w500))
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            if(model.category=='Smart Phones')
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 2, right: 20),
-                                child: Container(
-                                  height: 32,
-                                  width: double.infinity,
-                                  decoration: BoxDecoration(
-                                    color: HexColor('#FEFEFE').withOpacity(
                                         0.36),
                                     borderRadius: BorderRadius.circular(4),
                                   ),
@@ -605,11 +1076,11 @@ class ProductDetails extends StatelessWidget {
                                         right: 100),
                                     child: Row(
                                       children: const [
-                                        Text('Country', style: TextStyle(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w500),),
+                                        Text('Audio',
+                                          style: TextStyle(fontSize: 12,
+                                              fontWeight: FontWeight.w500),),
                                         Spacer(),
-                                        Text('USA', style: TextStyle(
+                                        Text('DTS', style: TextStyle(
                                             fontSize: 12,
                                             fontWeight: FontWeight.w500))
                                       ],
@@ -617,7 +1088,7 @@ class ProductDetails extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                            if(model.category=='Smart Phones')
+                            if(model.category=='Smart TVs')
                               Padding(
                                 padding: const EdgeInsets.only(
                                     left: 2, right: 20),
@@ -625,7 +1096,7 @@ class ProductDetails extends StatelessWidget {
                                   height: 32,
                                   width: double.infinity,
                                   decoration: BoxDecoration(
-                                    color: HexColor('#9B9CB7').withOpacity(
+                                    color: HexColor('#FEFEFE').withOpacity(
                                         0.36),
                                     borderRadius: BorderRadius.circular(4),
                                   ),
@@ -634,11 +1105,11 @@ class ProductDetails extends StatelessWidget {
                                         right: 90),
                                     child: Row(
                                       children: const [
-                                        Text('RAM',
+                                        Text('Connectivity',
                                           style: TextStyle(fontSize: 12,
                                               fontWeight: FontWeight.w500),),
                                         Spacer(),
-                                        Text('12 GB', style: TextStyle(
+                                        Text('HDMI', style: TextStyle(
                                             fontSize: 12,
                                             fontWeight: FontWeight.w500))
                                       ],
@@ -646,65 +1117,7 @@ class ProductDetails extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                            if(model.category=='Smart Phones')
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 2, right: 20),
-                                child: Container(
-                                  height: 32,
-                                  width: double.infinity,
-                                  decoration: BoxDecoration(
-                                    color: HexColor('#FEFEFE').withOpacity(
-                                        0.36),
-                                    borderRadius: BorderRadius.circular(4),
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(left: 20,
-                                        right: 80),
-                                    child: Row(
-                                      children: const [
-                                        Text('Storage',
-                                          style: TextStyle(fontSize: 12,
-                                              fontWeight: FontWeight.w500),),
-                                        Spacer(),
-                                        Text('512 GB', style: TextStyle(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w500))
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            if(model.category=='Smart Phones')
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 2, right: 20),
-                                child: Container(
-                                  height: 32,
-                                  width: double.infinity,
-                                  decoration: BoxDecoration(
-                                    color: HexColor('#9B9CB7').withOpacity(
-                                        0.36),
-                                    borderRadius: BorderRadius.circular(4),
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(left: 20,
-                                        right: 85),
-                                    child: Row(
-                                      children: const [
-                                        Text('Camera',
-                                          style: TextStyle(fontSize: 12,
-                                              fontWeight: FontWeight.w500),),
-                                        Spacer(),
-                                        Text('64 MP', style: TextStyle(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w500))
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            if(model.category=='Smart Watches')
+                            if(model.category=='PC and laptop accessories')
                               Padding(
                                 padding: const EdgeInsets.only(
                                     left: 2, right: 20, top: 10),
@@ -733,7 +1146,7 @@ class ProductDetails extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                            if(model.category=='Smart Watches')
+                            if(model.category=='PC and laptop accessories')
                               Padding(
                                 padding: const EdgeInsets.only(
                                     left: 2, right: 20),
@@ -762,7 +1175,7 @@ class ProductDetails extends StatelessWidget {
                                   ),
                                 ),
                               ),
-                            if(model.category=='Smart Watches')
+                            if(model.category=='PC and laptop accessories')
                               Padding(
                                 padding: const EdgeInsets.only(
                                     left: 2, right: 20),
@@ -770,49 +1183,20 @@ class ProductDetails extends StatelessWidget {
                                   height: 32,
                                   width: double.infinity,
                                   decoration: BoxDecoration(
-                                    color: HexColor('#9B9CB7').withOpacity(
+                                    color: HexColor('##9B9CB7').withOpacity(
                                         0.36),
                                     borderRadius: BorderRadius.circular(4),
                                   ),
                                   child: Padding(
                                     padding: const EdgeInsets.only(left: 20,
-                                        right: 100),
+                                        right: 80),
                                     child: Row(
                                       children: const [
-                                        Text('RAM',
+                                        Text('Language',
                                           style: TextStyle(fontSize: 12,
                                               fontWeight: FontWeight.w500),),
                                         Spacer(),
-                                        Text('1 GB', style: TextStyle(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w500))
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            if(model.category=='Smart Watches')
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 2, right: 20),
-                                child: Container(
-                                  height: 32,
-                                  width: double.infinity,
-                                  decoration: BoxDecoration(
-                                    color: HexColor('#FEFEFE').withOpacity(
-                                        0.36),
-                                    borderRadius: BorderRadius.circular(4),
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(left: 20,
-                                        right: 100),
-                                    child: Row(
-                                      children: const [
-                                        Text('Storage',
-                                          style: TextStyle(fontSize: 12,
-                                              fontWeight: FontWeight.w500),),
-                                        Spacer(),
-                                        Text('4 GB', style: TextStyle(
+                                        Text('Ar & En', style: TextStyle(
                                             fontSize: 12,
                                             fontWeight: FontWeight.w500))
                                       ],
@@ -823,82 +1207,104 @@ class ProductDetails extends StatelessWidget {
                           ],
                         ),
                       ),
-                    if(cubit.currentTabViewIndex==2)
-                     Column(
-                       children:[
-                         MaterialButton(onPressed:(){
-                           scaffoldKey.currentState!.showBottomSheet((context) =>Container(
-                             height: 200,
-                             decoration: BoxDecoration(color: Colors.grey[300],
-                                 borderRadius:BorderRadius.circular(10)),
-                             child: SingleChildScrollView(
-                               child:Form(
-                                 key: formKey,
-                                 child: Padding(
-                                   padding: const EdgeInsets.all(10.0),
-                                   child: Column(
-                                     children: [
-                                       DefaultFieldForm(
-                                         show:false,
-                                         controller:commentsController,
-                                         keyboard:TextInputType.text,
-                                         valid:(value){
-                                           if(value.isEmpty){
-                                             return 'Comments Must Not Be Empty';
-                                           }
-                                           return null;
-                                         },
-                                         label:'Comments',
-                                         prefix:Icons.comment,
-                                       ),
-                                       const SizedBox(
-                                         height: 15,
-                                       ),
-                                       DefaultFieldForm(
-                                         show:false,
-                                         controller:rateController,
-                                         keyboard:TextInputType.number,
-                                         valid:(value){
-                                           if(value.isEmpty){
-                                             return 'rate Must Not Be Empty';
-                                           }
-                                           return null;
-                                         },
-                                         label:'Rating',
-                                         prefix:Icons.rate_review,
-                                       ),
-                                       const SizedBox(
-                                         height: 15,
-                                       ),
-                                       DefaultButton(buttonWidget:const Text('Add Reviews'), function:(){
-                                          if(formKey.currentState!.validate()){
-                                           cubit.addReview(model.sId, commentsController.text, rateController.text);
-                                           cubit.getAllReviews(model.sId);
-                                          }
-                                       })
-                                     ],
-                                   ),
-                                 ),
+                    if (cubit.currentTabViewIndex == 2)
+                      Column(
+                        children: [
+                          MaterialButton(
+                            onPressed: () {
+                              scaffoldKey.currentState!
+                                  .showBottomSheet((context) => Container(
+                                        height: 200,
+                                        decoration: BoxDecoration(
+                                            color: Colors.grey[300],
+                                            borderRadius:
+                                                BorderRadius.circular(10)),
+                                        child: SingleChildScrollView(
+                                            child: Form(
+                                          key: formKey,
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(10.0),
+                                            child: Column(
+                                              children: [
+                                                DefaultFieldForm(
+                                                  show: false,
+                                                  controller:
+                                                      commentsController,
+                                                  keyboard: TextInputType.text,
+                                                  valid: (value) {
+                                                    if (value.isEmpty) {
+                                                      return 'Comments Must Not Be Empty';
+                                                    }
+                                                    return null;
+                                                  },
+                                                  label: 'Comments',
+                                                  prefix: Icons.comment,
+                                                ),
+                                                const SizedBox(
+                                                  height: 15,
+                                                ),
+                                                DefaultFieldForm(
+                                                  show: false,
+                                                  controller: rateController,
+                                                  keyboard:
+                                                      TextInputType.number,
+                                                  valid: (value) {
+                                                    if (value.isEmpty) {
+                                                      return 'rate Must Not Be Empty';
+                                                    }
+                                                    return null;
+                                                  },
+                                                  label: 'Rating',
+                                                  prefix: Icons.rate_review,
+                                                ),
+                                                const SizedBox(
+                                                  height: 15,
+                                                ),
+                                                DefaultButton(
+                                                    buttonWidget: const Text(
+                                                        'Add Reviews',
+                                                      style: TextStyle(color: Colors.white),
+                                                    ),
 
-                               )
-                             ),
-                           ));
-                         },child: Text('Add Review'),)
-                       ],
-                     ),
-                    if(cubit.currentTabViewIndex==2)
-                    if(cubit.reviewModel!.reviews!.isEmpty)
-                      const Text('No Reviews For This Items'),
-                    if(cubit.currentTabViewIndex==2)
-                    if(cubit.reviewModel!.reviews!.isNotEmpty)
-                      ListView.separated(
-                        shrinkWrap: true,
-                          physics: NeverScrollableScrollPhysics(),
-                          itemBuilder:(context,index)=>buildReviewItem(cubit.reviewModel!.reviews![index]),
-                          separatorBuilder:(context,index)=>const SizedBox(
-                            height: 20,
-                          ),
-                          itemCount: cubit.reviewModel!.reviews!.length),
+                                                    backgroundColor: HexColor('#07094D'),
+                                                    function: () {
+                                                      if (formKey.currentState!
+                                                          .validate()) {
+                                                        cubit.addReview(
+                                                            model.sId,
+                                                            commentsController
+                                                                .text,
+                                                            rateController
+                                                                .text);
+                                                        cubit.getAllReviews(
+                                                            model.sId);
+                                                      }
+                                                    })
+                                              ],
+                                            ),
+                                          ),
+                                        )),
+                                      ));
+                            },
+                            child: Text('Add Review'),
+                          )
+                        ],
+                      ),
+                    if (cubit.currentTabViewIndex == 2)
+                      if (cubit.reviewModel!.reviews!.isEmpty)
+                        const Text('No Reviews For This Items'),
+                    if (cubit.currentTabViewIndex == 2)
+                      if (cubit.reviewModel!.reviews!.isNotEmpty)
+                        ListView.separated(
+                            shrinkWrap: true,
+                            physics: NeverScrollableScrollPhysics(),
+                            itemBuilder: (context, index) => buildReviewItem(
+                                cubit.reviewModel!.reviews![index]),
+                            separatorBuilder: (context, index) =>
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                            itemCount: cubit.reviewModel!.reviews!.length),
                     Padding(
                       padding: const EdgeInsets.all(20),
                       child: Row(
@@ -908,13 +1314,25 @@ class ProductDetails extends StatelessWidget {
                             width: 52,
                             decoration: BoxDecoration(
                               color: Colors.white,
-                              border: Border.all(color:HexColor('#07094D'),),
+                              border: Border.all(
+                                color: HexColor('#07094D'),
+                              ),
                               borderRadius: BorderRadius.circular(11),
                             ),
                             child: Column(
                               children: [
-                                Text('QTY',style: TextStyle(color:HexColor('#07094D'),fontWeight: FontWeight.w600),),
-                                Text('1',style: TextStyle(color:HexColor('#07094D'),fontWeight: FontWeight.w600),)
+                                Text(
+                                  'QTY',
+                                  style: TextStyle(
+                                      color: HexColor('#07094D'),
+                                      fontWeight: FontWeight.w600),
+                                ),
+                                Text(
+                                  '1',
+                                  style: TextStyle(
+                                      color: HexColor('#07094D'),
+                                      fontWeight: FontWeight.w600),
+                                )
                               ],
                             ),
                           ),
@@ -922,17 +1340,19 @@ class ProductDetails extends StatelessWidget {
                             width: 20,
                           ),
                           Expanded(
-                              child:
-                          DefaultButton(buttonWidget: Text('Add to Cart',style: TextStyle(color: Colors.white),),function:(){
-                            cubit.addToMyCart(model.sId);
-                          },radius: 11,backgroundColor: HexColor('#07094D'),borderColor: Colors.transparent,))
-
-
-
-
+                              child: DefaultButton(
+                            buttonWidget:const Text(
+                              'Add to Cart',
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            function: () {
+                              cubit.addToMyCart(model.sId);
+                            },
+                            radius: 11,
+                            backgroundColor: HexColor('#07094D'),
+                            borderColor: Colors.transparent,
+                          ))
                         ],
-
-
                       ),
                     )
                   ]),

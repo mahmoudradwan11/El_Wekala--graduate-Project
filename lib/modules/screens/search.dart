@@ -3,6 +3,7 @@ import 'package:el_wekala/core/controllers/store_cubit/store_states.dart';
 import 'package:el_wekala/core/themes/Icon_Borken.dart';
 import 'package:el_wekala/modules/screens/cart.dart';
 import 'package:el_wekala/modules/screens/filter_search.dart';
+import 'package:el_wekala/modules/screens/flitter.dart';
 import 'package:el_wekala/modules/widgets/builders/build_product_item.dart';
 import 'package:el_wekala/modules/widgets/builders/custom_tap.dart';
 import 'package:el_wekala/modules/widgets/functions/navigator.dart';
@@ -140,7 +141,7 @@ class Search extends StatelessWidget {
                         //color: Colors.yellow,
                       ),
                       IconButton(onPressed:(){
-                        navigateTo(context,FilterSearchProducts());
+                        navigateTo(context,const FilterSearch());
                       }, icon:const Icon(Icons.filter_list)),
                     ],
                   ),

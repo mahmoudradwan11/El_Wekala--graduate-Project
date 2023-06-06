@@ -673,9 +673,9 @@ class ElWekalaCubit extends Cubit<ElWekalaStates> {
   void getFilter({min,max,category,company})
   {
       DioHelperStore.getData(url:'https://elwekala.onrender.com/product/filer/get',data:{
-          "categories": ["Smart Phones","Laptops"],
-          "companies": ["Apple","Samsung"],
-          "minPrice": 10,
+          "categories": ["Smart Phones", "Laptops","PC and laptop accessories","Smart Tvs","Smart watches"],
+          "companies": ["Huawei","Apple","Samsung","Xiaomi"],
+          "minPrice": 1,
           "maxPrice": 1000
       }).then((value){
       filterProducts = FilterProducts.fromJson(value.data);
@@ -685,5 +685,51 @@ class ElWekalaCubit extends Cubit<ElWekalaStates> {
       print(error.toString());
       emit(ErrorFilter());
       });
+  }
+  bool apple = false;
+  bool xiaomi = false;
+  bool samsung = false;
+  bool huawei = false;
+  bool lap = false;
+  bool smartphone = false;
+  bool smartWatches = false;
+  bool smartTvs = false;
+  bool acc = false;
+
+  void checkApple(value){
+    apple = value;
+    emit(CheckApple());
+  }
+  void checkXiaomi(value){
+    xiaomi = value;
+    emit(CheckXiaomi());
+  }
+  void checkSamsung(value){
+    samsung = value;
+    emit(CheckSamsung());
+  }
+  void checkHuawei(value){
+    huawei = value;
+    emit(CheckHuawei());
+  }
+  void checkLap(value){
+    lap = value;
+    emit(CheckLap());
+  }
+  void checkPhone(value){
+    smartphone = value;
+    emit(CheckPhones());
+  }
+  void checkWatch(value){
+    smartWatches = value;
+    emit(CheckWatches());
+  }
+  void checkTv(value){
+    smartTvs = value;
+    emit(CheckTvs());
+  }
+  void checkAcc(value){
+    acc = value;
+    emit(CheckAcc());
   }
 }

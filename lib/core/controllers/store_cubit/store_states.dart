@@ -67,3 +67,13 @@ class SendContact extends ElWekalaStates {}
 class ErrorContact extends ElWekalaStates {}
 class GetFilter extends ElWekalaStates{}
 class ErrorFilter extends ElWekalaStates{}
+class CheckApple extends ElWekalaStates{}
+class CheckXiaomi extends ElWekalaStates{}
+class CheckSamsung extends ElWekalaStates{}
+class CheckHuawei extends ElWekalaStates{}
+class CheckLap extends ElWekalaStates{}
+class CheckPhones extends ElWekalaStates{}
+class CheckTvs extends ElWekalaStates{}
+class CheckWatches extends ElWekalaStates{}
+class CheckAcc extends ElWekalaStates{}
+

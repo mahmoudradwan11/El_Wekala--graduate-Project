@@ -11,16 +11,28 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-
 import 'home.dart';
 import 'login.dart';
-class Register extends StatelessWidget {
+class Register extends StatefulWidget {
+  @override
+  State<Register> createState() => _RegisterState();
+}
+
+class _RegisterState extends State<Register> {
   var formKey = GlobalKey<FormState>();
+
   var nameController = TextEditingController();
+
   var emailController = TextEditingController();
+
   var passwordController = TextEditingController();
+
   var phoneController = TextEditingController();
+
   var nationalController = TextEditingController();
+
+  bool check = false;
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -148,19 +160,25 @@ class Register extends StatelessWidget {
                         const SizedBox(
                           height: 10,
                         ),
-                        DefaultFieldForm(
-                            controller: nameController,
-                            keyboard: TextInputType.text,
-                            valid: (value) {
-                              if (value.isEmpty) {
-                                return 'Please Enter Your name';
-                              }
-                              return null;
-                            },
-                            prefix: Icons.person,
-                            hint: 'Full Name',
-                            hintStyle: const TextStyle(color: Colors.grey),
-                            show: false),
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: HexColor('#F2F2F2'),
+                          ),
+                          child: DefaultFieldForm(
+                              controller: nameController,
+                              keyboard: TextInputType.text,
+                              valid: (value) {
+                                if (value.isEmpty) {
+                                  return 'Please Enter Your name';
+                                }
+                                return null;
+                              },
+                              prefix: Icons.person,
+                              hint: 'Full Name',
+                              hintStyle: const TextStyle(color: Colors.grey),
+                              show: false),
+                        ),
                         const SizedBox(
                           height: 15,
                         ),
@@ -170,19 +188,25 @@ class Register extends StatelessWidget {
                         const SizedBox(
                           height: 10,
                         ),
-                        DefaultFieldForm(
-                            controller: phoneController,
-                            keyboard: TextInputType.phone,
-                            valid: (value) {
-                              if (value.isEmpty) {
-                                return 'Please Enter Your phone';
-                              }
-                              return null;
-                            },
-                            prefix: Icons.phone,
-                            hint: 'phone',
-                            hintStyle: const TextStyle(color: Colors.grey),
-                            show: false),
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: HexColor('#F2F2F2'),
+                          ),
+                          child: DefaultFieldForm(
+                              controller: phoneController,
+                              keyboard: TextInputType.phone,
+                              valid: (value) {
+                                if (value.isEmpty) {
+                                  return 'Please Enter Your phone';
+                                }
+                                return null;
+                              },
+                              prefix: Icons.phone,
+                              hint: 'phone',
+                              hintStyle: const TextStyle(color: Colors.grey),
+                              show: false),
+                        ),
                         const SizedBox(
                           height: 15,
                         ),
@@ -192,19 +216,25 @@ class Register extends StatelessWidget {
                         const SizedBox(
                           height: 10,
                         ),
-                        DefaultFieldForm(
-                            controller: emailController,
-                            keyboard: TextInputType.emailAddress,
-                            valid: (value) {
-                              if (value.isEmpty) {
-                                return 'Please Enter Your Email';
-                              }
-                              return null;
-                            },
-                            prefix: Icons.email,
-                            hint: 'Email',
-                            hintStyle: const TextStyle(color: Colors.grey),
-                            show: false),
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: HexColor('#F2F2F2'),
+                          ),
+                          child: DefaultFieldForm(
+                              controller: emailController,
+                              keyboard: TextInputType.emailAddress,
+                              valid: (value) {
+                                if (value.isEmpty) {
+                                  return 'Please Enter Your Email';
+                                }
+                                return null;
+                              },
+                              prefix: Icons.email,
+                              hint: 'Email',
+                              hintStyle: const TextStyle(color: Colors.grey),
+                              show: false),
+                        ),
                         const SizedBox(
                           height: 15,
                         ),
@@ -214,23 +244,29 @@ class Register extends StatelessWidget {
                         const SizedBox(
                           height: 10,
                         ),
-                        DefaultFieldForm(
-                            controller: passwordController,
-                            keyboard: TextInputType.emailAddress,
-                            valid: (value) {
-                              if (value.isEmpty) {
-                                return 'Please Enter Your password';
-                              }
-                              return null;
-                            },
-                            prefix: Icons.lock,
-                            hint: 'password',
-                            hintStyle: const TextStyle(color: Colors.grey),
-                            show: cubit.isPassword,
-                            suffix: cubit.suffix,
-                            suffixPress: () {
-                              cubit.changePasswordVisibility();
-                            }),
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: HexColor('#F2F2F2'),
+                          ),
+                          child: DefaultFieldForm(
+                              controller: passwordController,
+                              keyboard: TextInputType.emailAddress,
+                              valid: (value) {
+                                if (value.isEmpty) {
+                                  return 'Please Enter Your password';
+                                }
+                                return null;
+                              },
+                              prefix: Icons.lock,
+                              hint: 'password',
+                              hintStyle: const TextStyle(color: Colors.grey),
+                              show: cubit.isPassword,
+                              suffix: cubit.suffix,
+                              suffixPress: () {
+                                cubit.changePasswordVisibility();
+                              }),
+                        ),
                         const SizedBox(
                           height: 15,
                         ),
@@ -240,19 +276,25 @@ class Register extends StatelessWidget {
                         const SizedBox(
                           height: 10,
                         ),
-                        DefaultFieldForm(
-                            controller: nationalController,
-                            keyboard: TextInputType.number,
-                            valid: (value) {
-                              if (value.isEmpty) {
-                                return 'Please Enter Your National';
-                              }
-                              return null;
-                            },
-                            prefix: Icons.email,
-                            hint: 'national Id',
-                            hintStyle: const TextStyle(color: Colors.grey),
-                            show: false),
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: HexColor('#F2F2F2'),
+                          ),
+                          child: DefaultFieldForm(
+                              controller: nationalController,
+                              keyboard: TextInputType.number,
+                              valid: (value) {
+                                if (value.isEmpty) {
+                                  return 'Please Enter Your National';
+                                }
+                                return null;
+                              },
+                              prefix: Icons.email,
+                              hint: 'national Id',
+                              hintStyle: const TextStyle(color: Colors.grey),
+                              show: false),
+                        ),
                         const SizedBox(
                           height: 40,
                         ),
@@ -295,6 +337,30 @@ class Register extends StatelessWidget {
                           ],
                         ),
                         const SizedBox(
+                          height: 20,
+                        ),
+                        Container(
+                          width: double.infinity,
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Checkbox(
+                                activeColor: HexColor('#07094D'),
+                                  value:check, onChanged:(value){
+                                setState(() {
+                                  check = value!;
+                                });
+                              }),
+                              Expanded(child: Column(
+                                children:const [
+                                  SizedBox(height: 12,),
+                                  Text('I Have read and agree to the privacy policy, terms of serice, and community guidelines.',style: TextStyle(color: Colors.black,fontSize:12,fontWeight: FontWeight.w500),),
+                                ],
+                              ))
+                            ],
+                          ),
+                        ),
+                        const SizedBox(
                           height: 40,
                         ),
                         if (state is RegisterLoadingState) const SizedBox(height: 10),
@@ -304,6 +370,7 @@ class Register extends StatelessWidget {
                         ):
                         DefaultButton(
                           backgroundColor:HexColor('#07094D'),
+                          borderColor: Colors.transparent,
                           buttonWidget: const Text(
                             'Sign Up',
                             style: TextStyle(color: Colors.white),

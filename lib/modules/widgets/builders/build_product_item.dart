@@ -158,7 +158,7 @@ Widget buildProductItem(product,context) =>InkWell(
                               ),
                               const Spacer(),
                               Container(
-                                  height: 40,
+                                  height: 50,
                                   decoration: BoxDecoration(
                                       color: HexColor('#07094D'),
                                       borderRadius: const BorderRadius.only(

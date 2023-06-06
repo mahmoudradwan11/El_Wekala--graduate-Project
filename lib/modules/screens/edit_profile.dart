@@ -34,11 +34,11 @@ class EditProfile extends StatelessWidget {
                     child: Stack(
                       children: [
                         const Image(image: AssetImage('images/edit.png')),
-                        const Align(
+                         Align(
                           alignment: AlignmentDirectional.bottomCenter,
                           child: CircleAvatar(
                             radius: 68,
-                            backgroundImage: AssetImage('images/Person.png'),
+                            backgroundImage: NetworkImage(cubit.profileModel!.user!.profileImage!)
                           ),
                         ),
                         const Positioned(

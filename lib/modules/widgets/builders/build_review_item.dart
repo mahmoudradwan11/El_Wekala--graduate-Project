@@ -8,7 +8,8 @@ Widget buildReviewItem(ReviewsItems reviewModel) => Padding(
           color: Colors.transparent,
           width: double.infinity,
           height: 100,
-          child: Row(children: [
+          child: Row(
+              children: [
             Column(
               children: [
                 Row(
@@ -23,8 +24,8 @@ Widget buildReviewItem(ReviewsItems reviewModel) => Padding(
                       width: 20,
                     ),
                     Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
@@ -36,7 +37,7 @@ Widget buildReviewItem(ReviewsItems reviewModel) => Padding(
                                   fontWeight: FontWeight.w600, fontSize: 12),
                             ),
                             const SizedBox(
-                              width: 50,
+                              width: 80
                             ),
                             Text(
                               DateFormat('MM-dd-yyyy').format(

@@ -1,5 +1,6 @@
 import 'package:el_wekala/core/network/local/cache_helper.dart';
 import 'package:el_wekala/models/store_model/onboarding.dart';
+import 'package:el_wekala/modules/screens/layout.dart';
 import 'package:el_wekala/modules/screens/login.dart';
 import 'package:el_wekala/modules/widgets/builders/build_onboarding.dart';
 import 'package:el_wekala/modules/widgets/builders/defaultBotton.dart';
@@ -87,6 +88,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                       submit();
                     },
                     backgroundColor: HexColor('#07094D'),
+                    borderColor: Colors.transparent,
                   ),
                 )
               : Padding(
@@ -95,6 +97,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                       buttonWidget: const Text('Next',
                           style: TextStyle(color: Colors.white)),
                       backgroundColor: HexColor('#07094D'),
+                      borderColor: Colors.transparent,
                       function: () {
                         boardController.nextPage(
                             duration: const Duration(
@@ -106,50 +109,54 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
           const SizedBox(
             height: 10,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                MaterialButton(
-                    onPressed: () {
-                      boardController.previousPage(
-                          duration: const Duration(
-                            milliseconds: 750,
-                          ),
-                          curve: Curves.fastLinearToSlowEaseIn);
-                    },
-                    child: Text(
-                      'Back',
-                      style: TextStyle(color: screenIndex==0?Colors.transparent:HexColor('#000000')),
+          Spacer(),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  MaterialButton(
+                      onPressed: () {
+                        boardController.previousPage(
+                            duration: const Duration(
+                              milliseconds: 750,
+                            ),
+                            curve: Curves.fastLinearToSlowEaseIn);
+                      },
+                      child: Text(
+                        'Back',
+                        style: TextStyle(color: screenIndex==0?Colors.transparent:HexColor('#000000')),
+                      ),
                     ),
+                 SmoothPageIndicator(
+                  effect: ExpandingDotsEffect(
+                    dotHeight: 5,
+                    activeDotColor: HexColor('#07094D'),
+                    dotWidth: 10,
+                    dotColor: HexColor('#AFAFAF'),
+                    // expansionFactor: 4,
+                    spacing: 5.0,
                   ),
-               SmoothPageIndicator(
-                effect: ExpandingDotsEffect(
-                  dotHeight: 5,
-                  activeDotColor: HexColor('#07094D'),
-                  dotWidth: 10,
-                  dotColor: HexColor('#AFAFAF'),
-                  // expansionFactor: 4,
-                  spacing: 5.0,
-                ),
-                controller: boardController,
-                count: boarding.length),
-                MaterialButton(
-                    onPressed: () {
-                      submit();
-                    },
-                    child: Text(
-                      'Skip',
-                      style: TextStyle(color: screenIndex==2?Colors.transparent:HexColor('#07094D')),
-                    ),
-                  )
-          ])
+                  controller: boardController,
+                  count: boarding.length),
+                  MaterialButton(
+                      onPressed: () {
+                        submit();
+                      },
+                      child: Text(
+                        'Skip',
+                        style: TextStyle(color: screenIndex==2?Colors.transparent:HexColor('#07094D')),
+                      ),
+                    )
+            ]),
+          )
         ]));
   }
 
   void submit() {
     CacheHelper.saveData(key: 'onBoarding', value: true).then((value) {
       if (value) {
-        navigateAndFinish(context, Login());
+        navigateAndFinish(context,const LayoutLoginAndRegister());
       }
     });
   }
