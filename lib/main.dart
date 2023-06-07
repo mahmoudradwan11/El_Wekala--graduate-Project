@@ -3,7 +3,6 @@ import 'package:el_wekala/core/network/constants.dart';
 import 'package:el_wekala/core/network/remote/store_helper/store_helper.dart';
 import 'package:el_wekala/core/themes/light.dart';
 import 'package:el_wekala/modules/screens/layout.dart';
-import 'package:el_wekala/modules/screens/login.dart';
 import 'package:el_wekala/modules/screens/onboarding.dart';
 import 'package:el_wekala/modules/screens/spalsh.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +16,7 @@ import 'core/network/remote/payment_helper/payment_helper.dart';
 import 'modules/screens/home.dart';
 
 void main() async {
+  //this code is written by Eng Mahmoud Radwan....
   WidgetsFlutterBinding.ensureInitialized();
   await CacheHelper.init();
   DioHelperStore.init();

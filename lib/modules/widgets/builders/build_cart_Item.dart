@@ -2,7 +2,6 @@ import 'package:el_wekala/core/controllers/store_cubit/store_cubit.dart';
 import 'package:el_wekala/models/store_model/cart.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
-
 Widget buildCartItem(CartProducts cartProducts,context) => Container(
       width: double.infinity,
       height: 150,

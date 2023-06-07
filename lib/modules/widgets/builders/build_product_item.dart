@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:el_wekala/core/controllers/store_cubit/store_cubit.dart';
 import 'package:el_wekala/modules/screens/product_details.dart';
 import 'package:el_wekala/modules/widgets/functions/navigator.dart';
+import 'package:el_wekala/modules/widgets/functions/toast.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
@@ -167,6 +168,7 @@ Widget buildProductItem(product,context) =>InkWell(
                                   child: MaterialButton(
                                     onPressed: () {
                                       ElWekalaCubit.get(context).addToMyCart(product.sId);
+                                      showToast('Added', ToastStates.SUCCESS);
                                     },
                                     child: Text(
                                       'Buy'.toUpperCase(),

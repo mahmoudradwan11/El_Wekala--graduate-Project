@@ -50,10 +50,6 @@ Widget buildGeneralItems(context) => Padding(
                         ],
                       ),
                     ),
-                    const Icon(
-                      Icons.keyboard_arrow_right_rounded,
-                      size: 30,
-                    ),
                     const SizedBox(width: 16),
                   ],
                 ),
@@ -211,10 +207,6 @@ Widget buildGeneralItems(context) => Padding(
                           Text('Terms, Privacy'),
                         ],
                       ),
-                    ),
-                    const Icon(
-                      Icons.keyboard_arrow_right_rounded,
-                      size: 30,
                     ),
                     const SizedBox(width: 16),
                   ],

@@ -427,7 +427,6 @@ class ElWekalaCubit extends Cubit<ElWekalaStates> {
     }).then((value) {
       print('Add');
       emit(AddToCart());
-      showToast('Add', ToastStates.SUCCESS);
       getMyCart();
       getTotal();
     }).catchError((error) {

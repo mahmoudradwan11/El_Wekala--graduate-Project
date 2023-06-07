@@ -20,7 +20,6 @@ class ProductDetails extends StatelessWidget {
   var rateController = TextEditingController();
   var scaffoldKey = GlobalKey<ScaffoldState>();
   var formKey = GlobalKey<FormState>();
-  //TabController _tabController = TabController(length: 3, vsync: this);
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ElWekalaCubit, ElWekalaStates>(
@@ -50,7 +49,7 @@ class ProductDetails extends StatelessWidget {
                                 height: 31,
                               ),
                             ),
-                            Spacer(),
+                            const Spacer(),
                           ],
                         ),
                       ),
@@ -70,7 +69,7 @@ class ProductDetails extends StatelessWidget {
                             )),
                             InkWell(
                               onTap: () {
-                                cubit.addtoMyFavorite(model.sId);
+                                model.inFavorite?cubit.deleteFavorite(model.sId):cubit.addtoMyFavorite(model.sId);
                               },
                               child: Container(
                                   decoration: BoxDecoration(
@@ -78,10 +77,10 @@ class ProductDetails extends StatelessWidget {
                                       borderRadius: BorderRadius.circular(6)),
                                   height: 30,
                                   width: 30,
-                                  child: const Center(
+                                  child: Center(
                                       child: Icon(
                                     Icons.favorite,
-                                    color: Colors.red,
+                                    color:model.inFavorite!?Colors.red:Colors.grey,
                                   ))),
                             )
                           ],
@@ -229,7 +228,7 @@ class ProductDetails extends StatelessWidget {
                                             image: cubit.chooseImageCompany(
                                                 model.company!),
                                           ))),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 20,
                                   ),
                                   InkWell(
@@ -237,6 +236,7 @@ class ProductDetails extends StatelessWidget {
                                       cubit.getSellerProducts(model.company!);
                                       cubit.getFilterSellerProducts(
                                           model.company);
+                                      cubit.changeView(0);
                                       navigateTo(
                                           context,
                                           SellersScreen(
@@ -252,11 +252,11 @@ class ProductDetails extends StatelessWidget {
                                       children: [
                                         Text(
                                           '${model.company} Official Store',
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                               fontSize: 15,
                                               fontWeight: FontWeight.w600),
                                         ),
-                                        SizedBox(
+                                       const  SizedBox(
                                           height: 5,
                                         ),
                                         Text(
@@ -272,7 +272,7 @@ class ProductDetails extends StatelessWidget {
                                 ],
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               height: 10,
                             ),
                             Container(
@@ -1208,102 +1208,99 @@ class ProductDetails extends StatelessWidget {
                         ),
                       ),
                     if (cubit.currentTabViewIndex == 2)
-                      Column(
-                        children: [
-                          MaterialButton(
-                            onPressed: () {
-                              scaffoldKey.currentState!
-                                  .showBottomSheet((context) => Container(
-                                        height: 200,
-                                        decoration: BoxDecoration(
-                                            color: Colors.grey[300],
-                                            borderRadius:
-                                                BorderRadius.circular(10)),
-                                        child: SingleChildScrollView(
-                                            child: Form(
-                                          key: formKey,
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(10.0),
-                                            child: Column(
-                                              children: [
-                                                DefaultFieldForm(
-                                                  show: false,
-                                                  controller:
-                                                      commentsController,
-                                                  keyboard: TextInputType.text,
-                                                  valid: (value) {
-                                                    if (value.isEmpty) {
-                                                      return 'Comments Must Not Be Empty';
-                                                    }
-                                                    return null;
-                                                  },
-                                                  label: 'Comments',
-                                                  prefix: Icons.comment,
-                                                ),
-                                                const SizedBox(
-                                                  height: 15,
-                                                ),
-                                                DefaultFieldForm(
-                                                  show: false,
-                                                  controller: rateController,
-                                                  keyboard:
-                                                      TextInputType.number,
-                                                  valid: (value) {
-                                                    if (value.isEmpty) {
-                                                      return 'rate Must Not Be Empty';
-                                                    }
-                                                    return null;
-                                                  },
-                                                  label: 'Rating',
-                                                  prefix: Icons.rate_review,
-                                                ),
-                                                const SizedBox(
-                                                  height: 15,
-                                                ),
-                                                DefaultButton(
-                                                    buttonWidget: const Text(
-                                                        'Add Reviews',
-                                                      style: TextStyle(color: Colors.white),
-                                                    ),
+                      if (cubit.currentTabViewIndex == 2)
+                        Padding(
+                          padding: const EdgeInsets.only(top: 20.0,right: 20.0,left: 20.0),
+                          child: DefaultButton(
+                              function: () {
+                                scaffoldKey.currentState!
+                                    .showBottomSheet((context) => Container(
+                                  height: 200,
+                                  decoration: BoxDecoration(
+                                      color: Colors.grey[300],
+                                      borderRadius:
+                                      BorderRadius.circular(10)),
+                                  child: SingleChildScrollView(
+                                      child: Form(
+                                        key: formKey,
+                                        child: Padding(
+                                          padding: const EdgeInsets.all(10.0),
+                                          child: Column(
+                                            children: [
+                                              DefaultFieldForm(
+                                                show: false,
+                                                controller:
+                                                commentsController,
+                                                keyboard: TextInputType.text,
+                                                valid: (value) {
+                                                  if (value.isEmpty) {
+                                                    return 'Comments Must Not Be Empty';
+                                                  }
+                                                  return null;
+                                                },
+                                                label: 'Comments',
+                                                prefix: Icons.comment,
+                                              ),
+                                              const SizedBox(
+                                                height: 15,
+                                              ),
+                                              DefaultFieldForm(
+                                                show: false,
+                                                controller: rateController,
+                                                keyboard:
+                                                TextInputType.number,
+                                                valid: (value) {
+                                                  if (value.isEmpty) {
+                                                    return 'rate Must Not Be Empty';
+                                                  }
+                                                  return null;
+                                                },
+                                                label: 'Rating',
+                                                prefix: Icons.rate_review,
+                                              ),
+                                              const SizedBox(
+                                                height: 15,
+                                              ),
+                                              DefaultButton(
+                                                  buttonWidget: const Text(
+                                                    'Add Reviews',
+                                                    style: TextStyle(color: Colors.white),
+                                                  ),
 
-                                                    backgroundColor: HexColor('#07094D'),
-                                                    function: () {
-                                                      if (formKey.currentState!
-                                                          .validate()) {
-                                                        cubit.addReview(
-                                                            model.sId,
-                                                            commentsController
-                                                                .text,
-                                                            rateController
-                                                                .text);
-                                                        cubit.getAllReviews(
-                                                            model.sId);
-                                                      }
-                                                    })
-                                              ],
-                                            ),
+                                                  backgroundColor: HexColor('#07094D'),
+                                                  function: () {
+                                                    if (formKey.currentState!
+                                                        .validate()) {
+                                                      cubit.addReview(
+                                                          model.sId,
+                                                          commentsController
+                                                              .text,
+                                                          rateController
+                                                              .text);
+                                                      cubit.getAllReviews(
+                                                          model.sId);
+                                                    }
+                                                  })
+                                            ],
                                           ),
-                                        )),
-                                      ));
-                            },
-                            child: Text('Add Review'),
-                          )
-                        ],
-                      ),
-                    if (cubit.currentTabViewIndex == 2)
+                                        ),
+                                      )),
+                                ));
+                              },
+                              buttonWidget:const Text('Add Review',style: TextStyle(color: Colors.white),),
+                            backgroundColor: HexColor('#07094D'),
+                          ),
+                        ),
                       if (cubit.reviewModel!.reviews!.isEmpty)
                         const Text('No Reviews For This Items'),
-                    if (cubit.currentTabViewIndex == 2)
-                      if (cubit.reviewModel!.reviews!.isNotEmpty)
+                    if (cubit.currentTabViewIndex == 2 && cubit.reviewModel!.reviews!.isNotEmpty)
                         ListView.separated(
                             shrinkWrap: true,
-                            physics: NeverScrollableScrollPhysics(),
+                            physics: const NeverScrollableScrollPhysics(),
                             itemBuilder: (context, index) => buildReviewItem(
                                 cubit.reviewModel!.reviews![index]),
                             separatorBuilder: (context, index) =>
-                                const SizedBox(
-                                  height: 20,
-                                ),
+                                const SizedBox(),
                             itemCount: cubit.reviewModel!.reviews!.length),
                     Padding(
                       padding: const EdgeInsets.all(20),

@@ -3,7 +3,7 @@ import 'package:el_wekala/models/store_model/custom_tap.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
-Widget BuildCustomTapBar(CustomTapBar customTapBar,index,context)=>InkWell(
+Widget buildCustomTapBar(CustomTapBar customTapBar,index,context)=>InkWell(
   onTap: (){
     ElWekalaCubit.get(context).change(index);
   },

@@ -69,7 +69,7 @@ class SearchPhone extends StatelessWidget {
                           ListView.separated(
                             shrinkWrap:true,
                             scrollDirection: Axis.horizontal,
-                            itemBuilder:(context,index)=>BuildCustomTapBar(cubit.customTap[index],index,context),
+                            itemBuilder:(context,index)=>buildCustomTapBar(cubit.customTap[index],index,context),
                             separatorBuilder:(context,index)=>const SizedBox(
                               width: 10,
                             ),

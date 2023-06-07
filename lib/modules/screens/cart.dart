@@ -62,8 +62,8 @@ class Cart extends StatelessWidget {
                         padding: const EdgeInsets.all(8.0),
                         child: Row(
                           children:[
-                            Text('Apply coppen code .....'),
-                            Spacer(),
+                            const Text('Apply coppen code .....'),
+                            const Spacer(),
                             DefaultButton(
                               height: 40,
                              backgroundColor: HexColor('#07094D'),
@@ -109,8 +109,8 @@ class Cart extends StatelessWidget {
                               height: 32,
                               child: Row(
                                 children: [
-                                  Text('Shiping'),
-                                  Spacer(),
+                                  const Text('Shiping'),
+                                  const Spacer(),
                                   Text('\$10',style: TextStyle(
                                       color: HexColor('#07094D'),
                                       fontWeight: FontWeight.w600,
@@ -158,31 +158,25 @@ class Cart extends StatelessWidget {
                         )
                       ),
                       child:Row(
-                       // mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children:[
-                          const SizedBox(
-                            width: 150,
-                          ),
+                        mainAxisAlignment:MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text('data',style: TextStyle(color: Colors.transparent),),
                           InkWell(
-                            onTap:(){
-                              navigateTo(context,PaymentBasic(price:cubit.totalCart!.totalPrice.round()+10,));
-                            },
+                              onTap:(){
+                                navigateTo(context,PaymentBasic(price:cubit.totalCart!.totalPrice.round()+10,));
+                              },
                               child: const Text('Checkout',style: TextStyle(color: Colors.white,fontSize: 17,fontWeight: FontWeight.w500),)),
-                          const SizedBox(
-                            width:92,
-                          ),
                           Container(
                             decoration: BoxDecoration(
-                              color: HexColor('#07094D'),
-                              borderRadius: BorderRadius.circular(12)
+                                color: HexColor('#07094D'),
+                                borderRadius: BorderRadius.circular(12)
                             ),
                             height:50,
                             width:50,
                             child:const Icon(Icons.shopping_cart,color: Colors.white,),
                           )
                         ],
-                      ),
+                      )
                     )
                   ],
                 ),
