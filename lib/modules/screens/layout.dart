@@ -3,8 +3,8 @@ import 'package:el_wekala/modules/screens/register.dart';
 import 'package:el_wekala/modules/widgets/builders/defaultBotton.dart';
 import 'package:el_wekala/modules/widgets/functions/navigator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hexcolor/hexcolor.dart';
-
 class LayoutLoginAndRegister extends StatelessWidget {
   const LayoutLoginAndRegister({Key? key}) : super(key: key);
   @override
@@ -22,11 +22,11 @@ class LayoutLoginAndRegister extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
-                children:const [
-                  SizedBox(height: 100,),
-                  Image(image: AssetImage('images/El Wekala.png')),
-                  SizedBox(height: 20,),
-                  Image(image: AssetImage('images/lay.png')),
+                children:[
+                  const SizedBox(height: 100,),
+                  const Image(image: AssetImage('images/El Wekala.png')),
+                  const SizedBox(height: 20,),
+                  SvgPicture.asset('images/t.svg')
                 ],
               ),
             ),

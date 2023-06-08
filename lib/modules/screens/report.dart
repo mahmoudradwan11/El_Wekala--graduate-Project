@@ -8,6 +8,7 @@ import 'package:hexcolor/hexcolor.dart';
 
 class ContactUs extends StatelessWidget {
   TextEditingController descriptionController = TextEditingController();
+  var formKey = GlobalKey<FormState>();
   ContactUs({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -21,29 +22,31 @@ class ContactUs extends StatelessWidget {
             ),
             body:Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Column(
-                children: [
-                  buildTextForm(
-                    context,
-                    buttonController: descriptionController,
-                    title: 'Problem',
-                    MediaQuery.of(context).size.height * 0.22,
-                  ),
-                  const Spacer(),
-                  DefaultButton(function:(){
-                    cubit.sendReport(descriptionController.text);
-                    cubit.showAlert(context);
-                   // showToast('Send',ToastStates.SUCCESS);
-                  },
-                    borderColor: Colors.white,
-                    backgroundColor:HexColor('#07094D'),
-                    buttonWidget: const Text(
-                      'Send',style: TextStyle(
-                        color: Colors.white
+              child: Form(
+                key: formKey,
+                child: Column(
+                  children: [
+                    buildTextForm(
+                      context,
+                      buttonController: descriptionController,
+                      title: 'Problem',
+                      MediaQuery.of(context).size.height * 0.22,
                     ),
-                    ),
-                  )
-                ],
+                    const Spacer(),
+                    DefaultButton(function:(){
+                      cubit.sendReport(descriptionController.text,context);
+                     // showToast('Send',ToastStates.SUCCESS);
+                    },
+                      borderColor: Colors.white,
+                      backgroundColor:HexColor('#07094D'),
+                      buttonWidget: const Text(
+                        'Send',style: TextStyle(
+                          color: Colors.white
+                      ),
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
           );

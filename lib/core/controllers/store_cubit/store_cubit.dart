@@ -16,6 +16,7 @@ import 'package:el_wekala/models/store_model/home/smartphone.dart';
 import 'package:el_wekala/models/store_model/home/smartwatch.dart';
 import 'package:el_wekala/models/store_model/laptops.dart';
 import 'package:el_wekala/models/store_model/message.dart';
+import 'package:el_wekala/models/store_model/notification.dart';
 import 'package:el_wekala/models/store_model/phones.dart';
 import 'package:el_wekala/models/store_model/review_model.dart';
 import 'package:el_wekala/models/store_model/search.dart';
@@ -46,10 +47,31 @@ class ElWekalaCubit extends Cubit<ElWekalaStates> {
   static ElWekalaCubit get(context) => BlocProvider.of(context);
   int currentIndex = 0;
   int currentTabViewIndex = 0;
+  bool isMale = true;
+  void changeToMale() {
+    isMale = true;
+    emit(IsMaleChoose());
+  }
+
+  void changeToFemale() {
+    isMale = false;
+    emit(IsFemaleChoose());
+  }
 
   void changeView(int index) {
     currentTabViewIndex = index;
     emit(ChangeViewIndex());
+  }
+
+  void deleteUser(String email) {
+    DioHelperStore.delData(
+        url: 'https://elwekala.onrender.com/user/delete',
+        data: {'email': email}).then((value) {
+      emit(DeleteUser());
+    }).catchError((error) {
+      print(error.toString());
+      emit(ErrorDeleteUser());
+    });
   }
 
   bool swi = false;
@@ -59,6 +81,61 @@ class ElWekalaCubit extends Cubit<ElWekalaStates> {
       swi = false;
     } else {
       swi = true;
+    }
+    emit(ChangeSettingIndex());
+  }
+
+  bool sw1 = false;
+
+  void changeSw1() {
+    if (sw1 == true) {
+      sw1 = false;
+    } else {
+      sw1 = true;
+    }
+    emit(ChangeSettingIndex());
+  }
+
+  bool sw2 = false;
+
+  void changeSw2() {
+    if (sw2 == true) {
+      sw2 = false;
+    } else {
+      sw2 = true;
+    }
+    emit(ChangeSettingIndex());
+  }
+
+  bool sw3 = false;
+
+  void changeSw3() {
+    if (sw3 == true) {
+      sw3 = false;
+    } else {
+      sw3 = true;
+    }
+    emit(ChangeSettingIndex());
+  }
+
+  bool sw4 = false;
+
+  void changeSw4() {
+    if (sw4 == true) {
+      sw4 = false;
+    } else {
+      sw4 = true;
+    }
+    emit(ChangeSettingIndex());
+  }
+
+  bool sw5 = false;
+
+  void changeSw5() {
+    if (sw5 == true) {
+      sw5 = false;
+    } else {
+      sw5 = true;
     }
     emit(ChangeSettingIndex());
   }
@@ -81,8 +158,7 @@ class ElWekalaCubit extends Cubit<ElWekalaStates> {
     } else if (name == 'Xiaomi') {
       companyImage = const NetworkImage(
           'https://2.bp.blogspot.com/-yxbrZsZNLcE/WzXw-SupMvI/AAAAAAAAACw/rUStfzjHVmgrqpaiWrNjhMyRNYEhrjeYQCLcBGAs/s1600/Xiaomi%2BLogo%2BPNG%2BVector.png');
-    }
-    else {
+    } else {
       companyImage = const NetworkImage(
           'https://i.pinimg.com/originals/72/cb/ac/72cbac8133993c4d1d0dfa7514d72905.jpg');
     }
@@ -129,7 +205,6 @@ class ElWekalaCubit extends Cubit<ElWekalaStates> {
     CustomTapBar('Used', 2)
   ];
   String? sortSelected = 'SortBy';
-
   selectedSort(sort) {
     sortSelected = sort;
     emit(SelectSort());
@@ -137,7 +212,6 @@ class ElWekalaCubit extends Cubit<ElWekalaStates> {
 
   int customIndex = 0;
   int settingIndex = 0;
-
   chooseColorCustom(int index) {
     if (customTap[index].index == customIndex) {
       return LinearGradient(colors: [HexColor('#7832A3'), HexColor('#07094D')]);
@@ -215,8 +289,8 @@ class ElWekalaCubit extends Cubit<ElWekalaStates> {
       "name": name,
       "email": email,
       "phone": phone,
-      "password":"12345678",
-      "gender":genderProfile ?? profileModel!.user!.gender,
+      "password": "12345678",
+      "gender": isMale ? 'male' : 'female',
     }).then((value) {
       profileModel = UserModel.fromJson(value.data);
       print(profileModel!.user!.name!);
@@ -250,12 +324,9 @@ class ElWekalaCubit extends Cubit<ElWekalaStates> {
 
   chooseColor(int index) {
     if (cate[index].index == categoryIndex) {
-      return LinearGradient(colors: [
-        HexColor('#7832A3'),
-        HexColor('##07094D')
-      ]);
-    }
-    else {
+      return LinearGradient(
+          colors: [HexColor('#7832A3'), HexColor('##07094D')]);
+    } else {
       return LinearGradient(colors: [
         HexColor('#E6E7E8'),
         HexColor('#E6E7E8'),
@@ -280,10 +351,9 @@ class ElWekalaCubit extends Cubit<ElWekalaStates> {
   }
 
   void addtoMyFavorite(String? id) {
-    DioHelperStore.postData(url: ApiConstant.FAVORITE, data: {
-      "nationalId": nationalId,
-      "productId": id
-    }).then((value) {
+    DioHelperStore.postData(
+        url: ApiConstant.FAVORITE,
+        data: {"nationalId": nationalId, "productId": id}).then((value) {
       print('Added');
       emit(AddToFavorite());
       showToast('Added', ToastStates.SUCCESS);
@@ -328,9 +398,9 @@ class ElWekalaCubit extends Cubit<ElWekalaStates> {
   HomeLaptops? homeLaptops;
 
   void getHomeLaptops() {
-    DioHelperStore.getData(url: ApiConstant.HOMELAPTOPS, data: {
-      "nationalId": nationalId
-    }).then((value) {
+    DioHelperStore.getData(
+        url: ApiConstant.HOMELAPTOPS,
+        data: {"nationalId": nationalId}).then((value) {
       homeLaptops = HomeLaptops.fromJson(value.data);
       print(homeLaptops!.usedProduct!.length);
       print(homeLaptops!.newProduct!.length);
@@ -345,9 +415,9 @@ class ElWekalaCubit extends Cubit<ElWekalaStates> {
   HomeSmartPhone? homeSmartPhone;
 
   void getHomeSmartPhone() {
-    DioHelperStore.getData(url: ApiConstant.HOMESMARTPHONE, data: {
-      "nationalId": nationalId
-    }).then((value) {
+    DioHelperStore.getData(
+        url: ApiConstant.HOMESMARTPHONE,
+        data: {"nationalId": nationalId}).then((value) {
       homeSmartPhone = HomeSmartPhone.fromJson(value.data);
       print(homeSmartPhone!.usedProduct!.length);
       print(homeSmartPhone!.newProduct!.length);
@@ -361,9 +431,9 @@ class ElWekalaCubit extends Cubit<ElWekalaStates> {
   HomeSmartWatch? homeSmartWatch;
 
   void getHomeSmartWatch() {
-    DioHelperStore.getData(url: ApiConstant.HOMESMARTWATCHS, data: {
-      "nationalId": nationalId
-    }).then((value) {
+    DioHelperStore.getData(
+        url: ApiConstant.HOMESMARTWATCHS,
+        data: {"nationalId": nationalId}).then((value) {
       homeSmartWatch = HomeSmartWatch.fromJson(value.data);
       print(homeSmartWatch!.product!.length);
       print(homeSmartWatch!.message!);
@@ -390,7 +460,6 @@ class ElWekalaCubit extends Cubit<ElWekalaStates> {
   }
 
   TotalCart? totalCart;
-
   void getTotal() {
     DioHelperStore.getData(url: ApiConstant.TOTALPRICE, data: {
       "nationalId": nationalId,
@@ -405,10 +474,9 @@ class ElWekalaCubit extends Cubit<ElWekalaStates> {
   }
 
   void deleteFromCart(productId) {
-    DioHelperStore.delData(url: ApiConstant.DELETECART, data: {
-      "nationalId": nationalId,
-      "productId": productId
-    }).then((value) {
+    DioHelperStore.delData(
+        url: ApiConstant.DELETECART,
+        data: {"nationalId": nationalId, "productId": productId}).then((value) {
       print('Deleted');
       emit(DeleteCart());
       getMyCart();
@@ -454,9 +522,8 @@ class ElWekalaCubit extends Cubit<ElWekalaStates> {
   SearchModel? searchModel;
 
   void searchProduct({required keyword}) {
-    DioHelperStore.getData(url: ApiConstant.SEARCH, data: {
-      'keyword': keyword
-    }).then((value) {
+    DioHelperStore.getData(url: ApiConstant.SEARCH, data: {'keyword': keyword})
+        .then((value) {
       searchModel = SearchModel.fromJson(value.data);
       print(searchModel!.products!.length);
       emit(SearchSuccessfully());
@@ -467,11 +534,9 @@ class ElWekalaCubit extends Cubit<ElWekalaStates> {
   }
 
   SearchFilterModel? searchFilterModel;
-
   void getAllProducts({required keyword}) {
-    DioHelperStore.getData(url: ApiConstant.SEARCH, data: {
-      'keyword': keyword
-    }).then((value) {
+    DioHelperStore.getData(url: ApiConstant.SEARCH, data: {'keyword': keyword})
+        .then((value) {
       searchFilterModel = SearchFilterModel.fromJson(value.data);
       print(searchFilterModel!.usedProducts!.length);
       print(searchFilterModel!.newProducts!.length);
@@ -485,9 +550,9 @@ class ElWekalaCubit extends Cubit<ElWekalaStates> {
   Laptops? laptops;
 
   void getAllLaptops() {
-    DioHelperStore.getData(url: ApiConstant.HOMELAPTOPS, data: {
-      "nationalId": nationalId
-    }).then((value) {
+    DioHelperStore.getData(
+        url: ApiConstant.HOMELAPTOPS,
+        data: {"nationalId": nationalId}).then((value) {
       laptops = Laptops.fromJson(value.data);
       print(laptops!.product!.length);
       emit(GetAllLaptops());
@@ -500,9 +565,9 @@ class ElWekalaCubit extends Cubit<ElWekalaStates> {
   Phones? phones;
 
   void getAllPhones() {
-    DioHelperStore.getData(url: ApiConstant.HOMESMARTPHONE, data: {
-      "nationalId": nationalId
-    }).then((value) {
+    DioHelperStore.getData(
+        url: ApiConstant.HOMESMARTPHONE,
+        data: {"nationalId": nationalId}).then((value) {
       phones = Phones.fromJson(value.data);
       print(phones!.product!.length);
       emit(GetAllPhones());
@@ -515,10 +580,8 @@ class ElWekalaCubit extends Cubit<ElWekalaStates> {
   SellersModel? sellersModel;
 
   void getSellerProducts(seller) {
-    DioHelperStore.getData(url: ApiConstant.SELLER, data:
-    {
-      "company": seller
-    }).then((value) {
+    DioHelperStore.getData(url: ApiConstant.SELLER, data: {"company": seller})
+        .then((value) {
       sellersModel = SellersModel.fromJson(value.data);
       print(sellersModel!.products!.length);
       emit(GetAllSellerProducts());
@@ -531,10 +594,8 @@ class ElWekalaCubit extends Cubit<ElWekalaStates> {
   FilterSellerModel? filterSellerModel;
 
   void getFilterSellerProducts(seller) {
-    DioHelperStore.getData(url: ApiConstant.SELLER, data:
-    {
-      "company": seller
-    }).then((value) {
+    DioHelperStore.getData(url: ApiConstant.SELLER, data: {"company": seller})
+        .then((value) {
       filterSellerModel = FilterSellerModel.fromJson(value.data);
       print(filterSellerModel!.usedProducts!.length);
       emit(GetAllSellerProducts());
@@ -558,6 +619,7 @@ class ElWekalaCubit extends Cubit<ElWekalaStates> {
     }).catchError((error) {
       print(error.toString());
       emit(ErrorAddReview());
+      showToast('Rating Must Not More Than 5', ToastStates.ERROR);
     });
   }
 
@@ -565,7 +627,7 @@ class ElWekalaCubit extends Cubit<ElWekalaStates> {
 
   void getAllReviews(productId) {
     DioHelperStore.getData(
-        url: 'https://elwekala.onrender.com/review/allreviews/$productId')
+            url: 'https://elwekala.onrender.com/review/allreviews/$productId')
         .then((value) {
       reviewModel = ReviewModel.fromJson(value.data);
       print('Reviews = ${reviewModel!.reviews!.length}');
@@ -579,9 +641,9 @@ class ElWekalaCubit extends Cubit<ElWekalaStates> {
   HomeTVS? homeTVS;
 
   void getHomeTvs() {
-    DioHelperStore.getData(url: ApiConstant.HOMETVS, data: {
-      "nationalId": nationalId
-    }).then((value) {
+    DioHelperStore.getData(
+        url: ApiConstant.HOMETVS,
+        data: {"nationalId": nationalId}).then((value) {
       homeTVS = HomeTVS.fromJson(value.data);
       print(homeTVS!.usedProduct!.length);
       print(homeTVS!.newProduct!.length);
@@ -595,9 +657,9 @@ class ElWekalaCubit extends Cubit<ElWekalaStates> {
   TVS? tvs;
 
   void getAllTVS() {
-    DioHelperStore.getData(url: ApiConstant.HOMETVS, data: {
-      "nationalId": nationalId
-    }).then((value) {
+    DioHelperStore.getData(
+        url: ApiConstant.HOMETVS,
+        data: {"nationalId": nationalId}).then((value) {
       tvs = TVS.fromJson(value.data);
       print(tvs!.product!.length);
       print(tvs!.message!);
@@ -607,11 +669,12 @@ class ElWekalaCubit extends Cubit<ElWekalaStates> {
       emit(ErrorGetAllTvs());
     });
   }
+
   HomeAccessories? homeAccessories;
   void getHomeAccessories() {
-    DioHelperStore.getData(url: ApiConstant.HOMEAC, data: {
-      "nationalId": nationalId
-    }).then((value) {
+    DioHelperStore.getData(
+        url: ApiConstant.HOMEAC,
+        data: {"nationalId": nationalId}).then((value) {
       homeAccessories = HomeAccessories.fromJson(value.data);
       // print(homeAccessories!.product!.length);
       // print(homeAccessories!.message!);
@@ -621,35 +684,36 @@ class ElWekalaCubit extends Cubit<ElWekalaStates> {
       emit(ErrorGetAllAcc());
     });
   }
+
   MessagesModel? messagesModel;
   void getMessages() {
-    DioHelperStore.getData(url: 'https://elwekala.onrender.com/chat/',data:{
+    DioHelperStore.getData(url: 'https://elwekala.onrender.com/chat/', data: {
       "senderNationalId": nationalId,
       "receiverNationalId": "30103131301721"
-    }).then((
-        value){
+    }).then((value) {
       messagesModel = MessagesModel.fromJson(value.data);
       print(messagesModel!.messages!.length);
-     emit(GetAllMessages());
-    }).catchError((error){
+      emit(GetAllMessages());
+    }).catchError((error) {
       print(error.toString());
       emit(ErrorGetAllMessages());
     });
   }
-  void sendMessage(content){
-    DioHelperStore.postData(url:'https://elwekala.onrender.com/chat/', data:
-      {
-        "senderNationalId": nationalId,
-        "receiverNationalId": "30103131301721",
-        "content": content
-    }).then((value){
+
+  void sendMessage(content) {
+    DioHelperStore.postData(url: 'https://elwekala.onrender.com/chat/', data: {
+      "senderNationalId": nationalId,
+      "receiverNationalId": "30103131301721",
+      "content": content
+    }).then((value) {
       emit(SendMessage());
       getMessages();
-    }).catchError((error){
+    }).catchError((error) {
       print(error.toString());
       emit(ErrorSendMessage());
     });
   }
+
   void showAlert(context) {
     QuickAlert.show(
         context: context,
@@ -657,34 +721,45 @@ class ElWekalaCubit extends Cubit<ElWekalaStates> {
         title: 'Send Success',
         text: 'We will work on your complaint ');
   }
-  void sendReport(problem){
-    DioHelperStore.postData(url:'https://elwekala.onrender.com/report', data:{
-      "nationalId":nationalId,
-      "problem":problem
-    }).then((value){
+
+  void sendReport(problem, context) {
+    DioHelperStore.postData(
+        url: 'https://elwekala.onrender.com/report',
+        data: {"nationalId": nationalId, "problem": problem}).then((value) {
       emit(SendContact());
-    }).catchError((error){
+      showAlert(context);
+    }).catchError((error) {
       print(error.toString());
       emit(ErrorContact());
+      showToast('Please Write your Complaint', ToastStates.ERROR);
     });
   }
+
   FilterProducts? filterProducts;
-  void getFilter({min,max,category,company})
-  {
-      DioHelperStore.getData(url:'https://elwekala.onrender.com/product/filer/get',data:{
-          "categories": ["Smart Phones", "Laptops","PC and laptop accessories","Smart Tvs","Smart watches"],
-          "companies": ["Huawei","Apple","Samsung","Xiaomi"],
+  void getFilter({min, max, category, company}) {
+    DioHelperStore.getData(
+        url: 'https://elwekala.onrender.com/product/filer/get',
+        data: {
+          "categories": [
+            "Smart Phones",
+            "Laptops",
+            "PC and laptop accessories",
+            "Smart Tvs",
+            "Smart watches"
+          ],
+          "companies": ["Huawei", "Apple", "Samsung", "Xiaomi"],
           "minPrice": 1,
           "maxPrice": 1000
-      }).then((value){
+        }).then((value) {
       filterProducts = FilterProducts.fromJson(value.data);
       print(filterProducts!.products!.length);
       emit(GetFilter());
-      }).catchError((error){
+    }).catchError((error) {
       print(error.toString());
       emit(ErrorFilter());
-      });
+    });
   }
+
   bool apple = false;
   bool xiaomi = false;
   bool samsung = false;
@@ -695,40 +770,76 @@ class ElWekalaCubit extends Cubit<ElWekalaStates> {
   bool smartTvs = false;
   bool acc = false;
 
-  void checkApple(value){
+  void checkApple(value) {
     apple = value;
     emit(CheckApple());
   }
-  void checkXiaomi(value){
+
+  void checkXiaomi(value) {
     xiaomi = value;
     emit(CheckXiaomi());
   }
-  void checkSamsung(value){
+
+  void checkSamsung(value) {
     samsung = value;
     emit(CheckSamsung());
   }
-  void checkHuawei(value){
+
+  void checkHuawei(value) {
     huawei = value;
     emit(CheckHuawei());
   }
-  void checkLap(value){
+
+  void checkLap(value) {
     lap = value;
     emit(CheckLap());
   }
-  void checkPhone(value){
+
+  void checkPhone(value) {
     smartphone = value;
     emit(CheckPhones());
   }
-  void checkWatch(value){
+
+  void checkWatch(value) {
     smartWatches = value;
     emit(CheckWatches());
   }
-  void checkTv(value){
+
+  void checkTv(value) {
     smartTvs = value;
     emit(CheckTvs());
   }
-  void checkAcc(value){
+
+  void checkAcc(value) {
     acc = value;
     emit(CheckAcc());
+  }
+  void addSales(productId){
+    DioHelperStore.postData(url:'https://elwekala.onrender.com/product/add/sale', data:{
+        "productId":productId
+    }).then((value){
+      emit(AddSales());
+    }).catchError((error){
+      print(error.toString());
+      emit(ErrorAddSales());
+    });
+  }
+  void deleteReview(reviewId,productId){
+    DioHelperStore.delData(url:'https://elwekala.onrender.com/review/$reviewId',).then((value){
+      emit(DeleteReview());
+      getAllReviews(productId);
+    }).catchError((error){
+      print(error.toString());
+    });
+  }
+  NotificationModel? notificationModel;
+  void getAllNotification(){
+    DioHelperStore.getData(url:'https://elwekala.onrender.com/notification/').then((value){
+      notificationModel = NotificationModel.fromJson(value.data);
+      emit(GetNotification());
+    }).catchError((error){
+  print(error.toString());
+  emit(ErrorGetNotification());
+    });
   }
 }

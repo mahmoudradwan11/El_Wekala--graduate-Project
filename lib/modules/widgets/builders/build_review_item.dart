@@ -1,8 +1,9 @@
+import 'package:el_wekala/core/controllers/store_cubit/store_cubit.dart';
 import 'package:el_wekala/models/store_model/review_model.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:intl/intl.dart';
-Widget buildReviewItem(ReviewsItems reviewModel) => Card(
+Widget buildReviewItem(ReviewsItems reviewModel,context,id) => Card(
     margin: const EdgeInsets.symmetric(horizontal: 0.8),
     clipBehavior: Clip.antiAliasWithSaveLayer,
     elevation: 0.0,
@@ -152,7 +153,16 @@ Widget buildReviewItem(ReviewsItems reviewModel) => Card(
                           ),
                         ],
                       ),
-                    )
+                    ),
+                  Align(
+                    alignment: AlignmentDirectional.bottomEnd,
+                    child:IconButton(
+                      onPressed:(){
+                        ElWekalaCubit.get(context).deleteReview(reviewModel.sId,id);
+                      },
+                      icon:const Icon(Icons.delete),
+                    ),
+                  )
                 ],
               ),
             ),

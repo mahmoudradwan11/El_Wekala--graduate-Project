@@ -38,7 +38,7 @@ class EditProfile extends StatelessWidget {
                           alignment: AlignmentDirectional.bottomCenter,
                           child: CircleAvatar(
                             radius: 68,
-                            backgroundImage: NetworkImage(cubit.profileModel!.user!.profileImage!)
+                            backgroundImage:cubit.profileModel!.user!.profileImage==null?const NetworkImage('https://th.bing.com/th/id/OIP.bbEC4zuJyYZq2FwlY1w1kAHaHa?pid=ImgDet&rs=1'):NetworkImage(cubit.profileModel!.user!.profileImage!)
                           ),
                         ),
                         const Positioned(
@@ -119,17 +119,17 @@ class EditProfile extends StatelessWidget {
                   ),
                   Padding(
                     padding: const EdgeInsets.all(20.0),
-                    child: Row(
+                    child:Row(
                       children:[
                         Expanded(
                           child: InkWell(
                             onTap:(){
-                               cubit.changeGenderToMale();
+                              cubit.changeToMale();
                             },
                             child: Container(
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
-                                color:cubit.profileModel!.user!.gender=='male'?HexColor('#07094D'):Colors.grey[400],
+                                color:cubit.isMale?HexColor('#07094D'):Colors.grey[400],
                               ),
                               height: 53,
                               width: 160,
@@ -142,12 +142,12 @@ class EditProfile extends StatelessWidget {
                         Expanded(
                           child: InkWell(
                             onTap:(){
-                              cubit.changeGenderToFemale();
+                              cubit.changeToFemale();
                             },
                             child: Container(
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
-                                color:cubit.profileModel!.user!.gender=='male'?Colors.grey[400]:HexColor('#07094D'),
+                                color:cubit.isMale?Colors.grey[400]:HexColor('#07094D'),
                               ),
                               height: 53,
                               width: 160,

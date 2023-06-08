@@ -35,8 +35,8 @@ Widget buildNotificationUi(context)=>Padding(
                     child: Container(
                       height: 25,
                       width: 45,
-                      child: NeumorphicSwitch(value:ElWekalaCubit.get(context).swi,onChanged:(value){
-                        ElWekalaCubit.get(context).changeSwi();
+                      child: NeumorphicSwitch(value:ElWekalaCubit.get(context).sw1,onChanged:(value){
+                        ElWekalaCubit.get(context).changeSw1();
                       },style: NeumorphicSwitchStyle(
                         activeTrackColor: HexColor('#07094D'),
                         activeThumbColor: Colors.white,
@@ -78,8 +78,8 @@ Widget buildNotificationUi(context)=>Padding(
                     child: Container(
                       height: 25,
                       width: 45,
-                      child: NeumorphicSwitch(value:ElWekalaCubit.get(context).swi,onChanged:(value){
-                        ElWekalaCubit.get(context).changeSwi();
+                      child: NeumorphicSwitch(value:ElWekalaCubit.get(context).sw2,onChanged:(value){
+                        ElWekalaCubit.get(context).changeSw2();
                       },style: NeumorphicSwitchStyle(
                         activeTrackColor: HexColor('#07094D'),
                         activeThumbColor: Colors.white,
@@ -120,8 +120,8 @@ Widget buildNotificationUi(context)=>Padding(
                     child: Container(
                       height: 25,
                       width: 45,
-                      child: NeumorphicSwitch(value:ElWekalaCubit.get(context).swi,onChanged:(value){
-                        ElWekalaCubit.get(context).changeSwi();
+                      child: NeumorphicSwitch(value:ElWekalaCubit.get(context).sw3,onChanged:(value){
+                        ElWekalaCubit.get(context).changeSw3();
                       },style: NeumorphicSwitchStyle(
                         activeTrackColor: HexColor('#07094D'),
                         activeThumbColor: Colors.white,
@@ -162,8 +162,8 @@ Widget buildNotificationUi(context)=>Padding(
                     child: Container(
                       height: 25,
                       width: 45,
-                      child: NeumorphicSwitch(value:ElWekalaCubit.get(context).swi,onChanged:(value){
-                        ElWekalaCubit.get(context).changeSwi();
+                      child: NeumorphicSwitch(value:ElWekalaCubit.get(context).sw4,onChanged:(value){
+                        ElWekalaCubit.get(context).changeSw4();
                       },style: NeumorphicSwitchStyle(
                         activeTrackColor: HexColor('#07094D'),
                         activeThumbColor: Colors.white,
@@ -204,8 +204,8 @@ Widget buildNotificationUi(context)=>Padding(
                     child: Container(
                       height: 25,
                       width: 45,
-                      child: NeumorphicSwitch(value:ElWekalaCubit.get(context).swi,onChanged:(value){
-                        ElWekalaCubit.get(context).changeSwi();
+                      child: NeumorphicSwitch(value:ElWekalaCubit.get(context).sw5,onChanged:(value){
+                        ElWekalaCubit.get(context).changeSw5();
                       },style: NeumorphicSwitchStyle(
                         activeTrackColor: HexColor('#07094D'),
                         activeThumbColor: Colors.white,

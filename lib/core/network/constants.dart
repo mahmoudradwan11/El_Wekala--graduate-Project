@@ -22,6 +22,7 @@ class ApiConstant {
   static const UPDATEQUANTITY = 'https://elwekala.onrender.com/cart';
   static const SELLER  ='https://elwekala.onrender.com/product';
   static const SEARCH = 'https://elwekala.onrender.com/product/get/search';
+  static const FORGETPASSWORD = 'https://elwekala.onrender.com/user/forget-password';
   static String visaUrl =
       '$baseUrlPayment/acceptance/iframes/722023?payment_token=$finalToken';
   static const getOrderId = '/ecommerce/orders';

@@ -1,7 +1,6 @@
 import 'package:el_wekala/core/network/local/cache_helper.dart';
 import 'package:el_wekala/models/store_model/onboarding.dart';
 import 'package:el_wekala/modules/screens/layout.dart';
-import 'package:el_wekala/modules/screens/login.dart';
 import 'package:el_wekala/modules/widgets/builders/build_onboarding.dart';
 import 'package:el_wekala/modules/widgets/builders/defaultBotton.dart';
 import 'package:el_wekala/modules/widgets/functions/navigator.dart';

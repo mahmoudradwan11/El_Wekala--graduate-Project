@@ -2,6 +2,7 @@ import 'package:el_wekala/core/controllers/store_cubit/store_cubit.dart';
 import 'package:el_wekala/core/controllers/store_cubit/store_states.dart';
 import 'package:el_wekala/models/store_model/cate.dart';
 import 'package:el_wekala/models/store_model/tap_adv.dart';
+import 'package:el_wekala/modules/screens/notefication.dart';
 import 'package:el_wekala/modules/screens/search.dart';
 import 'package:el_wekala/modules/screens/search_lap.dart';
 import 'package:el_wekala/modules/screens/search_phone.dart';
@@ -19,7 +20,6 @@ class Products extends StatefulWidget {
   @override
   State<Products> createState() => _ProductsState();
 }
-
 class _ProductsState extends State<Products> {
   @override
   void initState() {
@@ -40,7 +40,6 @@ class _ProductsState extends State<Products> {
     ElWekalaCubit.get(context).getMessages();
     ElWekalaCubit.get(context).getAllReviews('645f8ffd1489fc879fdf22df');
   }
-
   var smoothController = PageController();
   @override
   Widget build(BuildContext context) {
@@ -102,7 +101,16 @@ class _ProductsState extends State<Products> {
                         child: const Image(
                           image: AssetImage('images/search.png'),
                           color: Colors.black,
-                        )))
+                        ))),
+                InkWell(
+                  onTap:(){
+                    navigateTo(context,const NotificationScreen());
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 20.0),
+                    child: Icon(Icons.notifications),
+                  ),
+                )
               ],
             ),
             body: SingleChildScrollView(

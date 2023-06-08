@@ -1,5 +1,6 @@
 import 'package:el_wekala/core/controllers/register_cubit/register_cubit.dart';
 import 'package:el_wekala/core/controllers/register_cubit/register_states.dart';
+import 'package:el_wekala/core/controllers/store_cubit/store_cubit.dart';
 import 'package:el_wekala/core/network/constants.dart';
 import 'package:el_wekala/core/network/local/cache_helper.dart';
 import 'package:el_wekala/modules/widgets/builders/defaultBotton.dart';
@@ -17,22 +18,14 @@ class Register extends StatefulWidget {
   @override
   State<Register> createState() => _RegisterState();
 }
-
 class _RegisterState extends State<Register> {
   var formKey = GlobalKey<FormState>();
-
   var nameController = TextEditingController();
-
   var emailController = TextEditingController();
-
   var passwordController = TextEditingController();
-
   var phoneController = TextEditingController();
-
   var nationalController = TextEditingController();
-
   bool check = false;
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -52,6 +45,7 @@ class _RegisterState extends State<Register> {
                 value: state.loginModel.user!.token,
               ).then((value) {
                 token = state.loginModel.user!.token!;
+                ElWekalaCubit.get(context).currentIndex=0;
                 navigateAndFinish(
                   context,
                   const Home(),
@@ -84,13 +78,13 @@ class _RegisterState extends State<Register> {
                         const SizedBox(
                           height: 20,
                         ),
-                        const Text('Sign Up and we will continue'),
+                        const Text('Sign Up and we will continue',),
                         const SizedBox(
                           height: 20,
                         ),
                         cubit.image==null? MaterialButton(onPressed:(){
                           cubit.addImage();
-                        },child: const Text('Select Your Image'),):CircleAvatar(
+                        },child: Icon(Icons.add_photo_alternate)):CircleAvatar(
                           radius:50,
                           child: ClipOval(
                             child: Container(
@@ -156,7 +150,7 @@ class _RegisterState extends State<Register> {
                         ),
                         const Align(
                             alignment: AlignmentDirectional.topStart,
-                            child: Text('UserName',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 15),)),
+                            child: Text('FullName',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 15),)),
                         const SizedBox(
                           height: 10,
                         ),
@@ -376,7 +370,7 @@ class _RegisterState extends State<Register> {
                             style: TextStyle(color: Colors.white),
                           ),
                           function: () {
-                            if (formKey.currentState!.validate()) {
+                            if (formKey.currentState!.validate() && check == true){
                               cubit.userRegister(
                                   email: emailController.text,
                                   name: nameController.text,
@@ -385,6 +379,10 @@ class _RegisterState extends State<Register> {
                                   nationalId: nationalController.text,
                               );
                             }
+                            if(check==false)
+                              {
+                                showToast('Please Confirm policy', ToastStates.WARNING);
+                              }
                           },
                         ),
                         Padding(

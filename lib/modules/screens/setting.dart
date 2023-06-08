@@ -4,11 +4,15 @@ import 'package:el_wekala/modules/widgets/builders/buildSettingItem.dart';
 import 'package:el_wekala/modules/widgets/builders/general.dart';
 import 'package:el_wekala/modules/widgets/builders/notification.dart';
 import 'package:el_wekala/modules/widgets/builders/pay.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+
+import '../widgets/functions/navigator.dart';
+import 'home.dart';
 class Setting extends StatelessWidget {
   Setting({Key? key}) : super(key: key);
   @override
@@ -17,7 +21,7 @@ class Setting extends StatelessWidget {
         listener: (context, state) {},
         builder: (context, state) {
           var cubit = ElWekalaCubit.get(context);
-          if(cubit.profileModel==null){
+          if(cubit.profileModel==null||cubit.profileModel!.user!.profileImage==null){
             return Center(
               child: LoadingAnimationWidget.inkDrop(
                 color: Colors.black,
@@ -48,16 +52,12 @@ class Setting extends StatelessWidget {
                       Positioned(
                           top: 55,
                           left: 30,
-                          child: SvgPicture.asset('images/setting_icon.svg')
-                      ),
-                      const Positioned(
-                          top: 60,
-                          right: 20,
-                          child: Image(image: AssetImage('images/search.png'))),
-                      const Positioned(
-                          top: 110,
-                          right: 25,
-                          child:Image(image: AssetImage('images/circle.png'),)
+                          child: InkWell(
+                            onTap:(){
+                              navigateTo(context, Home());
+                              cubit.currentIndex=0;
+                            },
+                              child: SvgPicture.asset('images/setting_icon.svg'))
                       ),
                       Padding(
                         padding: const EdgeInsets.only(top: 110),

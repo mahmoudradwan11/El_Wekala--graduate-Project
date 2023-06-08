@@ -5,6 +5,7 @@ import 'package:el_wekala/modules/widgets/builders/build_review_item.dart';
 import 'package:el_wekala/modules/widgets/builders/defaultBotton.dart';
 import 'package:el_wekala/modules/widgets/builders/defaultFieldForm.dart';
 import 'package:el_wekala/modules/widgets/functions/navigator.dart';
+import 'package:el_wekala/modules/widgets/functions/toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -1250,8 +1251,8 @@ class ProductDetails extends StatelessWidget {
                                                 keyboard:
                                                 TextInputType.number,
                                                 valid: (value) {
-                                                  if (value.isEmpty) {
-                                                    return 'rate Must Not Be Empty';
+                                                  if (value.isEmpty){
+                                                    return 'rate Must Not Be Empty || More Than 5';
                                                   }
                                                   return null;
                                                 },
@@ -1291,14 +1292,15 @@ class ProductDetails extends StatelessWidget {
                             backgroundColor: HexColor('#07094D'),
                           ),
                         ),
-                      if (cubit.reviewModel!.reviews!.isEmpty)
-                        const Text('No Reviews For This Items'),
+                        if(cubit.currentTabViewIndex==2)
+                              if (cubit.reviewModel!.reviews!.isEmpty)
+                        const Text('No Reviews For This Item'),
                     if (cubit.currentTabViewIndex == 2 && cubit.reviewModel!.reviews!.isNotEmpty)
                         ListView.separated(
                             shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),
                             itemBuilder: (context, index) => buildReviewItem(
-                                cubit.reviewModel!.reviews![index]),
+                                cubit.reviewModel!.reviews![index],context,model.sId),
                             separatorBuilder: (context, index) =>
                                 const SizedBox(),
                             itemCount: cubit.reviewModel!.reviews!.length),
@@ -1344,6 +1346,7 @@ class ProductDetails extends StatelessWidget {
                             ),
                             function: () {
                               cubit.addToMyCart(model.sId);
+                              showToast('Added successfully',ToastStates.SUCCESS);
                             },
                             radius: 11,
                             backgroundColor: HexColor('#07094D'),

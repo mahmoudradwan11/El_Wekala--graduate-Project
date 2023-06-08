@@ -5,7 +5,7 @@ import 'package:el_wekala/models/store_model/user.dart';
 import 'package:el_wekala/modules/widgets/functions/toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-class LoginCubit extends Cubit<LoginState>{
+class LoginCubit extends Cubit<LoginState> {
   LoginCubit() : super(LoginInitState());
   static LoginCubit get(context) => BlocProvider.of(context);
   UserModel? loginModel;
@@ -13,9 +13,9 @@ class LoginCubit extends Cubit<LoginState>{
   bool passwordShow = true;
   void loginUser({required String email, required String password}) {
     emit(LoadingLogin());
-    DioHelperStore.postData(url:ApiConstant.LOGIN, data: {
+    DioHelperStore.postData(url: ApiConstant.LOGIN, data: {
       "email": email,
-      "password":password
+      "password": password
     }).then((value) {
       loginModel = UserModel.fromJson(value.data);
       if (loginModel!.message != 'User logged in successfully') {
@@ -27,10 +27,25 @@ class LoginCubit extends Cubit<LoginState>{
       emit(LoginFailedState(error.toString()));
     });
   }
+
   void changePasswordIcon() {
     passwordShow = !passwordShow;
     suffixIcon =
     passwordShow ? Icons.visibility : Icons.visibility_off_outlined;
     emit(ChangePasswordVisState());
   }
-}
+
+  void forgetPassword(password, nationalId) {
+      DioHelperStore.postData(url:ApiConstant.FORGETPASSWORD, data:{
+        "nationalId": nationalId,
+        "newPassword": password
+      }).then((value){
+        showToast('Change Successfully',ToastStates.SUCCESS);
+        emit(ChangePassword());
+      }).catchError((error){
+        print(error.toString());
+        showToast('User Not Found', ToastStates.ERROR);
+        emit(ErrorChange());
+      });
+    }
+  }

@@ -19,12 +19,16 @@ class MaleTrue extends ElWekalaStates {}
 class MaleFalse extends ElWekalaStates {}
 class ChangeCateIndex extends ElWekalaStates{}
 class ChangeViewIndex extends ElWekalaStates{}
+class IsMaleChoose extends ElWekalaStates{}
+class IsFemaleChoose extends ElWekalaStates{}
 class GetFavorite extends ElWekalaStates{}
 class ErrorGetFavorite extends ElWekalaStates{}
 class DeleteFavorite extends ElWekalaStates{}
 class ErrorDeleteFavorite extends ElWekalaStates{}
 class AddToFavorite extends ElWekalaStates{}
 class ErrorAddFavorite extends ElWekalaStates{}
+class DeleteUser extends ElWekalaStates{}
+class ErrorDeleteUser extends ElWekalaStates{}
 class GetHomeLaptops extends ElWekalaStates{}
 class ErrorGetHomeLaptops extends ElWekalaStates{}
 class GetHomeSmartPhone extends ElWekalaStates{}
@@ -76,4 +80,10 @@ class CheckPhones extends ElWekalaStates{}
 class CheckTvs extends ElWekalaStates{}
 class CheckWatches extends ElWekalaStates{}
 class CheckAcc extends ElWekalaStates{}
+class DeleteReview extends ElWekalaStates{}
+class ErrorDeleteReview extends ElWekalaStates{}
+class AddSales extends ElWekalaStates{}
+class ErrorAddSales extends ElWekalaStates{}
+class GetNotification extends ElWekalaStates{}
+class ErrorGetNotification extends ElWekalaStates{}
 

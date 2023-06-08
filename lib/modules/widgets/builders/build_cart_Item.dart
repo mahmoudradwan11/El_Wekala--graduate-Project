@@ -1,5 +1,6 @@
 import 'package:el_wekala/core/controllers/store_cubit/store_cubit.dart';
 import 'package:el_wekala/models/store_model/cart.dart';
+import 'package:el_wekala/modules/widgets/functions/toast.dart';
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 Widget buildCartItem(CartProducts cartProducts,context) => Container(
@@ -69,7 +70,7 @@ Widget buildCartItem(CartProducts cartProducts,context) => Container(
                     ),
                     Row(
                       children:[
-                      Text('${cartProducts.totalPrice!.round()}',style: TextStyle(color: HexColor('#07094D'),fontSize: 16,fontWeight: FontWeight.w600),),
+                      Text('\$${cartProducts.totalPrice!}',style: TextStyle(color: HexColor('#07094D'),fontSize: 16,fontWeight: FontWeight.w600),),
                      const SizedBox(
                         width: 20,
                       ),
@@ -94,54 +95,61 @@ Widget buildCartItem(CartProducts cartProducts,context) => Container(
                         ),
                       const Text('Black',style: TextStyle(color: Colors.black,fontSize: 14,fontWeight: FontWeight.w500),),
 
-                    ],),
-                    Row(
-                      children: [
-                        const Icon(Icons.delete,color: Colors.grey,),
-                        MaterialButton(onPressed:(){
-                          ElWekalaCubit.get(context).deleteFromCart(cartProducts.sId!);
-                        },child:const Text('Remove'),
-                        ),
-                        Spacer(),
-                        InkWell(
-                          onTap:(){
-                            cartProducts.quantity==1?null:ElWekalaCubit.get(context).updateQuantity(cartProducts.sId,--cartProducts.quantity);
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color:cartProducts.quantity!=1?HexColor('#07094D'):HexColor('#07094D').withOpacity(0.4),
-                            borderRadius: BorderRadius.circular(3)
+                    ],
+                    ),
+                    const SizedBox(
+                      height: 12,
+                    ),
+                    InkWell(
+                      onTap:(){
+                        ElWekalaCubit.get(context).deleteFromCart(cartProducts.sId!);
+                        showToast('Deleted',ToastStates.ERROR);
+                      },
+                      child: Row(
+                        children: [
+                          const Icon(Icons.delete,color: Colors.grey,),
+                          Text('Remove'),
+                          Spacer(),
+                          InkWell(
+                            onTap:(){
+                              cartProducts.quantity==1?null:ElWekalaCubit.get(context).updateQuantity(cartProducts.sId,--cartProducts.quantity);
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color:cartProducts.quantity!=1?HexColor('#07094D'):HexColor('#07094D').withOpacity(0.4),
+                              borderRadius: BorderRadius.circular(3)
+                              ),
+                              height: 26,
+                              width:26,
+                              child:const Icon(Icons.remove,color: Colors.white,),
                             ),
-                            height: 26,
-                            width:26,
-                            child:const Icon(Icons.remove,color: Colors.white,),
                           ),
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        Text('${cartProducts.quantity!}',style:const TextStyle(fontSize: 17,fontWeight: FontWeight.w500),),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        InkWell(
-                          onTap:(){
-                            ElWekalaCubit.get(context).addToMyCart(cartProducts.sId);
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                                color:HexColor('#07094D'),
-                                borderRadius: BorderRadius.circular(3)
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          Text('${cartProducts.quantity!}',style:const TextStyle(fontSize: 17,fontWeight: FontWeight.w500),),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          InkWell(
+                            onTap:(){
+                              ElWekalaCubit.get(context).addToMyCart(cartProducts.sId);
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  color:HexColor('#07094D'),
+                                  borderRadius: BorderRadius.circular(3)
+                              ),
+                              height: 26,
+                              width:26,
+                              child:const Icon(Icons.add,color: Colors.white,),
                             ),
-                            height: 26,
-                            width:26,
-                            child:const Icon(Icons.add,color: Colors.white,),
                           ),
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                      ],
+                          const SizedBox(
+                            width: 10,
+                          ),
+                        ],
+                      ),
                     )
                       ],
                     ),

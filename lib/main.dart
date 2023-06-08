@@ -8,6 +8,7 @@ import 'package:el_wekala/modules/screens/spalsh.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'core/controllers/login_cubit/login_cubit.dart';
 import 'core/controllers/observer.dart';
 import 'core/controllers/payment/payment_cubit.dart';
 import 'core/controllers/store_cubit/store_cubit.dart';
@@ -45,7 +46,6 @@ void main() async {
     startWidget: startScreen,
   ));
 }
-
 class MyApp extends StatelessWidget {
   final Widget? startWidget;
   const MyApp({super.key, this.startWidget});
@@ -71,9 +71,13 @@ class MyApp extends StatelessWidget {
               ..getAllTVS()
               ..getMessages()
               ..getFilter()
+              ..getAllNotification()
         ),
         BlocProvider(
-            lazy: true, create: (context) => PaymentCubit()..getAuthToken()),
+            lazy: true, create:(context) => PaymentCubit()..getAuthToken()),
+        BlocProvider(
+           create: (context) => LoginCubit(),
+            )
       ],
       child: BlocConsumer<ElWekalaCubit, ElWekalaStates>(
           listener: (context, state) {},

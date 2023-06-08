@@ -1,6 +1,8 @@
 import 'package:el_wekala/core/controllers/store_cubit/store_cubit.dart';
 import 'package:el_wekala/core/controllers/store_cubit/store_states.dart';
+import 'package:el_wekala/modules/screens/home.dart';
 import 'package:el_wekala/modules/widgets/builders/build_favorite_item.dart';
+import 'package:el_wekala/modules/widgets/functions/navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
@@ -26,7 +28,7 @@ class _FavoriteState extends State<Favorite> {
         listener: (context, state) {},
         builder: (context, state) {
           var cubit = ElWekalaCubit.get(context);
-          if(cubit.favoriteModel!.favoriteProducts!.isEmpty){
+          if(cubit.favoriteModel!.favoriteProducts!.isEmpty||cubit.favoriteModel==null){
             return Scaffold(
                 backgroundColor: Colors.grey[200],
                 appBar: AppBar(
@@ -54,7 +56,10 @@ class _FavoriteState extends State<Favorite> {
                   leading: Padding(
                     padding: const EdgeInsets.only(left: 7),
                     child: InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          navigateTo(context,const Home());
+                          cubit.currentIndex=0;
+                        },
                         child: SvgPicture.asset('images/setting_icon.svg')),
                   ),
                 ),

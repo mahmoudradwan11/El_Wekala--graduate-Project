@@ -152,7 +152,7 @@ Widget buildProductItem(product,context) =>InkWell(
                               Padding(
                                 padding:const EdgeInsets.only(left: 10.0),
                                 child: Text(
-                                  '\$${product.price.round()}',
+                                  '\$${product.price}',
                                   style:const TextStyle(
                                       color: Colors.black, fontSize: 15),
                                 ),
@@ -169,6 +169,7 @@ Widget buildProductItem(product,context) =>InkWell(
                                     onPressed: () {
                                       ElWekalaCubit.get(context).addToMyCart(product.sId);
                                       showToast('Added', ToastStates.SUCCESS);
+                                      ElWekalaCubit.get(context).addSales(product.sId);
                                     },
                                     child: Text(
                                       'Buy'.toUpperCase(),

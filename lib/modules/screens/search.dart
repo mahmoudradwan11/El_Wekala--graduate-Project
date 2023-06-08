@@ -116,30 +116,6 @@ class Search extends StatelessWidget {
                           itemCount:cubit.customTap.length,
                       ),
                       Spacer(),
-                      Container(
-                        decoration: BoxDecoration(
-                          color: Colors.grey[200],
-                          borderRadius: BorderRadius.circular(10)
-                        ),
-                        height: 63,
-                        width: 112,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: DropdownButton(
-                            items: ["SortBy", "Used", "Company", "Price"]
-                                .map((e) => DropdownMenuItem(
-                              value: e,
-                              child: Text(e),
-                            ))
-                                .toList(),
-                            onChanged: (value) {
-                             cubit.selectedSort(value);
-                            },
-                            value: cubit.sortSelected
-                          ),
-                        ),
-                        //color: Colors.yellow,
-                      ),
                       IconButton(onPressed:(){
                         navigateTo(context,const FilterSearch());
                       }, icon:const Icon(Icons.filter_list)),

@@ -1,5 +1,6 @@
 import 'package:el_wekala/core/controllers/store_cubit/store_cubit.dart';
 import 'package:el_wekala/core/controllers/store_cubit/store_states.dart';
+import 'package:el_wekala/modules/screens/home.dart';
 import 'package:el_wekala/modules/screens/payment_basic.dart';
 import 'package:el_wekala/modules/widgets/builders/build_cart_Item.dart';
 import 'package:el_wekala/modules/widgets/builders/defaultBotton.dart';
@@ -8,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 class Cart extends StatelessWidget {
   Cart({Key? key}) : super(key: key);
   @override
@@ -16,6 +18,13 @@ class Cart extends StatelessWidget {
         listener: (context, state) {},
         builder: (context, state) {
            var cubit = ElWekalaCubit.get(context);
+           if(cubit.cartModel==null){
+             return Center(child:LoadingAnimationWidget.inkDrop(
+               color: Colors.black,
+               size: 20,
+             ),
+             );
+           }
           return Scaffold(
             backgroundColor: Colors.grey[200],
             appBar: AppBar(
@@ -25,7 +34,10 @@ class Cart extends StatelessWidget {
               leading: Padding(
                 padding: const EdgeInsets.only(left: 7),
                 child: InkWell(
-                    onTap: (){},
+                    onTap: (){
+                      navigateTo(context, Home());
+                      cubit.currentIndex=0;
+                    },
                     child: SvgPicture.asset('images/setting_icon.svg')),
               ),
             ),
@@ -92,7 +104,7 @@ class Cart extends StatelessWidget {
                                 children: [
                                   const Text('Sub Total'),
                                   const Spacer(),
-                                  Text('\$${cubit.totalCart!.totalPrice.round()}',style: TextStyle(
+                                  Text('\$${cubit.totalCart!.totalPrice}',style: TextStyle(
                                       color: HexColor('#07094D'),
                             fontWeight: FontWeight.w600,
                             fontSize: 15
@@ -131,7 +143,7 @@ class Cart extends StatelessWidget {
                                 children: [
                                   Text('Total'),
                                   Spacer(),
-                                  Text('\$${cubit.totalCart!.totalPrice.round()+10}',style: TextStyle(
+                                  Text('\$${cubit.totalCart!.totalPrice+10.0}',style: TextStyle(
                                     color: HexColor('#07094D'),
                                     fontWeight: FontWeight.w600,
                                     fontSize: 15

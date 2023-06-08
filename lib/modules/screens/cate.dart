@@ -7,6 +7,9 @@ import 'package:el_wekala/modules/widgets/functions/navigator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
+
+import 'home.dart';
 class Cateogry extends StatelessWidget {
   Cateogry({Key? key}) : super(key: key);
   @override
@@ -15,6 +18,14 @@ class Cateogry extends StatelessWidget {
         listener: (context, state) {},
         builder: (context, state) {
           var cubit = ElWekalaCubit.get(context);
+          if(cubit.searchFilterModel==null)
+            {
+              return Center(child:LoadingAnimationWidget.inkDrop(
+                color: Colors.black,
+                size: 20,
+              ),
+              );
+            }
           return Scaffold(
             backgroundColor: Colors.grey[200],
             appBar: AppBar(
@@ -22,7 +33,10 @@ class Cateogry extends StatelessWidget {
               leading: Padding(
                 padding: const EdgeInsets.only(left: 7),
                 child: InkWell(
-                  onTap: (){},
+                  onTap: (){
+                    navigateTo(context,const Home());
+                    cubit.currentIndex=0;
+                  },
                     child: SvgPicture.asset('images/setting_icon.svg')),
               ),
               backgroundColor: Colors.grey[200],
