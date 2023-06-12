@@ -2,10 +2,13 @@ import 'package:el_wekala/core/controllers/store_cubit/store_cubit.dart';
 import 'package:el_wekala/core/controllers/store_cubit/store_states.dart';
 import 'package:el_wekala/models/store_model/cate.dart';
 import 'package:el_wekala/models/store_model/tap_adv.dart';
+import 'package:el_wekala/modules/screens/chat.dart';
 import 'package:el_wekala/modules/screens/notefication.dart';
 import 'package:el_wekala/modules/screens/search.dart';
+import 'package:el_wekala/modules/screens/search_acc.dart';
 import 'package:el_wekala/modules/screens/search_lap.dart';
 import 'package:el_wekala/modules/screens/search_phone.dart';
+import 'package:el_wekala/modules/screens/search_tvs.dart';
 import 'package:el_wekala/modules/screens/search_watch.dart';
 import 'package:el_wekala/modules/widgets/builders/build_product_item.dart';
 import 'package:el_wekala/modules/widgets/functions/navigator.dart';
@@ -91,23 +94,30 @@ class _ProductsState extends State<Products> {
                 ],
               ),
               actions: [
-                Padding(
-                    padding: const EdgeInsets.only(left: 20.0, right: 20),
-                    child: InkWell(
-                        onTap: () {
-                          cubit.customIndex = 0;
-                          navigateTo(context, Search());
-                        },
-                        child: const Image(
-                          image: AssetImage('images/search.png'),
-                          color: Colors.black,
-                        ))),
+                InkWell(
+                    onTap: () {
+                      cubit.customIndex = 0;
+                      navigateTo(context, Search());
+                    },
+                    child: const Image(
+                      image: AssetImage('images/search.png'),
+                      color: Colors.black,
+                    )),
+                InkWell(
+                  onTap:(){
+                    navigateTo(context,ChatScreen());
+                  },
+                  child:const Icon(Icons.chat),
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
                 InkWell(
                   onTap:(){
                     navigateTo(context,const NotificationScreen());
                   },
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: 20.0),
+                  child:const Padding(
+                    padding: EdgeInsets.only(right: 10.0),
                     child: Icon(Icons.notifications),
                   ),
                 )
@@ -150,7 +160,7 @@ class _ProductsState extends State<Products> {
                         height: 20,
                       ),
                       Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.all(5.0),
                         child: Container(
                           height: 90,
                           child: ListView.separated(
@@ -330,7 +340,103 @@ class _ProductsState extends State<Products> {
                                 itemCount: cubit.homeSmartWatch!.product!.length),
                           ),
                         ),
+                      if(cubit.categoryIndex==3)
+                        Padding(
+                          padding: const EdgeInsets.only(left: 20.0),
+                          child: Row(
+                            children: [
+                              const Text('Newest Products'),
+                              const Spacer(),
+                              MaterialButton(onPressed:(){
+                                cubit.customIndex=1;
+                                navigateTo(context, SearchTVS());
+                              },child: const Text('SeeAll'),)
+                            ],
+                          ),
+                        ),
+                      if(cubit.categoryIndex==3)
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            height: 250,
+                            child: ListView.separated(
+                                scrollDirection: Axis.horizontal,
+                                shrinkWrap: true,
+                                itemBuilder: (context, index) => buildProductItem(
+                                    cubit.homeTVS!.newProduct![index],context),
+                                separatorBuilder: (context, index) => Container(
+                                  height: 200,
+                                  width: 10,
+                                  color: Colors.white,
+                                ),
+                                itemCount: cubit.homeTVS!.newProduct!.length),
+                          ),
+                        ),
+                      if(cubit.categoryIndex==3)
+                        Padding(
+                          padding: const EdgeInsets.only(left: 20.0),
+                          child: Row(
+                            children: [
+                              const Text('Used Products'),
+                              const Spacer(),
+                              MaterialButton(onPressed:(){
+                                cubit.customIndex=2;
+                                navigateTo(context, SearchTVS());
+                              },child:const Text('SeeAll'),)
+                            ],
+                          ),
+                        ),
+                      if(cubit.categoryIndex==3)
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            height: 250,
+                            child: ListView.separated(
+                                scrollDirection: Axis.horizontal,
+                                shrinkWrap: true,
+                                itemBuilder: (context, index) => buildProductItem(
+                                    cubit.homeTVS!.usedProduct![index],context),
+                                separatorBuilder: (context, index) => Container(
+                                  height: 200,
+                                  width: 10,
+                                  color: Colors.white,
+                                ),
+                                itemCount: cubit.homeTVS!.usedProduct!.length),
+                          ),
+                        ),
+                      if(cubit.categoryIndex==4)
+                        Padding(
+                          padding: const EdgeInsets.only(left: 20.0),
+                          child: Row(
+                            children: [
+                              const Text('Popular Products'),
+                              const Spacer(),
+                              MaterialButton(onPressed:(){
+                                navigateTo(context, SearchAccessoures());
+                              },child:const Text('SeeAll'),)
+                            ],
+                          ),
+                        ),
+                      if(cubit.categoryIndex==4)
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Container(
+                            height: 250,
+                            child: ListView.separated(
+                                scrollDirection: Axis.horizontal,
+                                shrinkWrap: true,
+                                itemBuilder: (context, index) => buildProductItem(
+                                    cubit.homeAccessories!.product![index],context),
+                                separatorBuilder: (context, index) => Container(
+                                  height: 200,
+                                  width: 10,
+                                  color: Colors.white,
+                                ),
+                                itemCount: cubit.homeSmartWatch!.product!.length),
+                          ),
+                        ),
                     ]),
+
               ),
             ),
           );

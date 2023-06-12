@@ -105,9 +105,6 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                             curve: Curves.fastLinearToSlowEaseIn);
                       }),
                 ),
-          const SizedBox(
-            height: 10,
-          ),
           Spacer(),
           Padding(
             padding: const EdgeInsets.only(bottom: 20),

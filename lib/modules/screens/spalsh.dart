@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:el_wekala/modules/widgets/functions/navigator.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class SplashScreen extends StatefulWidget {
   Widget nextScreen;
@@ -15,7 +16,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget nextScreen;
   Timer? _timer;
   _startDelay() {
-    _timer = Timer(const Duration(seconds: 5), _goNext);
+    _timer = Timer(const Duration(seconds: 3), _goNext);
   }
 
   void _goNext() {
@@ -39,8 +40,8 @@ class _SplashScreenState extends State<SplashScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
-            children:const[
-              Image(image: AssetImage('images/El Wekala.png'))
+            children:[
+              SvgPicture.asset('images/El Wekala.svg'),
             ],
           ),
         )

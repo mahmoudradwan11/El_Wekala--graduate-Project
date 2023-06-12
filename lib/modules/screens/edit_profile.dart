@@ -51,16 +51,6 @@ class EditProfile extends StatelessWidget {
                                   fontFamily: 'Jannah',
                                   fontSize: 20),
                             )),
-                        const Positioned(
-                            top: 50,
-                            right: 30,
-                            child: Text(
-                              'Edit',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontFamily: 'Jannah',
-                                  fontSize: 20),
-                            )),
                         Positioned(
                             top: 55,
                             left: 30,

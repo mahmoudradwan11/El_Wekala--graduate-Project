@@ -154,7 +154,8 @@ Widget buildReviewItem(ReviewsItems reviewModel,context,id) => Card(
                         ],
                       ),
                     ),
-                  Align(
+                  if(reviewModel.user!.name==ElWekalaCubit.get(context).profileModel!.user!.name!)
+                     Align(
                     alignment: AlignmentDirectional.bottomEnd,
                     child:IconButton(
                       onPressed:(){

@@ -2,7 +2,6 @@ import 'package:el_wekala/core/controllers/store_cubit/store_cubit.dart';
 import 'package:el_wekala/core/controllers/store_cubit/store_states.dart';
 import 'package:el_wekala/core/themes/Icon_Borken.dart';
 import 'package:el_wekala/modules/screens/cart.dart';
-import 'package:el_wekala/modules/screens/filter_search.dart';
 import 'package:el_wekala/modules/screens/flitter.dart';
 import 'package:el_wekala/modules/widgets/builders/build_product_item.dart';
 import 'package:el_wekala/modules/widgets/builders/custom_tap.dart';
@@ -119,6 +118,22 @@ class Search extends StatelessWidget {
                       IconButton(onPressed:(){
                         navigateTo(context,const FilterSearch());
                       }, icon:const Icon(Icons.filter_list)),
+                      Container(
+                        height: 50,
+                        width:110,
+                        child: DropdownButton(
+                          items: ["Recent", "Top", "Price","Companies"]
+                              .map((e) => DropdownMenuItem(
+                            value: e,
+                            child: Text(e),
+                          )).toList(),
+                          onChanged: (value) {
+                            cubit.selectedSort(value,context);
+                          },
+                          value:cubit.sortSelected
+                        ),
+                        //color: Colors.yellow,
+                      ),
                     ],
                   ),
                 ),

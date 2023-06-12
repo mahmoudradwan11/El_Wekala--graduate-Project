@@ -10,6 +10,8 @@ class UserDataSuccessState extends ElWekalaStates {
   UserModel? userModel;
   UserDataSuccessState(this.userModel);
 }
+class SortProducts extends ElWekalaStates{}
+class ErrorSortProducts extends ElWekalaStates{}
 class UserDataFailedState extends ElWekalaStates {}
 class UserLogoutState extends ElWekalaStates {}
 class UserLogoutFailedState extends ElWekalaStates {}
@@ -86,4 +88,8 @@ class AddSales extends ElWekalaStates{}
 class ErrorAddSales extends ElWekalaStates{}
 class GetNotification extends ElWekalaStates{}
 class ErrorGetNotification extends ElWekalaStates{}
+class GetTopSeller extends ElWekalaStates{}
+class ErrorGetTopSeller extends ElWekalaStates{}
+class DeleteNotification extends ElWekalaStates{}
+class ErrorDeleteNotification extends ElWekalaStates{}
 

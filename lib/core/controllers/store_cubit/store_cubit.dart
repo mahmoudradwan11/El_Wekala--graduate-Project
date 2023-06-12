@@ -8,6 +8,7 @@ import 'package:el_wekala/models/store_model/cate.dart';
 import 'package:el_wekala/models/store_model/custom_tap.dart';
 import 'package:el_wekala/models/store_model/favorite.dart';
 import 'package:el_wekala/models/store_model/filter.dart';
+//import 'package:badges/badges.dart' as badges;
 import 'package:el_wekala/models/store_model/fliter_products.dart';
 import 'package:el_wekala/models/store_model/home/accessories.dart';
 import 'package:el_wekala/models/store_model/home/laptop.dart';
@@ -23,6 +24,8 @@ import 'package:el_wekala/models/store_model/search.dart';
 import 'package:el_wekala/models/store_model/search_fliter.dart';
 import 'package:el_wekala/models/store_model/seller.dart';
 import 'package:el_wekala/models/store_model/setting%20model.dart';
+import 'package:el_wekala/models/store_model/sort.dart';
+import 'package:el_wekala/models/store_model/top_seller.dart';
 import 'package:el_wekala/models/store_model/tves.dart';
 import 'package:el_wekala/models/store_model/user.dart';
 import 'package:el_wekala/modules/screens/cart.dart';
@@ -31,6 +34,7 @@ import 'package:el_wekala/modules/screens/favorite.dart';
 import 'package:el_wekala/modules/screens/login.dart';
 import 'package:el_wekala/modules/screens/products.dart';
 import 'package:el_wekala/modules/screens/setting.dart';
+import 'package:el_wekala/modules/screens/sort.dart';
 import 'package:el_wekala/modules/widgets/builders/mypainter.dart';
 import 'package:el_wekala/modules/widgets/functions/navigator.dart';
 import 'package:el_wekala/modules/widgets/functions/toast.dart';
@@ -167,7 +171,7 @@ class ElWekalaCubit extends Cubit<ElWekalaStates> {
   }
 
   IconData favoriteIcon = Icons.favorite;
-  List<GButton> tabs = const [
+  List<GButton> tabs =const [
     GButton(
       icon: IconBroken.Home,
       text: 'Home',
@@ -177,7 +181,7 @@ class ElWekalaCubit extends Cubit<ElWekalaStates> {
       text: 'Favorite',
     ),
     GButton(
-      icon: IconBroken.Bag_2,
+      icon:IconBroken.Bag_2,
       text: 'Cart',
     ),
     GButton(
@@ -204,9 +208,12 @@ class ElWekalaCubit extends Cubit<ElWekalaStates> {
     CustomTapBar('New', 1),
     CustomTapBar('Used', 2)
   ];
-  String? sortSelected = 'SortBy';
-  selectedSort(sort) {
+  String? sortSelected = 'Recent';
+  selectedSort(sort,context){
     sortSelected = sort;
+    if(sortSelected=='Price'){
+       navigateTo(context,SortProductsScreen());
+    }
     emit(SelectSort());
   }
 
@@ -222,7 +229,17 @@ class ElWekalaCubit extends Cubit<ElWekalaStates> {
       ]);
     }
   }
-
+  SortModel? sortModel;
+  void sortProduct(){
+    DioHelperStore.getData(url:'https://elwekala.onrender.com/product/get/sorted-products').then((value){
+     sortModel = SortModel.fromJson(value.data);
+     print(sortModel!.products!.length);
+     emit(SortProducts());
+    }).catchError((error){
+      print(error.toString());
+      emit(ErrorSortProducts());
+    });
+  }
   void change(int customTapIndex) {
     customIndex = customTapIndex;
     print(customIndex);
@@ -395,8 +412,19 @@ class ElWekalaCubit extends Cubit<ElWekalaStates> {
     });
   }
 
+  void deleteNotification(notificationId){
+    DioHelperStore.delData(url:'https://elwekala.onrender.com/notification/$notificationId').then((value){
+      showToast('Deleted',ToastStates.ERROR);
+      emit(DeleteNotification());
+      if(state is DeleteNotification) {
+        getAllNotification();
+      }
+    }).catchError((error){
+      print(error.toString());
+      emit(ErrorDeleteNotification());
+    });
+  }
   HomeLaptops? homeLaptops;
-
   void getHomeLaptops() {
     DioHelperStore.getData(
         url: ApiConstant.HOMELAPTOPS,
@@ -413,7 +441,6 @@ class ElWekalaCubit extends Cubit<ElWekalaStates> {
   }
 
   HomeSmartPhone? homeSmartPhone;
-
   void getHomeSmartPhone() {
     DioHelperStore.getData(
         url: ApiConstant.HOMESMARTPHONE,
@@ -445,22 +472,20 @@ class ElWekalaCubit extends Cubit<ElWekalaStates> {
   }
 
   CartModel? cartModel;
-
   void getMyCart() {
     DioHelperStore.getData(url: ApiConstant.GETMYCART, data: {
       "nationalId": nationalId,
     }).then((value) {
       cartModel = CartModel.fromJson(value.data);
-      print(cartModel!.products!.length);
+      print('Number Of Products In Cart =${cartModel!.products!.length}');
       emit(GetCart());
     }).catchError((error) {
       print(error.toString());
       emit(ErrorGetCart());
     });
   }
-
   TotalCart? totalCart;
-  void getTotal() {
+  void getTotal(){
     DioHelperStore.getData(url: ApiConstant.TOTALPRICE, data: {
       "nationalId": nationalId,
     }).then((value) {
@@ -518,9 +543,7 @@ class ElWekalaCubit extends Cubit<ElWekalaStates> {
       emit(ErrorUpdateQuantity());
     });
   }
-
   SearchModel? searchModel;
-
   void searchProduct({required keyword}) {
     DioHelperStore.getData(url: ApiConstant.SEARCH, data: {'keyword': keyword})
         .then((value) {
@@ -742,12 +765,8 @@ class ElWekalaCubit extends Cubit<ElWekalaStates> {
         data: {
           "categories": [
             "Smart Phones",
-            "Laptops",
-            "PC and laptop accessories",
-            "Smart Tvs",
-            "Smart watches"
           ],
-          "companies": ["Huawei", "Apple", "Samsung", "Xiaomi"],
+          "companies": ["Samsung"],
           "minPrice": 1,
           "maxPrice": 1000
         }).then((value) {
@@ -819,6 +838,7 @@ class ElWekalaCubit extends Cubit<ElWekalaStates> {
         "productId":productId
     }).then((value){
       emit(AddSales());
+      getTopSeller();
     }).catchError((error){
       print(error.toString());
       emit(ErrorAddSales());
@@ -840,6 +860,19 @@ class ElWekalaCubit extends Cubit<ElWekalaStates> {
     }).catchError((error){
   print(error.toString());
   emit(ErrorGetNotification());
+    });
+  }
+  TopSellerModel? topSellerModel;
+  void getTopSeller(){
+    DioHelperStore.getData(url:'https://elwekala.onrender.com/product/get/top-sellers',data:{
+        "limit": 900
+    }).then((value){
+        topSellerModel = TopSellerModel.fromJson(value.data);
+        print(topSellerModel!.topSellingCompany![0].sId);
+        emit(GetTopSeller());
+    }).catchError((error){
+    print(error.toString());
+    emit(ErrorGetTopSeller());
     });
   }
 }

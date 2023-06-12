@@ -12,6 +12,17 @@ Widget buildPayment(context)=>Padding(
         height: 10,
       ),
        Image(image: AssetImage('images/ot.png')),
+       SizedBox(
+        height: 10,
+      ),
+      Image(image: AssetImage('images/pal.png')),
+      SizedBox(
+        height: 10,
+      ),
+      Image(image: AssetImage('images/mast.png')),
+      SizedBox(
+        height: 10,
+      ),
   ]
   )
 );

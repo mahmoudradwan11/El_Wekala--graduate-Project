@@ -11,6 +11,8 @@ List<Cate>cate = [
   Cate('Laptop', 0,'images/lap_cate.png'),
   Cate('Smart phone', 1 ,'images/phone.png'),
   Cate('Smart watch', 2,'images/sma.png'),
+  Cate('Smart Tvs',3,'images/tvs.png'),
+  Cate('Accessories',4,'images/acc.png'),
 ];
 Widget buildCateItem(Cate cate,index,context)=>Padding(
   padding: const EdgeInsets.all(8.0),

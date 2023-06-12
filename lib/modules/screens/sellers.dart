@@ -70,11 +70,17 @@ class SellersScreen extends StatelessWidget {
                       )
                   ),
                   ),
+                  if(cubit.topSellerModel!.topSellingCompany![0].sId=='$name')
                   const SizedBox(
                     height: 10,
                   ),
-                  Text('$name Official Store',style: TextStyle(fontSize: 18,fontWeight: FontWeight.w600),),
+                  if(cubit.topSellerModel!.topSellingCompany![0].sId=='$name')
+                    SvgPicture.asset('images/top_seller.svg'),
                   const SizedBox(
+                    height: 10,
+                  ),
+                  Text('$name Official Store',style:const TextStyle(fontSize: 18,fontWeight: FontWeight.w600),),
+              const SizedBox(
                     height: 20,
                   ),
                   Padding(

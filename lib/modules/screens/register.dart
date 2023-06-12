@@ -24,6 +24,7 @@ class _RegisterState extends State<Register> {
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
   var phoneController = TextEditingController();
+  var confirmController = TextEditingController();
   var nationalController = TextEditingController();
   bool check = false;
   @override
@@ -82,24 +83,6 @@ class _RegisterState extends State<Register> {
                         const SizedBox(
                           height: 20,
                         ),
-                        cubit.image==null? MaterialButton(onPressed:(){
-                          cubit.addImage();
-                        },child: Icon(Icons.add_photo_alternate)):CircleAvatar(
-                          radius:50,
-                          child: ClipOval(
-                            child: Container(
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  image: FileImage(cubit.image!),
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
                         Container(
                           width: 150,
                           child: Row(
@@ -143,6 +126,24 @@ class _RegisterState extends State<Register> {
                                 color: Colors.black,
                               ),
                             ],
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        cubit.image==null? MaterialButton(onPressed:(){
+                          cubit.addImage();
+                        },child:const Icon(Icons.add_photo_alternate)):CircleAvatar(
+                          radius:50,
+                          child: ClipOval(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: FileImage(cubit.image!),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
                           ),
                         ),
                         const SizedBox(
@@ -266,6 +267,38 @@ class _RegisterState extends State<Register> {
                         ),
                         const Align(
                             alignment: AlignmentDirectional.topStart,
+                            child: Text('Confirm Password',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 15),)),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: HexColor('#F2F2F2'),
+                          ),
+                          child: DefaultFieldForm(
+                              controller: confirmController,
+                              keyboard: TextInputType.emailAddress,
+                              valid: (value) {
+                                if (value.isEmpty) {
+                                  return 'Please Confirm Your password';
+                                }
+                                return null;
+                              },
+                              prefix: Icons.lock,
+                              hint: 'password',
+                              hintStyle: const TextStyle(color: Colors.grey),
+                              show: cubit.isPassword,
+                              suffix: cubit.suffix,
+                              suffixPress: () {
+                                cubit.changePasswordVisibility();
+                              }),
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        const Align(
+                            alignment: AlignmentDirectional.topStart,
                             child: Text('National ID',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 15),)),
                         const SizedBox(
                           height: 10,
@@ -369,8 +402,8 @@ class _RegisterState extends State<Register> {
                             'Sign Up',
                             style: TextStyle(color: Colors.white),
                           ),
-                          function: () {
-                            if (formKey.currentState!.validate() && check == true){
+                          function: (){
+                            if (formKey.currentState!.validate() && check == true && passwordController.text==confirmController.text){
                               cubit.userRegister(
                                   email: emailController.text,
                                   name: nameController.text,
@@ -383,6 +416,9 @@ class _RegisterState extends State<Register> {
                               {
                                 showToast('Please Confirm policy', ToastStates.WARNING);
                               }
+                            if(confirmController.text!=passwordController.text){
+                              showToast('Please Confirm Password', ToastStates.ERROR);
+                            }
                           },
                         ),
                         Padding(
@@ -392,7 +428,7 @@ class _RegisterState extends State<Register> {
                               const Text('Already have an account?'),
                               MaterialButton(onPressed:(){
                                 navigateTo(context, Login());
-                              },child: Text('Sign In',style: TextStyle(color: HexColor('#07094D'),),))
+                              },child: Text('Sign In',style: TextStyle(color: HexColor('#07094D'),fontSize: 20),))
                             ],
                           ),
                         )

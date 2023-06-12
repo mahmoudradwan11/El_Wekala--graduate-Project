@@ -21,7 +21,7 @@ class NotificationScreen extends StatelessWidget {
             ),
             body: ListView.separated(
               itemBuilder: (context, index) => buildNotificationItem(
-                  cubit.notificationModel!.notifications![index]),
+                  cubit.notificationModel!.notifications![index],context),
               separatorBuilder: (context, index) => BuildDivider(),
               itemCount: cubit.notificationModel!.notifications!.length,
             ),

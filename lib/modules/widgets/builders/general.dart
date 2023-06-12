@@ -1,6 +1,7 @@
 import 'package:el_wekala/core/controllers/store_cubit/store_cubit.dart';
 import 'package:el_wekala/modules/screens/edit_profile.dart';
 import 'package:el_wekala/modules/screens/login.dart';
+import 'package:el_wekala/modules/screens/policy.dart';
 import 'package:el_wekala/modules/screens/report.dart';
 import 'package:el_wekala/modules/widgets/builders/defaultBotton.dart';
 import 'package:el_wekala/modules/widgets/builders/mypainter.dart';
@@ -194,19 +195,26 @@ Widget buildGeneralItems(context) => Padding(
                       child: const Icon(
                         Icons.privacy_tip_outlined,
                         size: 25,
-
                       ),
                     ),
                     const SizedBox(width: 16),
-
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: const [
-                          Text('Privacy'),
+                        children:const [
+                          Text('Privacy',style: TextStyle(color: Colors.black54),),
                           Text('Terms, Privacy'),
                         ],
+                      ),
+                    ),
+                    InkWell(
+                      onTap:(){
+                        navigateTo(context,const Policy());
+                      },
+                      child: const Icon(
+                        Icons.keyboard_arrow_right_rounded,
+                        size: 30,
                       ),
                     ),
                     const SizedBox(width: 16),

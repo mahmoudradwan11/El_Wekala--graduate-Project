@@ -46,6 +46,7 @@ void main() async {
     startWidget: startScreen,
   ));
 }
+
 class MyApp extends StatelessWidget {
   final Widget? startWidget;
   const MyApp({super.key, this.startWidget});
@@ -54,30 +55,31 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => ElWekalaCubit()
-            ..getUserData()
-            ..getMyFavorite()
-            ..getHomeLaptops()
-            ..getHomeSmartPhone()
-            ..getHomeSmartWatch()
-            ..getHomeAccessories()
-            ..getMyCart()
-            ..getTotal()
-            ..searchProduct(keyword:'')
-            ..getAllProducts(keyword:'')
-            ..getAllLaptops()
-            ..getAllPhones()
+            create: (context) => ElWekalaCubit()
+              ..getUserData()
+              ..getMyFavorite()
+              ..sortProduct()
+              ..getHomeLaptops()
+              ..getHomeSmartPhone()
+              ..getHomeSmartWatch()
+              ..getHomeAccessories()
+              ..getMyCart()
+              ..getTotal()
+              ..searchProduct(keyword: '')
+              ..getAllProducts(keyword: '')
+              ..getAllLaptops()
+              ..getAllPhones()
               ..getHomeTvs()
               ..getAllTVS()
               ..getMessages()
               ..getFilter()
               ..getAllNotification()
-        ),
+              ..getTopSeller()),
         BlocProvider(
-            lazy: true, create:(context) => PaymentCubit()..getAuthToken()),
+            lazy: true, create: (context) => PaymentCubit()..getAuthToken()),
         BlocProvider(
-           create: (context) => LoginCubit(),
-            )
+          create: (context) => LoginCubit(),
+        )
       ],
       child: BlocConsumer<ElWekalaCubit, ElWekalaStates>(
           listener: (context, state) {},
@@ -86,7 +88,7 @@ class MyApp extends StatelessWidget {
               debugShowCheckedModeBanner: false,
               title: 'EL Wekala',
               theme: lightTheme,
-              home: SplashScreen(nextScreen:startWidget!),
+              home: SplashScreen(nextScreen: startWidget!),
             );
           }),
     );

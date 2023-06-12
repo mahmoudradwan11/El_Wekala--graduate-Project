@@ -1,11 +1,14 @@
 import 'package:el_wekala/core/controllers/store_cubit/store_cubit.dart';
 import 'package:el_wekala/core/controllers/store_cubit/store_states.dart';
+import 'package:el_wekala/modules/screens/search.dart';
 import 'package:el_wekala/modules/widgets/builders/build_product_item.dart';
 import 'package:el_wekala/modules/widgets/builders/custom_tap.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hexcolor/hexcolor.dart';
+
+import '../widgets/functions/navigator.dart';
 
 class SearchTVS extends StatelessWidget {
   SearchTVS({Key? key}) : super(key: key);
@@ -47,15 +50,14 @@ class SearchTVS extends StatelessWidget {
                           decoration: InputDecoration(
                               contentPadding:const EdgeInsets.all(20),
                               border: InputBorder.none,
-                              hintText: 'Search in Tvs',
+                              hintText: 'Search',
                               suffixIcon:Image(image:AssetImage('images/search.png'),color:HexColor('#000000'),)
                           ),
-                          /*
-                      onSubmitted: (value) {
-                        cubit.search(value);
-                        navigateTo(context, const SearchScreen());
-
-                       */
+                            onSubmitted: (value) {
+                              cubit.customIndex = 0;
+                              cubit.searchProduct(keyword: value);
+                              navigateTo(context, Search());
+                            }
                         ),
                       ),
                     ),
