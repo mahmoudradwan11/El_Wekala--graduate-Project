@@ -17,7 +17,7 @@ import 'core/network/remote/payment_helper/payment_helper.dart';
 import 'modules/screens/home.dart';
 
 void main() async {
-  //this code is written by Eng Mahmoud Radwan....
+  //this code is written by Engineer Mahmoud Radwan
   WidgetsFlutterBinding.ensureInitialized();
   await CacheHelper.init();
   DioHelperStore.init();
