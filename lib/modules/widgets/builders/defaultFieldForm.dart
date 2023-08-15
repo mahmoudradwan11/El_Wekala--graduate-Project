@@ -37,6 +37,7 @@ class DefaultFieldForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onTapOutside: (event)=>FocusScope.of(context).unfocus(),
       validator: valid,
       controller: controller,
       decoration: InputDecoration(
